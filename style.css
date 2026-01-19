@@ -1,0 +1,88 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+svg {
+  width: 30%;
+  height: 30%;
+  animation: hover 2s cubic-bezier(0.21, -0.08, 0.54, 1.15) alternate infinite;
+}
+
+#bot-heart {
+  transform-origin: 50% bottom;
+  animation: beat 1.5s cubic-bezier(0.21, -0.08, 0.54, 1.15) 0.4s infinite;
+}
+
+#light-1 {
+  transform-origin: 70% center;
+  animation: light 2s cubic-bezier(0.21, -0.08, 0.54, 1.15) infinite;
+}
+
+#light-2 {
+  transform-origin: 70% center;
+  animation: light 2s cubic-bezier(0.21, -0.08, 0.54, 1.15) 0.2s infinite;
+}
+
+@keyframes hover {
+  0% {
+    opacity: 0.95;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-40px);
+  }
+}
+
+@keyframes light {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes beat {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+
+  25% {
+    opacity: 1;
+    transform: none;
+  }
+
+  35% {
+    opacity: 0.7;
+    transform: scale(1.02);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  65% {
+    opacity: 0.8;
+    transform: scale(1.01);
+  }
+
+  85% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}

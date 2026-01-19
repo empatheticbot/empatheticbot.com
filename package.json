@@ -1,0 +1,23 @@
+{
+  "name": "empatheticbot.com",
+  "version": "1.0.0",
+  "description": "Empatheticbot website",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empatheticbot/empatheticbot.com.git"
+  },
+  "author": "Steve Ledsworth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/empatheticbot/empatheticbot.com/issues"
+  },
+  "homepage": "https://github.com/empatheticbot/empatheticbot.com#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
