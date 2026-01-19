@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+---
+
+<BaseLayout title="Empatheticbot - Monthly Web Development Subscription">
+  <div class="container">
+    <!-- Hero Section -->
+    <header class="hero sketch-element" id="hero">
+      <div class="logo-container">
+        <Logo width="64" height="64" />
+      </div>
+      <h1 class="title">Empatheticbot</h1>
+      <p class="tagline">Your monthly web development partner</p>
+    </header>
+
+    <!-- Pitch Section -->
+    <section class="pitch sketch-element" id="pitch">
+      <div class="pitch-content">
+        <h2>A Real Human, Working With You</h2>
+        <p class="pitch-text">
+          No more futzing with templates. No more paying a large sum up front, only to need changes months later that cost even more.
+        </p>
+        <p class="pitch-text">
+          Just a simple monthly subscription for local businesses who want a real human partner to help build and maintain their online presence.
+        </p>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits sketch-element" id="benefits">
+      <h2>How It Works</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card sketch-element">
+          <div class="benefit-icon">🤝</div>
+          <h3>Monthly Partnership</h3>
+          <p>Predictable monthly cost. No surprise invoices. Cancel anytime.</p>
+        </div>
+        <div class="benefit-card sketch-element">
+          <div class="benefit-icon">💬</div>
+          <h3>Direct Communication</h3>
+          <p>Work directly with a real developer who understands your business.</p>
+        </div>
+        <div class="benefit-card sketch-element">
+          <div class="benefit-icon">🔄</div>
+          <h3>Ongoing Updates</h3>
+          <p>Your site evolves with your business. Need changes? Just ask.</p>
+        </div>
+        <div class="benefit-card sketch-element">
+          <div class="benefit-icon">🎯</div>
+          <h3>Local Focus</h3>
+          <p>Built for local businesses who need a web presence that works.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta sketch-element" id="cta">
+      <h2>Ready to Build Your Online Presence?</h2>
+      <p>Let's talk about how a monthly partnership can work for your business.</p>
+      <a href="mailto:hello@empatheticbot.com" class="cta-button sketch-element">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <Logo width="32" height="32" />
+      <p>&copy; 2026 Empatheticbot. All rights reserved.</p>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    border: 2px dashed var(--color-sketch);
+    margin-bottom: 4rem;
+    background: transparent;
+  }
+
+  .logo-container {
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: #666;
+    font-weight: 300;
+  }
+
+  /* Pitch Section */
+  .pitch {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+  }
+
+  .pitch-content h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .pitch-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+
+  /* Benefits Section */
+  .benefits {
+    max-width: var(--max-width);
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+  }
+
+  .benefits h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .benefit-card {
+    padding: 2rem;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+    transition: all 0.6s ease;
+  }
+
+  .benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .benefit-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* CTA Section */
+  .cta {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 4rem 2rem;
+    text-align: center;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+  }
+
+  .cta h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .cta p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-accent);
+    border: 2px dashed var(--color-sketch);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  }
+
+  .cta-button.filled {
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+  }
+
+  /* Footer */
+  .footer {
+    max-width: var(--max-width);
+    margin: 4rem auto 0;
+    padding: 2rem;
+    text-align: center;
+    color: #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Filled state overrides */
+  .filled {
+    background: white !important;
+    border-style: solid !important;
+    border-color: var(--color-complete) !important;
+    border-width: 1px !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem 0.5rem;
+    }
+
+    .hero,
+    .pitch,
+    .benefits,
+    .cta {
+      padding: 2rem 1rem;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Scroll-based animation to transform sketch to complete
+  function handleScroll() {
+    const elements = document.querySelectorAll('.sketch-element');
+    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    elements.forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top + scrollY;
+      const elementHeight = rect.height;
+
+      // Calculate when element should start and complete its transition
+      const startTransition = elementTop - windowHeight * 0.8;
+      const endTransition = elementTop - windowHeight * 0.2;
+
+      const scrollProgress = (scrollY - startTransition) / (endTransition - startTransition);
+      const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+
+      // Add 'filled' class when element is sufficiently in view
+      if (clampedProgress > 0.3) {
+        element.classList.add('filled');
+      } else {
+        element.classList.remove('filled');
+      }
+    });
+  }
+
+  // Initial check
+  handleScroll();
+
+  // Add scroll listener with throttle for performance
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Also check on resize
+  window.addEventListener('resize', handleScroll);
+</script>
