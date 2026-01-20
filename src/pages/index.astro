@@ -4,6 +4,20 @@ import Logo from '../components/Logo.astro';
 ---
 
 <BaseLayout title="Empatheticbot - Monthly Web Development Subscription">
+  <!-- SVG Filters for Sketch Effects -->
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="sketch-filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+      </filter>
+      <filter id="sketch-rough">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" result="turbulence" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
   <div class="container">
     <!-- Hero Section -->
     <header class="hero sketch-element" id="hero">
@@ -141,6 +155,11 @@ import Logo from '../components/Logo.astro';
   .container {
     min-height: 100vh;
     padding: 2rem 1rem;
+    background:
+      linear-gradient(rgba(200, 220, 240, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 220, 240, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 0;
   }
 
   /* Hero Section */
@@ -152,7 +171,28 @@ import Logo from '../components/Logo.astro';
     position: relative;
     border: 2px dashed var(--color-sketch);
     margin-bottom: 4rem;
-    background: transparent;
+    background:
+      linear-gradient(rgba(240, 245, 250, 0.3), rgba(240, 245, 250, 0.3)),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(200, 220, 240, 0.03) 10px,
+        rgba(200, 220, 240, 0.03) 20px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.15),
+      0 0 0 2px rgba(150, 170, 190, 0.08),
+      inset 0 0 20px rgba(200, 220, 240, 0.1);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 252, 255, 0.95) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .logo-container {
@@ -180,7 +220,27 @@ import Logo from '../components/Logo.astro';
     margin: 4rem auto;
     padding: 3rem 2rem;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
+    background:
+      linear-gradient(rgba(245, 248, 252, 0.4), rgba(245, 248, 252, 0.4)),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 15px,
+        rgba(180, 200, 220, 0.04) 15px,
+        rgba(180, 200, 220, 0.04) 16px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.12),
+      inset 0 0 30px rgba(200, 220, 240, 0.08);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .pitch.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.98) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.15);
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.06),
+      0 2px 6px rgba(0, 0, 0, 0.03);
   }
 
   .pitch-content h2 {
@@ -202,7 +262,27 @@ import Logo from '../components/Logo.astro';
     margin: 4rem auto;
     padding: 3rem 2rem;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
+    background:
+      linear-gradient(rgba(245, 250, 255, 0.3), rgba(245, 250, 255, 0.3)),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 12px,
+        rgba(200, 215, 230, 0.03) 12px,
+        rgba(200, 215, 230, 0.03) 24px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.1),
+      inset 0 0 25px rgba(200, 220, 240, 0.06);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .benefits.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(252, 254, 255, 0.96) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.18);
+    box-shadow:
+      0 6px 28px rgba(0, 0, 0, 0.07),
+      0 2px 7px rgba(0, 0, 0, 0.03);
   }
 
   .benefits h2 {
@@ -221,8 +301,27 @@ import Logo from '../components/Logo.astro';
   .benefit-card {
     padding: 2rem;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
-    transition: all 0.6s ease;
+    background:
+      linear-gradient(rgba(250, 252, 255, 0.5), rgba(250, 252, 255, 0.5)),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(210, 225, 240, 0.04) 8px,
+        rgba(210, 225, 240, 0.04) 16px
+      );
+    box-shadow:
+      0 0 0 1px rgba(160, 180, 200, 0.1),
+      inset 0 0 15px rgba(220, 230, 245, 0.08);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .benefit-card.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 255, 255, 0.95) 100%);
+    border: 1px solid rgba(120, 140, 160, 0.15);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.05),
+      0 1px 4px rgba(0, 0, 0, 0.02);
   }
 
   .benefit-icon {
@@ -247,7 +346,27 @@ import Logo from '../components/Logo.astro';
     margin: 4rem auto;
     padding: 3rem 2rem;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
+    background:
+      linear-gradient(rgba(248, 250, 255, 0.4), rgba(248, 250, 255, 0.4)),
+      repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 14px,
+        rgba(190, 210, 230, 0.04) 14px,
+        rgba(190, 210, 230, 0.04) 28px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.12),
+      inset 0 0 30px rgba(200, 220, 240, 0.09);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .pricing.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 253, 255, 0.97) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .pricing h2 {
@@ -274,16 +393,62 @@ import Logo from '../components/Logo.astro';
   .pricing-card {
     padding: 2rem;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
-    transition: all 0.6s ease;
+    background:
+      linear-gradient(rgba(252, 254, 255, 0.6), rgba(252, 254, 255, 0.6)),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 10px,
+        rgba(220, 230, 245, 0.05) 10px,
+        rgba(220, 230, 245, 0.05) 11px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 10px,
+        rgba(220, 230, 245, 0.05) 10px,
+        rgba(220, 230, 245, 0.05) 11px
+      );
+    box-shadow:
+      0 0 0 1px rgba(160, 180, 200, 0.12),
+      inset 0 0 20px rgba(220, 235, 250, 0.1);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     position: relative;
   }
 
+  .pricing-card.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(253, 255, 255, 0.98) 100%);
+    border: 1px solid rgba(120, 140, 160, 0.2);
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.06),
+      0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+
   .pricing-card.popular {
     border-color: var(--color-accent);
     transform: scale(1.05);
+    background:
+      linear-gradient(rgba(255, 250, 250, 0.7), rgba(255, 250, 250, 0.7)),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 200, 200, 0.03) 10px,
+        rgba(255, 200, 200, 0.03) 11px
+      );
+    box-shadow:
+      0 0 0 1px rgba(255, 107, 107, 0.2),
+      inset 0 0 20px rgba(255, 200, 200, 0.08);
+  }
+
+  .pricing-card.popular.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 252, 252, 0.98) 100%);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    box-shadow:
+      0 8px 32px rgba(255, 107, 107, 0.15),
+      0 2px 12px rgba(255, 107, 107, 0.08);
   }
 
   .popular-badge {
@@ -373,7 +538,27 @@ import Logo from '../components/Logo.astro';
     padding: 4rem 2rem;
     text-align: center;
     border: 2px dashed var(--color-sketch);
-    background: transparent;
+    background:
+      linear-gradient(rgba(250, 252, 255, 0.5), rgba(250, 252, 255, 0.5)),
+      repeating-linear-gradient(
+        -60deg,
+        transparent,
+        transparent 16px,
+        rgba(200, 220, 240, 0.04) 16px,
+        rgba(200, 220, 240, 0.04) 32px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.15),
+      inset 0 0 35px rgba(200, 220, 240, 0.12);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cta.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 252, 255, 0.98) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .cta h2 {
@@ -424,12 +609,9 @@ import Logo from '../components/Logo.astro';
     gap: 1rem;
   }
 
-  /* Filled state overrides */
-  .filled {
-    background: white !important;
-    border-style: solid !important;
-    border-color: var(--color-complete) !important;
-    border-width: 1px !important;
+  /* Default filled state for elements without specific rules */
+  .sketch-element.filled {
+    border-style: solid;
   }
 
   /* Responsive */
