@@ -54,6 +54,74 @@ import Logo from '../components/Logo.astro';
       </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="pricing sketch-element" id="pricing">
+      <h2>Simple, Transparent Pricing</h2>
+      <p class="pricing-subtitle">Choose the plan that fits your business. Cancel anytime.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card sketch-element" data-tier="starter">
+          <h3>Starter</h3>
+          <div class="price">
+            <span class="amount">$299</span>
+            <span class="period">/month</span>
+          </div>
+          <ul class="features">
+            <li>✓ Custom website design</li>
+            <li>✓ 5 pages included</li>
+            <li>✓ Monthly updates & changes</li>
+            <li>✓ Mobile responsive</li>
+            <li>✓ Basic SEO optimization</li>
+            <li>✓ Email support</li>
+          </ul>
+          <button class="subscribe-button" data-tier="starter">
+            Get Started
+          </button>
+        </div>
+
+        <div class="pricing-card sketch-element popular" data-tier="professional">
+          <div class="popular-badge">Most Popular</div>
+          <h3>Professional</h3>
+          <div class="price">
+            <span class="amount">$499</span>
+            <span class="period">/month</span>
+          </div>
+          <ul class="features">
+            <li>✓ Everything in Starter</li>
+            <li>✓ Unlimited pages</li>
+            <li>✓ Priority updates & changes</li>
+            <li>✓ Advanced SEO optimization</li>
+            <li>✓ Contact forms & integrations</li>
+            <li>✓ Analytics setup</li>
+            <li>✓ Direct phone support</li>
+          </ul>
+          <button class="subscribe-button" data-tier="professional">
+            Get Started
+          </button>
+        </div>
+
+        <div class="pricing-card sketch-element" data-tier="enterprise">
+          <h3>Enterprise</h3>
+          <div class="price">
+            <span class="amount">$999</span>
+            <span class="period">/month</span>
+          </div>
+          <ul class="features">
+            <li>✓ Everything in Professional</li>
+            <li>✓ E-commerce functionality</li>
+            <li>✓ Custom integrations</li>
+            <li>✓ Dedicated developer time</li>
+            <li>✓ Performance optimization</li>
+            <li>✓ Weekly strategy calls</li>
+            <li>✓ 24/7 priority support</li>
+          </ul>
+          <button class="subscribe-button" data-tier="enterprise">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta sketch-element" id="cta">
       <h2>Ready to Build Your Online Presence?</h2>
@@ -173,6 +241,131 @@ import Logo from '../components/Logo.astro';
     line-height: 1.6;
   }
 
+  /* Pricing Section */
+  .pricing {
+    max-width: var(--max-width);
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+  }
+
+  .pricing h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .pricing-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  .pricing-card {
+    padding: 2rem;
+    border: 2px dashed var(--color-sketch);
+    background: transparent;
+    transition: all 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .pricing-card.popular {
+    border-color: var(--color-accent);
+    transform: scale(1.05);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-accent);
+    color: white;
+    padding: 0.25rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .pricing-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .price {
+    margin-bottom: 2rem;
+  }
+
+  .price .amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-text);
+  }
+
+  .price .period {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .features {
+    list-style: none;
+    margin: 0 0 2rem 0;
+    padding: 0;
+    flex-grow: 1;
+  }
+
+  .features li {
+    padding: 0.5rem 0;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .subscribe-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-accent);
+    border: 2px dashed var(--color-sketch);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .subscribe-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  }
+
+  .subscribe-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .pricing-card.filled .subscribe-button {
+    border: 2px solid var(--color-accent);
+  }
+
+  .pricing-card.popular .subscribe-button {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
   /* CTA Section */
   .cta {
     max-width: 700px;
@@ -248,12 +441,18 @@ import Logo from '../components/Logo.astro';
     .hero,
     .pitch,
     .benefits,
+    .pricing,
     .cta {
       padding: 2rem 1rem;
     }
 
-    .benefits-grid {
+    .benefits-grid,
+    .pricing-grid {
       grid-template-columns: 1fr;
+    }
+
+    .pricing-card.popular {
+      transform: scale(1);
     }
   }
 </style>
@@ -303,4 +502,47 @@ import Logo from '../components/Logo.astro';
 
   // Also check on resize
   window.addEventListener('resize', handleScroll);
+
+  // Handle subscription button clicks
+  document.querySelectorAll('.subscribe-button').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const target = e.target as HTMLButtonElement;
+      const tier = target.dataset.tier;
+
+      if (!tier) return;
+
+      // Disable button during request
+      target.disabled = true;
+      const originalText = target.textContent;
+      target.textContent = 'Loading...';
+
+      try {
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ tier }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        // Redirect to Stripe Checkout
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert(error instanceof Error ? error.message : 'An error occurred. Please try again.');
+
+        // Re-enable button
+        target.disabled = false;
+        target.textContent = originalText;
+      }
+    });
+  });
 </script>

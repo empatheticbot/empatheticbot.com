@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+
+export const prerender = false;
+
+const sessionId = Astro.url.searchParams.get('session_id');
+---
+
+<BaseLayout title="Success - Empatheticbot">
+  <div class="container">
+    <div class="success-card">
+      <Logo width="80" height="80" />
+      <h1>Welcome to Empatheticbot! 🎉</h1>
+      <p class="lead">Thank you for subscribing! We're excited to help build your online presence.</p>
+
+      <div class="next-steps">
+        <h2>What happens next?</h2>
+        <ol>
+          <li>
+            <strong>Check your email</strong> - You'll receive a confirmation email with your receipt and next steps.
+          </li>
+          <li>
+            <strong>Schedule a kickoff call</strong> - We'll reach out within 24 hours to schedule our first meeting.
+          </li>
+          <li>
+            <strong>Start building</strong> - We'll discuss your vision and begin creating your online presence.
+          </li>
+        </ol>
+      </div>
+
+      <div class="contact-info">
+        <p>Have questions? Reach out anytime at <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a></p>
+      </div>
+
+      {sessionId && (
+        <p class="session-id">
+          Session ID: <code>{sessionId}</code>
+        </p>
+      )}
+
+      <a href="/" class="home-link">Back to Home</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .success-card {
+    max-width: 600px;
+    width: 100%;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: white;
+    border: 2px solid var(--color-complete);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin: 1.5rem 0 1rem;
+    font-weight: 700;
+  }
+
+  .lead {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .next-steps {
+    text-align: left;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: var(--color-bg);
+    border-left: 4px solid var(--color-accent);
+  }
+
+  .next-steps h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .next-steps ol {
+    margin-left: 1.5rem;
+  }
+
+  .next-steps li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .contact-info {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f0f9ff;
+    border-radius: 8px;
+  }
+
+  .contact-info a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  .session-id {
+    font-size: 0.875rem;
+    color: #999;
+    margin: 2rem 0 1rem;
+  }
+
+  .session-id code {
+    background: #f5f5f5;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    background: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+  }
+
+  .home-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  }
+</style>
