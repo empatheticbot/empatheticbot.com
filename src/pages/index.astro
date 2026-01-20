@@ -19,6 +19,12 @@ import Logo from '../components/Logo.astro';
   </svg>
 
   <div class="container">
+    <!-- Animated gradient blobs -->
+    <div class="gradient-blob blob-1"></div>
+    <div class="gradient-blob blob-2"></div>
+    <div class="gradient-blob blob-3"></div>
+    <div class="gradient-blob blob-4"></div>
+
     <!-- Hero Section -->
     <header class="hero sketch-element" id="hero">
       <div class="logo-container">
@@ -155,11 +161,114 @@ import Logo from '../components/Logo.astro';
   .container {
     min-height: 100vh;
     padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
     background:
-      linear-gradient(rgba(200, 220, 240, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200, 220, 240, 0.08) 1px, transparent 1px);
+      linear-gradient(rgba(180, 200, 230, 0.18) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(180, 200, 230, 0.18) 1px, transparent 1px);
     background-size: 20px 20px;
     background-position: 0 0, 0 0;
+  }
+
+  /* Animated gradient blobs */
+  .gradient-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200, 220, 255, 0.8), transparent 70%);
+    top: -100px;
+    left: -100px;
+    animation: float-1 20s ease-in-out infinite;
+  }
+
+  .blob-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(220, 200, 255, 0.7), transparent 70%);
+    top: 20%;
+    right: -50px;
+    animation: float-2 25s ease-in-out infinite;
+  }
+
+  .blob-3 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200, 240, 255, 0.6), transparent 70%);
+    bottom: 10%;
+    left: 10%;
+    animation: float-3 30s ease-in-out infinite;
+  }
+
+  .blob-4 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(240, 220, 255, 0.65), transparent 70%);
+    bottom: 30%;
+    right: 15%;
+    animation: float-4 22s ease-in-out infinite;
+  }
+
+  @keyframes float-1 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(100px, 150px) scale(1.1);
+    }
+    66% {
+      transform: translate(-50px, 100px) scale(0.9);
+    }
+  }
+
+  @keyframes float-2 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(-120px, 80px) scale(1.15);
+    }
+    66% {
+      transform: translate(-50px, -100px) scale(0.95);
+    }
+  }
+
+  @keyframes float-3 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+      transform: translate(150px, -100px) scale(1.2) rotate(90deg);
+    }
+    66% {
+      transform: translate(50px, 80px) scale(0.85) rotate(180deg);
+    }
+  }
+
+  @keyframes float-4 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+      transform: translate(-80px, -120px) scale(0.9) rotate(-90deg);
+    }
+    66% {
+      transform: translate(100px, -50px) scale(1.1) rotate(-180deg);
+    }
+  }
+
+  /* Ensure content is above blobs */
+  .hero, .pitch, .benefits, .pricing, .cta, .footer {
+    position: relative;
+    z-index: 1;
   }
 
   /* Hero Section */
