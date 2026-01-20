@@ -852,14 +852,15 @@ import Logo from '../components/Logo.astro';
 
 <script>
   // Smooth scrolling for navigation links
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+  document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
-      const targetId = this.getAttribute('href');
+      const targetId = link.getAttribute('href');
       if (targetId && targetId.startsWith('#')) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          const navHeight = document.querySelector('.nav').offsetHeight;
+        const targetElement = document.querySelector(targetId) as HTMLElement;
+        const navElement = document.querySelector('.nav') as HTMLElement;
+        if (targetElement && navElement) {
+          const navHeight = navElement.offsetHeight;
           const targetPosition = targetElement.offsetTop - navHeight - 20;
           window.scrollTo({
             top: targetPosition,
