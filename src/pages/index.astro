@@ -19,6 +19,22 @@ import Logo from '../components/Logo.astro';
   </svg>
 
   <div class="container">
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="#hero" class="nav-logo">
+          <Logo width="32" height="32" />
+          <span>Empatheticbot</span>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="#cta" class="nav-link nav-link-cta">Get Started</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <!-- Animated gradient blobs -->
     <div class="gradient-blob blob-1"></div>
     <div class="gradient-blob blob-2"></div>
@@ -70,6 +86,116 @@ import Logo from '../components/Logo.astro';
           <div class="benefit-icon">🎯</div>
           <h3>Local Focus</h3>
           <p>Built for local businesses who need a web presence that works.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about sketch-element" id="about">
+      <div class="about-content">
+        <h2>About Empatheticbot</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I'm a web developer with over a decade of experience building sites for local businesses.
+              I started Empatheticbot because I saw too many small businesses struggling with expensive,
+              inflexible web solutions that left them stuck.
+            </p>
+            <p>
+              My approach is simple: partner with you month-to-month, build exactly what you need,
+              and stay available for changes as your business grows. No contracts, no surprises—just
+              a human you can work with.
+            </p>
+            <p>
+              I specialize in modern, fast websites built with the latest technology. Every site is
+              custom-designed, mobile-optimized, and built to convert visitors into customers.
+            </p>
+          </div>
+          <div class="about-skills">
+            <h3>What I Bring</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <span class="skill-icon">⚡</span>
+                <span>Modern Tech Stack</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-icon">🎨</span>
+                <span>Custom Design</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-icon">📱</span>
+                <span>Mobile First</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-icon">🚀</span>
+                <span>Performance Focus</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-icon">🔍</span>
+                <span>SEO Optimized</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-icon">♿</span>
+                <span>Accessibility</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio sketch-element" id="portfolio">
+      <h2>Recent Work</h2>
+      <p class="portfolio-subtitle">Examples of sites built for local businesses</p>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-item sketch-element">
+          <div class="portfolio-image">
+            <div class="placeholder-img">
+              <span>🍕</span>
+            </div>
+          </div>
+          <div class="portfolio-details">
+            <h3>Local Pizza Restaurant</h3>
+            <p>Online ordering system with real-time menu updates and delivery tracking</p>
+            <div class="portfolio-tags">
+              <span class="tag">E-commerce</span>
+              <span class="tag">Integrations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item sketch-element">
+          <div class="portfolio-image">
+            <div class="placeholder-img">
+              <span>💇</span>
+            </div>
+          </div>
+          <div class="portfolio-details">
+            <h3>Hair Salon</h3>
+            <p>Booking system with automated reminders and gallery showcase</p>
+            <div class="portfolio-tags">
+              <span class="tag">Booking</span>
+              <span class="tag">Gallery</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item sketch-element">
+          <div class="portfolio-image">
+            <div class="placeholder-img">
+              <span>🔧</span>
+            </div>
+          </div>
+          <div class="portfolio-details">
+            <h3>Plumbing Service</h3>
+            <p>Lead generation site with instant quote calculator and service area map</p>
+            <div class="portfolio-tags">
+              <span class="tag">Lead Gen</span>
+              <span class="tag">Forms</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -160,7 +286,7 @@ import Logo from '../components/Logo.astro';
 <style>
   .container {
     min-height: 100vh;
-    padding: 2rem 1rem;
+    padding: 0;
     position: relative;
     overflow: hidden;
     background:
@@ -168,6 +294,96 @@ import Logo from '../components/Logo.astro';
       linear-gradient(90deg, rgba(180, 200, 230, 0.18) 1px, transparent 1px);
     background-size: 20px 20px;
     background-position: 0 0, 0 0;
+  }
+
+  /* Navigation */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(100, 120, 140, 0.15);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+  }
+
+  .nav-logo:hover {
+    opacity: 0.7;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link-cta {
+    background: var(--color-accent);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .nav-link-cta::after {
+    display: none;
+  }
+
+  .nav-link-cta:hover {
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
   }
 
   /* Animated gradient blobs */
@@ -266,7 +482,7 @@ import Logo from '../components/Logo.astro';
   }
 
   /* Ensure content is above blobs */
-  .hero, .pitch, .benefits, .pricing, .cta, .footer {
+  .hero, .pitch, .benefits, .about, .portfolio, .pricing, .cta, .footer {
     position: relative;
     z-index: 1;
   }
@@ -274,12 +490,11 @@ import Logo from '../components/Logo.astro';
   /* Hero Section */
   .hero {
     max-width: var(--max-width);
-    margin: 0 auto;
+    margin: 2rem auto 4rem;
     padding: 4rem 2rem;
     text-align: center;
     position: relative;
     border: 2px dashed var(--color-sketch);
-    margin-bottom: 4rem;
     background:
       linear-gradient(rgba(240, 245, 250, 0.3), rgba(240, 245, 250, 0.3)),
       repeating-linear-gradient(
@@ -447,6 +662,218 @@ import Logo from '../components/Logo.astro';
   .benefit-card p {
     color: #666;
     line-height: 1.6;
+  }
+
+  /* About Section */
+  .about {
+    max-width: var(--max-width);
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    border: 2px dashed var(--color-sketch);
+    background:
+      linear-gradient(rgba(248, 250, 255, 0.4), rgba(248, 250, 255, 0.4)),
+      repeating-linear-gradient(
+        60deg,
+        transparent,
+        transparent 12px,
+        rgba(200, 220, 240, 0.04) 12px,
+        rgba(200, 220, 240, 0.04) 24px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.12),
+      inset 0 0 30px rgba(200, 220, 240, 0.08);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .about.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 253, 255, 0.97) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.18);
+    box-shadow:
+      0 6px 28px rgba(0, 0, 0, 0.07),
+      0 2px 7px rgba(0, 0, 0, 0.03);
+  }
+
+  .about-content h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1.5fr 1fr;
+    }
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+
+  .about-skills h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(120, 140, 160, 0.15);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .skill-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .skill-icon {
+    font-size: 1.5rem;
+  }
+
+  /* Portfolio Section */
+  .portfolio {
+    max-width: var(--max-width);
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    border: 2px dashed var(--color-sketch);
+    background:
+      linear-gradient(rgba(250, 252, 255, 0.4), rgba(250, 252, 255, 0.4)),
+      repeating-linear-gradient(
+        -60deg,
+        transparent,
+        transparent 12px,
+        rgba(190, 210, 230, 0.04) 12px,
+        rgba(190, 210, 230, 0.04) 24px
+      );
+    box-shadow:
+      0 0 0 1px rgba(150, 170, 190, 0.12),
+      inset 0 0 30px rgba(200, 220, 240, 0.08);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(252, 254, 255, 0.97) 100%);
+    border: 1px solid rgba(100, 120, 140, 0.18);
+    box-shadow:
+      0 6px 28px rgba(0, 0, 0, 0.07),
+      0 2px 7px rgba(0, 0, 0, 0.03);
+  }
+
+  .portfolio h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .portfolio-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .portfolio-item {
+    border: 2px dashed var(--color-sketch);
+    background:
+      linear-gradient(rgba(252, 254, 255, 0.6), rgba(252, 254, 255, 0.6)),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(220, 230, 245, 0.04) 8px,
+        rgba(220, 230, 245, 0.04) 16px
+      );
+    box-shadow:
+      0 0 0 1px rgba(160, 180, 200, 0.12),
+      inset 0 0 20px rgba(220, 235, 250, 0.1);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .portfolio-item.filled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(254, 255, 255, 0.98) 100%);
+    border: 1px solid rgba(120, 140, 160, 0.2);
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+
+  .portfolio-image {
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, rgba(200, 220, 240, 0.2), rgba(220, 230, 250, 0.3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px dashed var(--color-sketch);
+    transition: border 0.7s;
+  }
+
+  .portfolio-item.filled .portfolio-image {
+    border-bottom: 1px solid rgba(120, 140, 160, 0.15);
+  }
+
+  .placeholder-img {
+    font-size: 4rem;
+    opacity: 0.6;
+  }
+
+  .portfolio-details {
+    padding: 1.5rem;
+  }
+
+  .portfolio-details h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .portfolio-details p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .portfolio-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(100, 120, 140, 0.1);
+    border: 1px solid rgba(100, 120, 140, 0.2);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #555;
   }
 
   /* Pricing Section */
@@ -725,30 +1152,67 @@ import Logo from '../components/Logo.astro';
 
   /* Responsive */
   @media (max-width: 768px) {
-    .container {
-      padding: 1rem 0.5rem;
+    .nav-container {
+      padding: 1rem;
+    }
+
+    .nav-menu {
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-link-cta {
+      padding: 0.4rem 1rem;
     }
 
     .hero,
     .pitch,
     .benefits,
+    .about,
+    .portfolio,
     .pricing,
     .cta {
       padding: 2rem 1rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
 
     .benefits-grid,
-    .pricing-grid {
+    .pricing-grid,
+    .portfolio-grid {
       grid-template-columns: 1fr;
     }
 
     .pricing-card.popular {
       transform: scale(1);
     }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
 <script>
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const navHeight = document.querySelector('.nav').offsetHeight;
+          const targetPosition = targetElement.offsetTop - navHeight - 20;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+
   // Scroll-based animation to transform sketch to complete
   function handleScroll() {
     const elements = document.querySelectorAll('.sketch-element');
