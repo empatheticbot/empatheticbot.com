@@ -100,7 +100,7 @@ npm run preview
 
 This site uses hybrid rendering (static pages + API routes) and deploys to Cloudflare Pages.
 
-#### Deploy via Cloudflare Dashboard (Recommended)
+#### Deployment Steps
 
 1. Push your code to GitHub
 2. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com)
@@ -120,20 +120,12 @@ This site uses hybrid rendering (static pages + API routes) and deploys to Cloud
 
 **Important**: After deployment, update your Stripe webhook endpoint URL to point to your production domain: `https://yourdomain.com/api/webhook`
 
-#### Deploy via Wrangler CLI
+#### Notes on Deployment
 
-```bash
-# Install Wrangler globally (if not already installed)
-npm install -g wrangler@latest
-
-# Build your site
-npm run build
-
-# Deploy to Cloudflare Pages
-npx wrangler pages deploy dist --project-name=empatheticbot
-```
-
-On first deployment, Wrangler will create the Pages project for you.
+- The Astro Cloudflare adapter automatically generates the correct build output for Cloudflare Pages
+- No `wrangler.toml` file is needed - Cloudflare Pages handles everything
+- The build process creates both static assets and serverless functions for the API routes
+- First deployment may take a few minutes to complete
 
 ## About
 
