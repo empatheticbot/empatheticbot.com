@@ -46,37 +46,36 @@ npm run preview
 
 ### Cloudflare Pages
 
-This site is configured to deploy on Cloudflare Pages using the `@astrojs/cloudflare` adapter.
+This site is configured as a static site that deploys seamlessly to Cloudflare Pages.
 
-#### Deploy via Cloudflare Dashboard
+#### Deploy via Cloudflare Dashboard (Recommended)
 
 1. Push your code to GitHub
 2. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com)
 3. Go to **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**
 4. Select your repository
 5. Configure build settings:
+   - **Framework preset**: Astro
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
-   - **Node version**: 18 or higher
 6. Click **Save and Deploy**
+
+Cloudflare will automatically detect your Astro project and configure the correct settings.
 
 #### Deploy via Wrangler CLI
 
 ```bash
-# Install Wrangler globally
-npm install -g wrangler
+# Install Wrangler globally (if not already installed)
+npm install -g wrangler@latest
 
-# Login to Cloudflare
-wrangler login
-
-# Deploy
+# Build your site
 npm run build
-wrangler pages deploy dist
+
+# Deploy to Cloudflare Pages
+npx wrangler pages deploy dist --project-name=empatheticbot
 ```
 
-#### Environment Variables
-
-If you need environment variables for your deployment, add them in the Cloudflare Dashboard under **Settings** > **Environment variables**.
+On first deployment, Wrangler will create the Pages project for you.
 
 ## About
 
