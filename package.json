@@ -7,15 +7,17 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "update": "npx @astrojs/upgrade && npx npm-check -u",
+    "check": "npx biome check && astro check",
+    "check:fix": "npx biome check --fix"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^11.1.0",
-    "astro": "^4.16.0",
-    "stripe": "^17.5.0"
+    "@astrojs/cloudflare": "12.6.12",
+    "astro": "5.16.11",
+    "stripe": "20.2.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.0",
-    "typescript": "^5.6.0"
+    "typescript": "5.9.3"
   }
 }
