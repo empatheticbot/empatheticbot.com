@@ -4,20 +4,6 @@ import Logo from '../components/Logo.astro';
 ---
 
 <BaseLayout title="Empatheticbot - Monthly Web Development Subscription">
-  <!-- SVG Filters for Sketch Effects -->
-  <svg style="position: absolute; width: 0; height: 0;">
-    <defs>
-      <filter id="sketch-filter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
-      </filter>
-      <filter id="sketch-rough">
-        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" result="turbulence" />
-        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
-
   <div class="container">
     <!-- Navigation -->
     <nav class="nav">
@@ -35,14 +21,8 @@ import Logo from '../components/Logo.astro';
       </div>
     </nav>
 
-    <!-- Animated gradient blobs -->
-    <div class="gradient-blob blob-1"></div>
-    <div class="gradient-blob blob-2"></div>
-    <div class="gradient-blob blob-3"></div>
-    <div class="gradient-blob blob-4"></div>
-
     <!-- Hero Section -->
-    <header class="hero sketch-element" id="hero">
+    <header class="hero" id="hero">
       <div class="logo-container">
         <Logo width="64" height="64" />
       </div>
@@ -52,7 +32,7 @@ import Logo from '../components/Logo.astro';
     </header>
 
     <!-- About Section -->
-    <section class="about sketch-element" id="about">
+    <section class="about" id="about">
       <h2>How It Works</h2>
       <p class="about-intro">
         Partner with a developer month-to-month. Get a custom site, ongoing updates,
@@ -67,20 +47,20 @@ import Logo from '../components/Logo.astro';
     </section>
 
     <!-- Portfolio Section -->
-    <section class="portfolio sketch-element" id="portfolio">
+    <section class="portfolio" id="portfolio">
       <h2>Recent Projects</h2>
       <div class="portfolio-grid">
-        <div class="portfolio-item sketch-element">
+        <div class="portfolio-item">
           <span class="portfolio-icon">🍕</span>
           <h3>Pizza Restaurant</h3>
           <p>Online ordering & delivery tracking</p>
         </div>
-        <div class="portfolio-item sketch-element">
+        <div class="portfolio-item">
           <span class="portfolio-icon">💇</span>
           <h3>Hair Salon</h3>
           <p>Booking system & gallery</p>
         </div>
-        <div class="portfolio-item sketch-element">
+        <div class="portfolio-item">
           <span class="portfolio-icon">🔧</span>
           <h3>Plumbing Service</h3>
           <p>Lead generation & quotes</p>
@@ -89,12 +69,12 @@ import Logo from '../components/Logo.astro';
     </section>
 
     <!-- Pricing Section -->
-    <section class="pricing sketch-element" id="pricing">
+    <section class="pricing" id="pricing">
       <h2>Simple, Transparent Pricing</h2>
       <p class="pricing-subtitle">Choose the plan that fits your business. Cancel anytime.</p>
 
       <div class="pricing-grid">
-        <div class="pricing-card sketch-element" data-tier="starter">
+        <div class="pricing-card" data-tier="starter">
           <h3>Starter</h3>
           <div class="price">
             <span class="amount">$299</span>
@@ -113,7 +93,7 @@ import Logo from '../components/Logo.astro';
           </button>
         </div>
 
-        <div class="pricing-card sketch-element popular" data-tier="professional">
+        <div class="pricing-card popular" data-tier="professional">
           <div class="popular-badge">Most Popular</div>
           <h3>Professional</h3>
           <div class="price">
@@ -134,7 +114,7 @@ import Logo from '../components/Logo.astro';
           </button>
         </div>
 
-        <div class="pricing-card sketch-element" data-tier="enterprise">
+        <div class="pricing-card" data-tier="enterprise">
           <h3>Enterprise</h3>
           <div class="price">
             <span class="amount">$999</span>
@@ -157,10 +137,10 @@ import Logo from '../components/Logo.astro';
     </section>
 
     <!-- CTA Section -->
-    <section class="cta sketch-element" id="cta">
+    <section class="cta" id="cta">
       <h2>Ready to Build Your Online Presence?</h2>
       <p>Let's talk about how a monthly partnership can work for your business.</p>
-      <a href="mailto:hello@empatheticbot.com" class="cta-button sketch-element">Get Started</a>
+      <a href="mailto:hello@empatheticbot.com" class="cta-button">Get Started</a>
     </section>
 
     <!-- Footer -->
@@ -175,13 +155,6 @@ import Logo from '../components/Logo.astro';
   .container {
     min-height: 100vh;
     padding: 0;
-    position: relative;
-    overflow: hidden;
-    background:
-      linear-gradient(rgba(180, 200, 230, 0.18) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(180, 200, 230, 0.18) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 0;
   }
 
   /* Navigation */
@@ -189,16 +162,14 @@ import Logo from '../components/Logo.astro';
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(100, 120, 140, 0.15);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .nav-container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -210,13 +181,8 @@ import Logo from '../components/Logo.astro';
     gap: 0.75rem;
     text-decoration: none;
     color: var(--color-text);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.1rem;
-    transition: opacity 0.2s;
-  }
-
-  .nav-logo:hover {
-    opacity: 0.7;
   }
 
   .nav-menu {
@@ -233,27 +199,10 @@ import Logo from '../components/Logo.astro';
     color: var(--color-text);
     font-weight: 500;
     font-size: 0.95rem;
-    transition: color 0.2s;
-    position: relative;
   }
 
   .nav-link:hover {
     color: var(--color-accent);
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--color-accent);
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
   }
 
   .nav-link-cta {
@@ -261,129 +210,19 @@ import Logo from '../components/Logo.astro';
     color: white;
     padding: 0.5rem 1.25rem;
     border-radius: 6px;
-    transition: all 0.2s;
-  }
-
-  .nav-link-cta::after {
-    display: none;
   }
 
   .nav-link-cta:hover {
     color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-  }
-
-  /* Animated gradient blobs */
-  .gradient-blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.4;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .blob-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(200, 220, 255, 0.8), transparent 70%);
-    top: -100px;
-    left: -100px;
-    animation: float-1 20s ease-in-out infinite;
-  }
-
-  .blob-2 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(220, 200, 255, 0.7), transparent 70%);
-    top: 20%;
-    right: -50px;
-    animation: float-2 25s ease-in-out infinite;
-  }
-
-  .blob-3 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(200, 240, 255, 0.6), transparent 70%);
-    bottom: 10%;
-    left: 10%;
-    animation: float-3 30s ease-in-out infinite;
-  }
-
-  .blob-4 {
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, rgba(240, 220, 255, 0.65), transparent 70%);
-    bottom: 30%;
-    right: 15%;
-    animation: float-4 22s ease-in-out infinite;
-  }
-
-  @keyframes float-1 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(100px, 150px) scale(1.1);
-    }
-    66% {
-      transform: translate(-50px, 100px) scale(0.9);
-    }
-  }
-
-  @keyframes float-2 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(-120px, 80px) scale(1.15);
-    }
-    66% {
-      transform: translate(-50px, -100px) scale(0.95);
-    }
-  }
-
-  @keyframes float-3 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    33% {
-      transform: translate(150px, -100px) scale(1.2) rotate(90deg);
-    }
-    66% {
-      transform: translate(50px, 80px) scale(0.85) rotate(180deg);
-    }
-  }
-
-  @keyframes float-4 {
-    0%, 100% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    33% {
-      transform: translate(-80px, -120px) scale(0.9) rotate(-90deg);
-    }
-    66% {
-      transform: translate(100px, -50px) scale(1.1) rotate(-180deg);
-    }
-  }
-
-  /* Ensure content is above blobs */
-  .hero, .about, .portfolio, .pricing, .cta, .footer {
-    position: relative;
-    z-index: 1;
+    opacity: 0.9;
   }
 
   /* Hero Section */
   .hero {
     max-width: 900px;
-    margin: 3rem auto 6rem;
+    margin: 0 auto;
     padding: 6rem 2rem;
     text-align: center;
-    position: relative;
-    border: none;
-    background: transparent;
   }
 
   .logo-container {
@@ -392,57 +231,42 @@ import Logo from '../components/Logo.astro';
   }
 
   .title {
-    font-size: clamp(3rem, 10vw, 5rem);
-    font-weight: 800;
-    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 10vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
     color: var(--color-text);
-    letter-spacing: -0.03em;
   }
 
   .tagline {
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
-    color: #555;
-    font-weight: 400;
-    margin-bottom: 1rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    color: #666;
+    margin-bottom: 0.5rem;
   }
 
   .subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    color: #888;
-    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    color: #999;
   }
 
   /* About Section */
   .about {
     max-width: 800px;
-    margin: 6rem auto;
-    padding: 4rem 2rem;
+    margin: 5rem auto;
+    padding: 3rem 2rem;
     text-align: center;
-    border: 1px solid rgba(120, 140, 160, 0.12);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .about.filled {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(100, 120, 140, 0.18);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   }
 
   .about h2 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
     margin-bottom: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .about-intro {
-    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 2.5rem;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -456,70 +280,48 @@ import Logo from '../components/Logo.astro';
   }
 
   .feature-simple {
-    padding: 0.75rem 1.5rem;
-    background: rgba(100, 120, 140, 0.06);
-    border: 1px solid rgba(100, 120, 140, 0.12);
-    border-radius: 24px;
-    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    border-radius: 6px;
+    font-size: 0.9rem;
     color: #666;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-
-  .feature-simple:hover {
-    background: rgba(100, 120, 140, 0.1);
-    transform: translateY(-2px);
   }
 
   /* Portfolio Section */
   .portfolio {
     max-width: 1000px;
-    margin: 6rem auto;
-    padding: 2rem;
+    margin: 5rem auto;
+    padding: 3rem 2rem;
     text-align: center;
   }
 
   .portfolio h2 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    margin-bottom: 3rem;
-    font-weight: 700;
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin-bottom: 2.5rem;
+    font-weight: 600;
   }
 
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .portfolio-item {
-    padding: 2.5rem 2rem;
+    padding: 2rem;
     text-align: center;
-    border: 1px solid rgba(120, 140, 160, 0.12);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    transition: all 0.4s ease;
-  }
-
-  .portfolio-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  }
-
-  .portfolio-item.filled {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(100, 120, 140, 0.18);
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
   }
 
   .portfolio-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     display: block;
   }
 
   .portfolio-item h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--color-text);
@@ -534,42 +336,20 @@ import Logo from '../components/Logo.astro';
   /* Pricing Section */
   .pricing {
     max-width: var(--max-width);
-    margin: 4rem auto;
+    margin: 5rem auto;
     padding: 3rem 2rem;
-    border: 2px dashed var(--color-sketch);
-    background:
-      linear-gradient(rgba(248, 250, 255, 0.4), rgba(248, 250, 255, 0.4)),
-      repeating-linear-gradient(
-        135deg,
-        transparent,
-        transparent 14px,
-        rgba(190, 210, 230, 0.04) 14px,
-        rgba(190, 210, 230, 0.04) 28px
-      );
-    box-shadow:
-      0 0 0 1px rgba(150, 170, 190, 0.12),
-      inset 0 0 30px rgba(200, 220, 240, 0.09);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .pricing.filled {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 253, 255, 0.97) 100%);
-    border: 1px solid rgba(100, 120, 140, 0.2);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.08),
-      0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .pricing h2 {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
     text-align: center;
-    margin-bottom: 1rem;
-    font-weight: 700;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
   }
 
   .pricing-subtitle {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     color: #666;
     margin-bottom: 3rem;
   }
@@ -583,63 +363,17 @@ import Logo from '../components/Logo.astro';
 
   .pricing-card {
     padding: 2rem;
-    border: 2px dashed var(--color-sketch);
-    background:
-      linear-gradient(rgba(252, 254, 255, 0.6), rgba(252, 254, 255, 0.6)),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 10px,
-        rgba(220, 230, 245, 0.05) 10px,
-        rgba(220, 230, 245, 0.05) 11px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 10px,
-        rgba(220, 230, 245, 0.05) 10px,
-        rgba(220, 230, 245, 0.05) 11px
-      );
-    box-shadow:
-      0 0 0 1px rgba(160, 180, 200, 0.12),
-      inset 0 0 20px rgba(220, 235, 250, 0.1);
-    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     position: relative;
-  }
-
-  .pricing-card.filled {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(253, 255, 255, 0.98) 100%);
-    border: 1px solid rgba(120, 140, 160, 0.2);
-    box-shadow:
-      0 6px 24px rgba(0, 0, 0, 0.06),
-      0 2px 8px rgba(0, 0, 0, 0.03);
+    background: white;
   }
 
   .pricing-card.popular {
     border-color: var(--color-accent);
-    transform: scale(1.05);
-    background:
-      linear-gradient(rgba(255, 250, 250, 0.7), rgba(255, 250, 250, 0.7)),
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255, 200, 200, 0.03) 10px,
-        rgba(255, 200, 200, 0.03) 11px
-      );
-    box-shadow:
-      0 0 0 1px rgba(255, 107, 107, 0.2),
-      inset 0 0 20px rgba(255, 200, 200, 0.08);
-  }
-
-  .pricing-card.popular.filled {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 252, 252, 0.98) 100%);
-    border: 1px solid rgba(255, 107, 107, 0.3);
-    box-shadow:
-      0 8px 32px rgba(255, 107, 107, 0.15),
-      0 2px 12px rgba(255, 107, 107, 0.08);
+    box-shadow: 0 0 0 2px var(--color-accent);
   }
 
   .popular-badge {
@@ -650,14 +384,14 @@ import Logo from '../components/Logo.astro';
     background: var(--color-accent);
     color: white;
     padding: 0.25rem 1rem;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: 6px;
     white-space: nowrap;
   }
 
   .pricing-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
     font-weight: 600;
   }
@@ -667,13 +401,13 @@ import Logo from '../components/Logo.astro';
   }
 
   .price .amount {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: 700;
     color: var(--color-text);
   }
 
   .price .period {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #666;
   }
 
@@ -686,7 +420,7 @@ import Logo from '../components/Logo.astro';
 
   .features li {
     padding: 0.5rem 0;
-    color: #555;
+    color: #666;
     line-height: 1.6;
   }
 
@@ -697,15 +431,14 @@ import Logo from '../components/Logo.astro';
     font-weight: 600;
     color: white;
     background: var(--color-accent);
-    border: 2px dashed var(--color-sketch);
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-family: inherit;
   }
 
   .subscribe-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+    opacity: 0.9;
   }
 
   .subscribe-button:disabled {
@@ -713,96 +446,53 @@ import Logo from '../components/Logo.astro';
     cursor: not-allowed;
   }
 
-  .pricing-card.filled .subscribe-button {
-    border: 2px solid var(--color-accent);
-  }
-
-  .pricing-card.popular .subscribe-button {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
   /* CTA Section */
   .cta {
     max-width: 700px;
-    margin: 4rem auto;
-    padding: 4rem 2rem;
+    margin: 5rem auto;
+    padding: 3rem 2rem;
     text-align: center;
-    border: 2px dashed var(--color-sketch);
-    background:
-      linear-gradient(rgba(250, 252, 255, 0.5), rgba(250, 252, 255, 0.5)),
-      repeating-linear-gradient(
-        -60deg,
-        transparent,
-        transparent 16px,
-        rgba(200, 220, 240, 0.04) 16px,
-        rgba(200, 220, 240, 0.04) 32px
-      );
-    box-shadow:
-      0 0 0 1px rgba(150, 170, 190, 0.15),
-      inset 0 0 35px rgba(200, 220, 240, 0.12);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .cta.filled {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 252, 255, 0.98) 100%);
-    border: 1px solid rgba(100, 120, 140, 0.2);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .cta h2 {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
     margin-bottom: 1rem;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .cta p {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     color: #666;
     margin-bottom: 2rem;
   }
 
   .cta-button {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: white;
     background: var(--color-accent);
-    border: 2px dashed var(--color-sketch);
+    border-radius: 6px;
     text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
   }
 
   .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-  }
-
-  .cta-button.filled {
-    border: 2px solid var(--color-accent);
-    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+    opacity: 0.9;
   }
 
   /* Footer */
   .footer {
     max-width: var(--max-width);
     margin: 4rem auto 0;
-    padding: 2rem;
+    padding: 3rem 2rem;
     text-align: center;
     color: #999;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-  }
-
-  /* Default filled state for elements without specific rules */
-  .sketch-element.filled {
-    border-style: solid;
+    border-top: 1px solid #e5e5e5;
   }
 
   /* Responsive */
@@ -821,8 +511,7 @@ import Logo from '../components/Logo.astro';
     }
 
     .hero {
-      padding: 3rem 1.5rem;
-      margin: 2rem 1rem 4rem;
+      padding: 4rem 1.5rem;
     }
 
     .about,
@@ -836,16 +525,7 @@ import Logo from '../components/Logo.astro';
     .pricing-grid,
     .portfolio-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .pricing-card.popular {
-      transform: scale(1);
-    }
-
-    .features-simple {
-      flex-direction: column;
-      align-items: stretch;
+      gap: 1.5rem;
     }
   }
 </style>
@@ -870,50 +550,6 @@ import Logo from '../components/Logo.astro';
       }
     });
   });
-
-  // Scroll-based animation to transform sketch to complete
-  function handleScroll() {
-    const elements = document.querySelectorAll('.sketch-element');
-    const windowHeight = window.innerHeight;
-    const scrollY = window.scrollY;
-
-    elements.forEach((element) => {
-      const rect = element.getBoundingClientRect();
-      const elementTop = rect.top + scrollY;
-
-      // Calculate when element should start and complete its transition
-      const startTransition = elementTop - windowHeight * 0.8;
-      const endTransition = elementTop - windowHeight * 0.2;
-
-      const scrollProgress = (scrollY - startTransition) / (endTransition - startTransition);
-      const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
-
-      // Add 'filled' class when element is sufficiently in view
-      if (clampedProgress > 0.3) {
-        element.classList.add('filled');
-      } else {
-        element.classList.remove('filled');
-      }
-    });
-  }
-
-  // Initial check
-  handleScroll();
-
-  // Add scroll listener with throttle for performance
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        handleScroll();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-  // Also check on resize
-  window.addEventListener('resize', handleScroll);
 
   // Handle subscription button clicks
   document.querySelectorAll('.subscribe-button').forEach(button => {
