@@ -355,6 +355,40 @@ a {
   transform: translate(var(--gaze-x, 0), var(--gaze-y, 0));
 }
 
+.bot-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* An occasional blink (class scheduled by JS). */
+.blink .bot-eye {
+  animation: blink 0.22s ease-in-out;
+}
+
+@keyframes blink {
+  50% {
+    transform: scaleY(0.08);
+  }
+}
+
+/* Happy half-moon eyes while a "start" button is hovered. */
+.eye-happy {
+  opacity: 0;
+}
+
+.eye-open,
+.eye-happy {
+  transition: opacity 0.15s;
+}
+
+.happy .eye-open {
+  opacity: 0;
+}
+
+.happy .eye-happy {
+  opacity: 1;
+}
+
 @keyframes hover {
   from {
     transform: translateY(4px);

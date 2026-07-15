@@ -31,7 +31,9 @@ if (!reducedMotion && "IntersectionObserver" in window) {
   revealables.forEach((el) => el.classList.add("in"));
 }
 
-/* The bot glances toward your cursor. Empathy, in a small way. */
+/* The bot glances toward your cursor. Empathy, in a small way.
+   (The bot's shapes are shared via <defs>, so the header and footer
+   bots glance, blink, and smile in sync with the hero.) */
 const heroBot = document.querySelector(".bot");
 if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
   const eyes = heroBot.querySelector(".bot-eyes");
@@ -49,6 +51,34 @@ if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
     },
     { passive: true }
   );
+}
+
+/* He blinks now and then — occasionally twice, like anyone. */
+if (heroBot && !reducedMotion) {
+  const blink = () => {
+    if (!heroBot.classList.contains("happy")) {
+      heroBot.classList.add("blink");
+      setTimeout(() => heroBot.classList.remove("blink"), 260);
+      if (Math.random() < 0.25) {
+        setTimeout(() => {
+          heroBot.classList.add("blink");
+          setTimeout(() => heroBot.classList.remove("blink"), 260);
+        }, 360);
+      }
+    }
+    setTimeout(blink, 2800 + Math.random() * 3600);
+  };
+  setTimeout(blink, 2200);
+}
+
+/* Happy eyes when you're about to say hello. */
+if (heroBot) {
+  document.querySelectorAll('a[href="#contact"]').forEach((cta) => {
+    for (const [on, off] of [["pointerenter", "pointerleave"], ["focus", "blur"]]) {
+      cta.addEventListener(on, () => heroBot.classList.add("happy"));
+      cta.addEventListener(off, () => heroBot.classList.remove("happy"));
+    }
+  });
 }
 
 /* Contact form: fetch-submit when an endpoint is configured,
