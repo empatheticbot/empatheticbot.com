@@ -32,11 +32,10 @@ if (!reducedMotion && "IntersectionObserver" in window) {
 }
 
 /* The bot glances toward your cursor. Empathy, in a small way.
-   (The bot's shapes are shared via <defs>, so the header and footer
-   bots glance, blink, and smile in sync with the hero.) */
+   Eye state (gaze, blink, happy) lives on <body>/<html>, so the header
+   and footer bots react in sync with the hero. */
 const heroBot = document.querySelector(".bot");
 if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
-  const eyes = heroBot.querySelector(".bot-eyes");
   window.addEventListener(
     "pointermove",
     (event) => {
@@ -46,25 +45,23 @@ if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
       const dy = event.clientY - (rect.top + rect.height * 0.56);
       const angle = Math.atan2(dy, dx);
       const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
-      eyes.style.setProperty("--gaze-x", `${(Math.cos(angle) * reach).toFixed(2)}px`);
-      eyes.style.setProperty("--gaze-y", `${(Math.sin(angle) * reach).toFixed(2)}px`);
+      document.documentElement.style.setProperty("--gaze-x", `${(Math.cos(angle) * reach).toFixed(2)}px`);
+      document.documentElement.style.setProperty("--gaze-y", `${(Math.sin(angle) * reach).toFixed(2)}px`);
     },
     { passive: true }
   );
 }
 
 /* He blinks now and then — occasionally twice, like anyone. */
-if (heroBot && !reducedMotion) {
+if (!reducedMotion) {
+  const blinkOnce = () => {
+    document.body.classList.add("blink");
+    setTimeout(() => document.body.classList.remove("blink"), 260);
+  };
   const blink = () => {
-    if (!heroBot.classList.contains("happy")) {
-      heroBot.classList.add("blink");
-      setTimeout(() => heroBot.classList.remove("blink"), 260);
-      if (Math.random() < 0.25) {
-        setTimeout(() => {
-          heroBot.classList.add("blink");
-          setTimeout(() => heroBot.classList.remove("blink"), 260);
-        }, 360);
-      }
+    if (!document.body.classList.contains("happy")) {
+      blinkOnce();
+      if (Math.random() < 0.25) setTimeout(blinkOnce, 360);
     }
     setTimeout(blink, 2800 + Math.random() * 3600);
   };
@@ -72,14 +69,12 @@ if (heroBot && !reducedMotion) {
 }
 
 /* Happy eyes when you're about to say hello. */
-if (heroBot) {
-  document.querySelectorAll('a[href="#contact"]').forEach((cta) => {
-    for (const [on, off] of [["pointerenter", "pointerleave"], ["focus", "blur"]]) {
-      cta.addEventListener(on, () => heroBot.classList.add("happy"));
-      cta.addEventListener(off, () => heroBot.classList.remove("happy"));
-    }
-  });
-}
+document.querySelectorAll('a[href="#contact"]').forEach((cta) => {
+  for (const [on, off] of [["pointerenter", "pointerleave"], ["focus", "blur"]]) {
+    cta.addEventListener(on, () => document.body.classList.add("happy"));
+    cta.addEventListener(off, () => document.body.classList.remove("happy"));
+  }
+});
 
 /* Contact form: fetch-submit when an endpoint is configured,
    otherwise fall back to a pre-filled email. */

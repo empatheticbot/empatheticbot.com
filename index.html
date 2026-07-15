@@ -46,10 +46,46 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="progress" aria-hidden="true"></div>
 
+    <!-- Shared paint definitions for every bot on the page.
+         (Deliberately not inside <defs>+<use> — WebKit doesn't restyle
+         use-element shadow trees dynamically, so each bot is real markup.) -->
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute">
+      <defs>
+        <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
+          <stop stop-color="#da1212" offset="0%"></stop>
+          <stop stop-color="#ff0000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="antenna-gradient">
+          <stop stop-color="#7d0808" offset="0%"></stop>
+          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="77.6%" y1="20.4%" x2="1.2%" y2="76.7%" id="body-gradient">
+          <stop stop-color="#7d0808" offset="0%"></stop>
+          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
     <header class="site-header">
       <a class="wordmark" href="#top" aria-label="empatheticbot — back to top">
         <svg class="wordmark-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <use href="#bot" />
+          <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
+          <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+          <g class="bot-eyes">
+            <g class="bot-eye">
+              <circle class="eye-open" fill="#ffffff" cx="11" cy="18" r="4"></circle>
+              <path class="eye-happy" d="M7.6,19.6 Q11,14.6 14.4,19.6" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none"></path>
+            </g>
+            <g class="bot-eye">
+              <circle class="eye-open" fill="#ffffff" cx="21" cy="18" r="4"></circle>
+              <path class="eye-happy" d="M17.6,19.6 Q21,14.6 24.4,19.6" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none"></path>
+            </g>
+          </g>
         </svg>
         <span>empatheticbot</span>
       </a>
@@ -73,71 +109,45 @@
           role="img"
           aria-label="The empatheticbot mascot: a small round robot with a beating red heart"
         >
-          <defs>
-            <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
-              <stop stop-color="#da1212" offset="0%"></stop>
-              <stop stop-color="#ff0000" offset="100%"></stop>
-            </linearGradient>
-            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="antenna-gradient">
-              <stop stop-color="#7d0808" offset="0%"></stop>
-              <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
-            </linearGradient>
-            <linearGradient x1="77.6%" y1="20.4%" x2="1.2%" y2="76.7%" id="body-gradient">
-              <stop stop-color="#7d0808" offset="0%"></stop>
-              <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
-            </linearGradient>
-            <rect id="antenna" x="22" y="8" width="2" height="6" rx="1"></rect>
-            <path
-              id="body"
-              d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
-            ></path>
-            <g id="bot">
+          <path
+            class="bot-heart"
+            d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
+            stroke="url(#heart-gradient)"
+            stroke-width="4.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+          ></path>
+          <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
+          <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+          <g class="bot-eyes">
+            <g class="bot-eye">
+              <circle class="eye-open" fill="#ffffff" cx="11" cy="18" r="4"></circle>
               <path
-                class="bot-heart"
-                d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
-                stroke="url(#heart-gradient)"
-                stroke-width="4.8"
+                class="eye-happy"
+                d="M7.6,19.6 Q11,14.6 14.4,19.6"
+                stroke="#ffffff"
+                stroke-width="2.4"
                 stroke-linecap="round"
-                stroke-linejoin="round"
                 fill="none"
               ></path>
-              <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
-              <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
-              <g>
-                <use fill="#000000" href="#antenna"></use>
-                <use fill="url(#antenna-gradient)" href="#antenna"></use>
-              </g>
-              <g>
-                <use fill="#000000" href="#body"></use>
-                <use fill="url(#body-gradient)" href="#body"></use>
-              </g>
-              <g class="bot-eyes">
-                <g class="bot-eye">
-                  <circle class="eye-open" fill="#ffffff" cx="11" cy="18" r="4"></circle>
-                  <path
-                    class="eye-happy"
-                    d="M7.6,19.6 Q11,14.6 14.4,19.6"
-                    stroke="#ffffff"
-                    stroke-width="2.4"
-                    stroke-linecap="round"
-                    fill="none"
-                  ></path>
-                </g>
-                <g class="bot-eye">
-                  <circle class="eye-open" fill="#ffffff" cx="21" cy="18" r="4"></circle>
-                  <path
-                    class="eye-happy"
-                    d="M17.6,19.6 Q21,14.6 24.4,19.6"
-                    stroke="#ffffff"
-                    stroke-width="2.4"
-                    stroke-linecap="round"
-                    fill="none"
-                  ></path>
-                </g>
-              </g>
             </g>
-          </defs>
-          <use href="#bot" />
+            <g class="bot-eye">
+              <circle class="eye-open" fill="#ffffff" cx="21" cy="18" r="4"></circle>
+              <path
+                class="eye-happy"
+                d="M17.6,19.6 Q21,14.6 24.4,19.6"
+                stroke="#ffffff"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                fill="none"
+              ></path>
+            </g>
+          </g>
         </svg>
 
         <p class="eyebrow">A one-person web design &amp; development studio</p>
@@ -455,7 +465,23 @@
 
     <footer class="site-footer">
       <svg class="footer-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-        <use href="#bot" />
+        <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
+        <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
+        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+        <g class="bot-eyes">
+          <g class="bot-eye">
+            <circle class="eye-open" fill="#ffffff" cx="11" cy="18" r="4"></circle>
+            <path class="eye-happy" d="M7.6,19.6 Q11,14.6 14.4,19.6" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none"></path>
+          </g>
+          <g class="bot-eye">
+            <circle class="eye-open" fill="#ffffff" cx="21" cy="18" r="4"></circle>
+            <path class="eye-happy" d="M17.6,19.6 Q21,14.6 24.4,19.6" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none"></path>
+          </g>
+        </g>
       </svg>
       <p>
         <strong>empatheticbot</strong> — software with heart, since 2015.
