@@ -355,12 +355,19 @@ a {
   transform: translate(var(--gaze-x, 0), var(--gaze-y, 0));
 }
 
+/* Each eye is one stroked path: a hair-length line with round caps and an
+   8-unit stroke renders as the classic round eye. The happy state morphs
+   that same path into an upward arc — no shape swapping. */
 .bot-eye {
-  transform-box: fill-box;
-  transform-origin: center;
+  transform-box: view-box;
+  transform-origin: 11px 18px;
 }
 
-/* An occasional blink (class scheduled by JS). */
+.bot-eye-right {
+  transform-origin: 21px 18px;
+}
+
+/* An occasional blink (class scheduled by JS on <body>). */
 .blink .bot-eye {
   animation: blink 0.22s ease-in-out;
 }
@@ -371,22 +378,22 @@ a {
   }
 }
 
-/* Happy half-moon eyes while a "start" button is hovered. */
-.eye-happy {
-  opacity: 0;
-}
+/* Happy half-moon eyes while a "start" button is hovered or focused.
+   Browsers without CSS `d` support simply keep the round eyes. */
+@supports (d: path("M0,0")) {
+  .bot-eye {
+    transition: d 0.3s ease, stroke-width 0.3s ease;
+  }
 
-.eye-open,
-.eye-happy {
-  transition: opacity 0.15s;
-}
+  .happy .bot-eye-left {
+    d: path("M7.6,19.6 Q11,14.6 14.4,19.6");
+    stroke-width: 2.4;
+  }
 
-.happy .eye-open {
-  opacity: 0;
-}
-
-.happy .eye-happy {
-  opacity: 1;
+  .happy .bot-eye-right {
+    d: path("M17.6,19.6 Q21,14.6 24.4,19.6");
+    stroke-width: 2.4;
+  }
 }
 
 @keyframes hover {
