@@ -31,10 +31,10 @@ if (!reducedMotion && "IntersectionObserver" in window) {
   revealables.forEach((el) => el.classList.add("in"));
 }
 
-/* The bot's eyes follow your cursor. Empathy, in a small way. */
+/* The bot glances toward your cursor. Empathy, in a small way. */
 const heroBot = document.querySelector(".bot");
 if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
-  const pupils = heroBot.querySelectorAll(".bot-pupil");
+  const eyes = heroBot.querySelector(".bot-eyes");
   window.addEventListener(
     "pointermove",
     (event) => {
@@ -43,13 +43,9 @@ if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
       const dx = event.clientX - (rect.left + rect.width / 2);
       const dy = event.clientY - (rect.top + rect.height * 0.56);
       const angle = Math.atan2(dy, dx);
-      const reach = Math.min(1, Math.hypot(dx, dy) / 240) * 1.4;
-      const x = (Math.cos(angle) * reach).toFixed(2);
-      const y = (Math.sin(angle) * reach).toFixed(2);
-      pupils.forEach((pupil) => {
-        pupil.style.setProperty("--pupil-x", `${x}px`);
-        pupil.style.setProperty("--pupil-y", `${y}px`);
-      });
+      const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
+      eyes.style.setProperty("--gaze-x", `${(Math.cos(angle) * reach).toFixed(2)}px`);
+      eyes.style.setProperty("--gaze-y", `${(Math.sin(angle) * reach).toFixed(2)}px`);
     },
     { passive: true }
   );

@@ -350,15 +350,9 @@ a {
   animation: light 2s cubic-bezier(0.21, -0.08, 0.54, 1.15) 0.2s infinite;
 }
 
-.bot-pupil {
-  transition: transform 0.18s ease-out;
-  transform: translate(var(--pupil-x, 0), var(--pupil-y, 0));
-}
-
-@media (prefers-color-scheme: dark) {
-  .bot-pupil {
-    fill: #171412;
-  }
+.bot-eyes {
+  transition: transform 0.25s ease-out;
+  transform: translate(var(--gaze-x, 0), var(--gaze-y, 0));
 }
 
 @keyframes hover {
