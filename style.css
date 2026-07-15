@@ -350,14 +350,11 @@ a {
   animation: light 2s cubic-bezier(0.21, -0.08, 0.54, 1.15) 0.2s infinite;
 }
 
-.bot-eyes {
-  transition: transform 0.25s ease-out;
-  transform: translate(var(--gaze-x, 0), var(--gaze-y, 0));
-}
-
 /* Each eye is one stroked path: a hair-length line with round caps and an
-   8-unit stroke renders as the classic round eye. The happy state morphs
-   that same path into an upward arc — no shape swapping. */
+   8-unit stroke renders as the classic round eye. JS animates the gaze
+   (transform on .bot-eyes) and the happy morph (d/stroke-width attributes)
+   — Safari has no CSS `d` property and root-level CSS variables restyle
+   the whole document there, so neither effect is driven from CSS. */
 .bot-eye {
   transform-box: view-box;
   transform-origin: 11px 18px;
@@ -378,23 +375,6 @@ a {
   }
 }
 
-/* Happy half-moon eyes while a "start" button is hovered or focused.
-   Browsers without CSS `d` support simply keep the round eyes. */
-@supports (d: path("M0,0")) {
-  .bot-eye {
-    transition: d 0.3s ease, stroke-width 0.3s ease;
-  }
-
-  .happy .bot-eye-left {
-    d: path("M7.6,19.6 Q11,14.6 14.4,19.6");
-    stroke-width: 2.4;
-  }
-
-  .happy .bot-eye-right {
-    d: path("M17.6,19.6 Q21,14.6 24.4,19.6");
-    stroke-width: 2.4;
-  }
-}
 
 @keyframes hover {
   from {

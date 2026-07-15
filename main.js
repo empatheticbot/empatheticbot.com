@@ -32,10 +32,31 @@ if (!reducedMotion && "IntersectionObserver" in window) {
 }
 
 /* The bot glances toward your cursor. Empathy, in a small way.
-   Eye state (gaze, blink, happy) lives on <body>/<html>, so the header
-   and footer bots react in sync with the hero. */
+   Transforms are written directly to the few eye groups inside one
+   requestAnimationFrame loop — never via root-level CSS variables,
+   which force WebKit to restyle the whole document per mouse event. */
 const heroBot = document.querySelector(".bot");
+const allEyes = document.querySelectorAll(".bot-eyes");
 if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+  let targetX = 0;
+  let targetY = 0;
+  let gazeX = 0;
+  let gazeY = 0;
+  let gazeRaf = null;
+
+  const render = () => {
+    gazeX += (targetX - gazeX) * 0.22;
+    gazeY += (targetY - gazeY) * 0.22;
+    const settled = Math.abs(targetX - gazeX) < 0.01 && Math.abs(targetY - gazeY) < 0.01;
+    if (settled) {
+      gazeX = targetX;
+      gazeY = targetY;
+    }
+    const transform = `translate(${gazeX.toFixed(2)}px, ${gazeY.toFixed(2)}px)`;
+    allEyes.forEach((group) => (group.style.transform = transform));
+    gazeRaf = settled ? null : requestAnimationFrame(render);
+  };
+
   window.addEventListener(
     "pointermove",
     (event) => {
@@ -45,8 +66,9 @@ if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
       const dy = event.clientY - (rect.top + rect.height * 0.56);
       const angle = Math.atan2(dy, dx);
       const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
-      document.documentElement.style.setProperty("--gaze-x", `${(Math.cos(angle) * reach).toFixed(2)}px`);
-      document.documentElement.style.setProperty("--gaze-y", `${(Math.sin(angle) * reach).toFixed(2)}px`);
+      targetX = Math.cos(angle) * reach;
+      targetY = Math.sin(angle) * reach;
+      if (!gazeRaf) gazeRaf = requestAnimationFrame(render);
     },
     { passive: true }
   );
@@ -68,11 +90,66 @@ if (!reducedMotion) {
   setTimeout(blink, 2200);
 }
 
-/* Happy eyes when you're about to say hello. */
+/* Happy eyes when you're about to say hello: the round eye morphs into
+   an upward half-moon. Safari has no CSS `d` property, so the morph is
+   done here — interpolating the path attribute works in every browser. */
+const EYE = {
+  open: [[11, 17.999], [11, 18], [11, 18.001]],
+  happy: [[7.6, 19.6], [11, 14.6], [14.4, 19.6]],
+  strokeOpen: 8,
+  strokeHappy: 2.4,
+};
+const leftEyes = document.querySelectorAll(".bot-eye-left");
+const rightEyes = document.querySelectorAll(".bot-eye-right");
+let smile = 0; // 0 = open, 1 = happy
+let smileRaf = null;
+
+function drawEyes(t) {
+  const lerp = (a, b) => a + (b - a) * t;
+  const p = EYE.open.map((pt, i) => [lerp(pt[0], EYE.happy[i][0]), lerp(pt[1], EYE.happy[i][1])]);
+  const d = (dx) =>
+    `M${(p[0][0] + dx).toFixed(3)},${p[0][1].toFixed(3)} Q${(p[1][0] + dx).toFixed(3)},${p[1][1].toFixed(3)} ${(p[2][0] + dx).toFixed(3)},${p[2][1].toFixed(3)}`;
+  const stroke = lerp(EYE.strokeOpen, EYE.strokeHappy).toFixed(2);
+  leftEyes.forEach((eye) => {
+    eye.setAttribute("d", d(0));
+    eye.setAttribute("stroke-width", stroke);
+  });
+  rightEyes.forEach((eye) => {
+    eye.setAttribute("d", d(10));
+    eye.setAttribute("stroke-width", stroke);
+  });
+}
+
+function morphTo(target) {
+  cancelAnimationFrame(smileRaf);
+  if (reducedMotion) {
+    smile = target;
+    drawEyes(smile);
+    return;
+  }
+  const from = smile;
+  const start = performance.now();
+  const duration = 260;
+  const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+  const tick = (now) => {
+    const progress = Math.min(1, (now - start) / duration);
+    smile = from + (target - from) * easeOutCubic(progress);
+    drawEyes(smile);
+    if (progress < 1) smileRaf = requestAnimationFrame(tick);
+  };
+  smileRaf = requestAnimationFrame(tick);
+}
+
 document.querySelectorAll('a[href="#contact"]').forEach((cta) => {
   for (const [on, off] of [["pointerenter", "pointerleave"], ["focus", "blur"]]) {
-    cta.addEventListener(on, () => document.body.classList.add("happy"));
-    cta.addEventListener(off, () => document.body.classList.remove("happy"));
+    cta.addEventListener(on, () => {
+      document.body.classList.add("happy");
+      morphTo(1);
+    });
+    cta.addEventListener(off, () => {
+      document.body.classList.remove("happy");
+      morphTo(0);
+    });
   }
 });
 
