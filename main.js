@@ -33,10 +33,12 @@ if (!reducedMotion && "IntersectionObserver" in window) {
 
 /* Every bot glances toward your cursor — each from where it actually
    sits on the page, so the header, hero, and footer look in different
-   directions. Transforms are written directly to the eye groups inside
-   one requestAnimationFrame loop — never via root-level CSS variables,
+   directions. When there's no cursor (touch devices) or it has been
+   still for a while, each bot leisurely looks around on its own.
+   Transforms are written directly to the eye groups inside one
+   requestAnimationFrame loop — never via root-level CSS variables,
    which force WebKit to restyle the whole document per mouse event. */
-if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+if (!reducedMotion) {
   const bots = [...document.querySelectorAll(".bot-eyes")].map((eyes) => ({
     svg: eyes.closest("svg"),
     eyes,
@@ -44,14 +46,21 @@ if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
     y: 0,
     tx: 0,
     ty: 0,
+    speed: 0.22,
   }));
   let gazeRaf = null;
+  let lastPointerAt = -Infinity;
+
+  const onScreen = (bot) => {
+    const rect = bot.svg.getBoundingClientRect();
+    return rect.bottom >= 0 && rect.top <= window.innerHeight ? rect : null;
+  };
 
   const render = () => {
     let settled = true;
     for (const bot of bots) {
-      bot.x += (bot.tx - bot.x) * 0.22;
-      bot.y += (bot.ty - bot.y) * 0.22;
+      bot.x += (bot.tx - bot.x) * bot.speed;
+      bot.y += (bot.ty - bot.y) * bot.speed;
       if (Math.abs(bot.tx - bot.x) < 0.01 && Math.abs(bot.ty - bot.y) < 0.01) {
         bot.x = bot.tx;
         bot.y = bot.ty;
@@ -63,23 +72,46 @@ if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
     gazeRaf = settled ? null : requestAnimationFrame(render);
   };
 
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      for (const bot of bots) {
-        const rect = bot.svg.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
-        const dx = event.clientX - (rect.left + rect.width / 2);
-        const dy = event.clientY - (rect.top + rect.height * 0.56);
-        const angle = Math.atan2(dy, dx);
-        const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
-        bot.tx = Math.cos(angle) * reach;
-        bot.ty = Math.sin(angle) * reach;
-      }
-      if (!gazeRaf) gazeRaf = requestAnimationFrame(render);
-    },
-    { passive: true }
-  );
+  const wake = () => {
+    if (!gazeRaf) gazeRaf = requestAnimationFrame(render);
+  };
+
+  if (window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        lastPointerAt = performance.now();
+        for (const bot of bots) {
+          const rect = onScreen(bot);
+          if (!rect) continue;
+          const dx = event.clientX - (rect.left + rect.width / 2);
+          const dy = event.clientY - (rect.top + rect.height * 0.56);
+          const angle = Math.atan2(dy, dx);
+          const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
+          bot.tx = Math.cos(angle) * reach;
+          bot.ty = Math.sin(angle) * reach;
+          bot.speed = 0.22;
+        }
+        wake();
+      },
+      { passive: true }
+    );
+  }
+
+  /* Idle wandering: on its own clock, each bot picks somewhere to look —
+     mostly small glances, sometimes back to center. */
+  const wander = (bot) => {
+    if (performance.now() - lastPointerAt > 4000 && onScreen(bot)) {
+      const angle = Math.random() * Math.PI * 2;
+      const reach = Math.random() < 0.25 ? 0 : 0.4 + Math.random() * 0.7;
+      bot.tx = Math.cos(angle) * reach;
+      bot.ty = Math.sin(angle) * reach;
+      bot.speed = 0.07;
+      wake();
+    }
+    setTimeout(() => wander(bot), 2600 + Math.random() * 4200);
+  };
+  bots.forEach((bot, i) => setTimeout(() => wander(bot), 1800 + i * 1100 + Math.random() * 1500));
 }
 
 /* He blinks now and then — occasionally twice, like anyone. */
