@@ -31,43 +31,51 @@ if (!reducedMotion && "IntersectionObserver" in window) {
   revealables.forEach((el) => el.classList.add("in"));
 }
 
-/* The bot glances toward your cursor. Empathy, in a small way.
-   Transforms are written directly to the few eye groups inside one
-   requestAnimationFrame loop — never via root-level CSS variables,
+/* Every bot glances toward your cursor — each from where it actually
+   sits on the page, so the header, hero, and footer look in different
+   directions. Transforms are written directly to the eye groups inside
+   one requestAnimationFrame loop — never via root-level CSS variables,
    which force WebKit to restyle the whole document per mouse event. */
-const heroBot = document.querySelector(".bot");
-const allEyes = document.querySelectorAll(".bot-eyes");
-if (heroBot && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
-  let targetX = 0;
-  let targetY = 0;
-  let gazeX = 0;
-  let gazeY = 0;
+if (!reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+  const bots = [...document.querySelectorAll(".bot-eyes")].map((eyes) => ({
+    svg: eyes.closest("svg"),
+    eyes,
+    x: 0,
+    y: 0,
+    tx: 0,
+    ty: 0,
+  }));
   let gazeRaf = null;
 
   const render = () => {
-    gazeX += (targetX - gazeX) * 0.22;
-    gazeY += (targetY - gazeY) * 0.22;
-    const settled = Math.abs(targetX - gazeX) < 0.01 && Math.abs(targetY - gazeY) < 0.01;
-    if (settled) {
-      gazeX = targetX;
-      gazeY = targetY;
+    let settled = true;
+    for (const bot of bots) {
+      bot.x += (bot.tx - bot.x) * 0.22;
+      bot.y += (bot.ty - bot.y) * 0.22;
+      if (Math.abs(bot.tx - bot.x) < 0.01 && Math.abs(bot.ty - bot.y) < 0.01) {
+        bot.x = bot.tx;
+        bot.y = bot.ty;
+      } else {
+        settled = false;
+      }
+      bot.eyes.style.transform = `translate(${bot.x.toFixed(2)}px, ${bot.y.toFixed(2)}px)`;
     }
-    const transform = `translate(${gazeX.toFixed(2)}px, ${gazeY.toFixed(2)}px)`;
-    allEyes.forEach((group) => (group.style.transform = transform));
     gazeRaf = settled ? null : requestAnimationFrame(render);
   };
 
   window.addEventListener(
     "pointermove",
     (event) => {
-      const rect = heroBot.getBoundingClientRect();
-      if (rect.bottom < 0) return;
-      const dx = event.clientX - (rect.left + rect.width / 2);
-      const dy = event.clientY - (rect.top + rect.height * 0.56);
-      const angle = Math.atan2(dy, dx);
-      const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
-      targetX = Math.cos(angle) * reach;
-      targetY = Math.sin(angle) * reach;
+      for (const bot of bots) {
+        const rect = bot.svg.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+        const dx = event.clientX - (rect.left + rect.width / 2);
+        const dy = event.clientY - (rect.top + rect.height * 0.56);
+        const angle = Math.atan2(dy, dx);
+        const reach = Math.min(1, Math.hypot(dx, dy) / 260) * 1.1;
+        bot.tx = Math.cos(angle) * reach;
+        bot.ty = Math.sin(angle) * reach;
+      }
       if (!gazeRaf) gazeRaf = requestAnimationFrame(render);
     },
     { passive: true }
