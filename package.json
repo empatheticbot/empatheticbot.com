@@ -4,9 +4,10 @@
   "description": "Empatheticbot website",
   "main": "index.js",
   "scripts": {
-    "start": "http-server . -c-1",
+    "start": "wrangler dev --port 8787 --var ALLOWED_ORIGINS:http://localhost:8787,http://127.0.0.1:8787 --var TURNSTILE_TEST_MODE:true",
+    "deploy": "wrangler deploy",
     "check": "biome check --write .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,6 @@
   "homepage": "https://github.com/empatheticbot/empatheticbot.com#readme",
   "devDependencies": {
     "@biomejs/biome": "2.5.4",
-    "http-server": "^14.1.1"
+    "wrangler": "4.112.0"
   }
 }

@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "empatheticbot-com",
+  "main": "./worker/contact.mjs",
+  "compatibility_date": "2026-07-17",
+  "secrets": {
+    "required": ["TURNSTILE_SECRET_KEY"]
+  },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://empatheticbot.com,https://empatheticbot-com.empatheticbot.workers.dev",
+    "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
+    "CONTACT_RECIPIENT": "inquiry@empatheticbot.com"
+  },
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "destination_address": "inquiry@empatheticbot.com"
+    }
+  ]
+}

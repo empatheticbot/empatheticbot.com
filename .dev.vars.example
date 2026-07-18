@@ -1,0 +1,6 @@
+# Cloudflare's always-pass test secret. Never use this value in production.
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+TURNSTILE_TEST_MODE=true
+
+# Wrangler's local preview origin. Production continues to use wrangler.jsonc.
+ALLOWED_ORIGINS=http://localhost:8787,http://127.0.0.1:8787

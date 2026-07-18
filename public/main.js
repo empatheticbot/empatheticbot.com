@@ -8,6 +8,16 @@ const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 24);
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
+/* The native mobile menu still works without JavaScript. When JavaScript is
+   available, close it after a destination is chosen so it does not obscure
+   the section the visitor just opened. */
+const mobileNavigation = document.querySelector(".mobile-navigation");
+if (mobileNavigation) {
+  for (const link of mobileNavigation.querySelectorAll("a")) {
+    link.addEventListener("click", () => mobileNavigation.removeAttribute("open"));
+  }
+}
+
 /* Reveal-on-scroll. If anything's unsupported, everything is simply visible. */
 const revealables = document.querySelectorAll(".reveal");
 if (!reducedMotion && "IntersectionObserver" in window) {
@@ -29,31 +39,6 @@ if (!reducedMotion && "IntersectionObserver" in window) {
   });
 } else {
   for (const el of revealables) el.classList.add("in");
-}
-
-/* Rotating headline: a website is never "done," so the hero line won't
-   settle on one either. Each phrase cross-fades into the next. Without JS
-   the markup shows a single, solid line; with reduced motion we leave it be. */
-const headline = document.querySelector("h1.headline");
-if (headline && !reducedMotion) {
-  const heart = '<span aria-description="heart">❤️</span>';
-  const lines = [
-    `Your website is never <em>finished</em>. Let’s treat it that way.`,
-    `Most websites launch, then quietly <em>rot</em>. Yours won’t.`,
-    `<em>“Done”</em> is where most websites start going wrong.`,
-    `A website is a <em>living thing</em>, not a deliverable.`,
-    `Software built with ${heart} — and looked after the same way.`,
-  ];
-  headline.style.transition = "opacity 500ms ease";
-  let i = 0;
-  setInterval(() => {
-    headline.style.opacity = "0";
-    setTimeout(() => {
-      i = (i + 1) % lines.length;
-      headline.innerHTML = lines[i];
-      headline.style.opacity = "1";
-    }, 500);
-  }, 5000);
 }
 
 /* Every bot glances toward your cursor — each from where it actually
@@ -235,35 +220,41 @@ happyTriggers.forEach((cta) => {
   }
 });
 
-/* Contact form: fetch-submit when an endpoint is configured,
-   otherwise fall back to a pre-filled email. */
+/* Contact form: enhance the native POST with an in-place status message. */
 const form = document.querySelector(".contact-form");
 if (form) {
   const note = form.querySelector(".form-note");
-  const endpointConfigured = !form.action.includes("YOUR_FORM_ID");
+  const button = form.querySelector('button[type="submit"]');
+  const turnstileWidget = form.querySelector(".cf-turnstile");
+
+  const resetTurnstile = () => {
+    if (window.turnstile && turnstileWidget) window.turnstile.reset("#contact-turnstile");
+  };
+
+  window.handleTurnstileError = () => {
+    note.classList.remove("success");
+    note.textContent =
+      "The security check couldn’t load. Please try again, or email hello@empatheticbot.com.";
+    return true;
+  };
+
+  window.handleTurnstileExpired = () => {
+    note.classList.remove("success");
+    note.textContent = "The security check expired. Please complete it again.";
+  };
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(form);
 
-    if (!endpointConfigured) {
-      // No endpoint yet — compose an email instead so nothing gets lost.
-      const lines = [];
-      for (const [key, value] of data.entries()) {
-        if (value) lines.push(`${key}: ${value}`);
-      }
-      const address = ["hello", "empatheticbot.com"].join("@");
-      const subject = encodeURIComponent(
-        `Project inquiry from ${data.get("name") || "the website"}`,
-      );
-      const body = encodeURIComponent(lines.join("\n"));
-      window.location.href = `mailto:${address}?subject=${subject}&body=${body}`;
-      note.textContent = "Opening your email app — send that message over and I'll be in touch.";
+    if (!data.get("cf-turnstile-response")) {
+      note.classList.remove("success");
+      note.textContent = "Please complete the security check before sending.";
       return;
     }
 
-    const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
+    note.classList.remove("success");
     note.textContent = "Sending…";
 
     try {
@@ -272,14 +263,19 @@ if (form) {
         body: data,
         headers: { Accept: "application/json" },
       });
-      if (!response.ok) throw new Error(`Request failed (${response.status})`);
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "That didn’t go through. Please try again.");
+      }
       form.reset();
+      resetTurnstile();
       note.classList.add("success");
       note.textContent =
         "Got it — thank you! I read every submission and will reply within two business days.";
-    } catch {
-      note.textContent =
-        "Hmm, that didn't go through. Please try again, or email hello@empatheticbot.com directly.";
+    } catch (error) {
+      resetTurnstile();
+      note.textContent = `${error.message} You can also email hello@empatheticbot.com directly.`;
+    } finally {
       button.disabled = false;
     }
   });
