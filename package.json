@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server . -c-1",
+    "check": "biome check --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/empatheticbot/empatheticbot.com#readme",
   "devDependencies": {
+    "@biomejs/biome": "2.5.4",
     "http-server": "^14.1.1"
   }
 }

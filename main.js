@@ -20,15 +20,40 @@ if (!reducedMotion && "IntersectionObserver" in window) {
         }
       }
     },
-    { threshold: 0, rootMargin: "0px 0px -40px" }
+    { threshold: 0, rootMargin: "0px 0px -40px" },
   );
-  revealables.forEach((el) => observer.observe(el));
+  for (const el of revealables) observer.observe(el);
   // Never let content stay hidden — e.g. when printing.
   window.addEventListener("beforeprint", () => {
-    revealables.forEach((el) => el.classList.add("in"));
+    for (const el of revealables) el.classList.add("in");
   });
 } else {
-  revealables.forEach((el) => el.classList.add("in"));
+  for (const el of revealables) el.classList.add("in");
+}
+
+/* Rotating headline: a website is never "done," so the hero line won't
+   settle on one either. Each phrase cross-fades into the next. Without JS
+   the markup shows a single, solid line; with reduced motion we leave it be. */
+const headline = document.querySelector("h1.headline");
+if (headline && !reducedMotion) {
+  const heart = '<span aria-description="heart">❤️</span>';
+  const lines = [
+    `Your website is never <em>finished</em>. Let’s treat it that way.`,
+    `Most websites launch, then quietly <em>rot</em>. Yours won’t.`,
+    `<em>“Done”</em> is where most websites start going wrong.`,
+    `A website is a <em>living thing</em>, not a deliverable.`,
+    `Software built with ${heart} — and looked after the same way.`,
+  ];
+  headline.style.transition = "opacity 500ms ease";
+  let i = 0;
+  setInterval(() => {
+    headline.style.opacity = "0";
+    setTimeout(() => {
+      i = (i + 1) % lines.length;
+      headline.innerHTML = lines[i];
+      headline.style.opacity = "1";
+    }, 500);
+  }, 5000);
 }
 
 /* Every bot glances toward your cursor — each from where it actually
@@ -94,7 +119,7 @@ if (!reducedMotion) {
         }
         wake();
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
@@ -111,7 +136,9 @@ if (!reducedMotion) {
     }
     setTimeout(() => wander(bot), 2600 + Math.random() * 4200);
   };
-  bots.forEach((bot, i) => setTimeout(() => wander(bot), 1800 + i * 1100 + Math.random() * 1500));
+  bots.forEach((bot, i) => {
+    setTimeout(() => wander(bot), 1800 + i * 1100 + Math.random() * 1500);
+  });
 }
 
 /* He blinks now and then — occasionally twice, like anyone. */
@@ -134,8 +161,16 @@ if (!reducedMotion) {
    an upward half-moon. Safari has no CSS `d` property, so the morph is
    done here — interpolating the path attribute works in every browser. */
 const EYE = {
-  open: [[11, 17.999], [11, 18], [11, 18.001]],
-  happy: [[7.6, 19.6], [11, 14.6], [14.4, 19.6]],
+  open: [
+    [11, 17.999],
+    [11, 18],
+    [11, 18.001],
+  ],
+  happy: [
+    [7.6, 19.6],
+    [11, 14.6],
+    [14.4, 19.6],
+  ],
   strokeOpen: 8,
   strokeHappy: 2.4,
 };
@@ -170,7 +205,7 @@ function morphTo(target) {
   const from = smile;
   const start = performance.now();
   const duration = 260;
-  const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+  const easeOutCubic = (x) => 1 - (1 - x) ** 3;
   const tick = (now) => {
     const progress = Math.min(1, (now - start) / duration);
     smile = from + (target - from) * easeOutCubic(progress);
@@ -180,8 +215,15 @@ function morphTo(target) {
   smileRaf = requestAnimationFrame(tick);
 }
 
-document.querySelectorAll('a[href="#contact"]').forEach((cta) => {
-  for (const [on, off] of [["pointerenter", "pointerleave"], ["focus", "blur"]]) {
+const happyTriggers = [
+  ...document.querySelectorAll('a[href="#contact"]'),
+  ...document.querySelectorAll(".contact-form button[type=submit]"),
+];
+happyTriggers.forEach((cta) => {
+  for (const [on, off] of [
+    ["pointerenter", "pointerleave"],
+    ["focus", "blur"],
+  ]) {
     cta.addEventListener(on, () => {
       document.body.classList.add("happy");
       morphTo(1);
@@ -211,7 +253,9 @@ if (form) {
         if (value) lines.push(`${key}: ${value}`);
       }
       const address = ["hello", "empatheticbot.com"].join("@");
-      const subject = encodeURIComponent(`Project inquiry from ${data.get("name") || "the website"}`);
+      const subject = encodeURIComponent(
+        `Project inquiry from ${data.get("name") || "the website"}`,
+      );
       const body = encodeURIComponent(lines.join("\n"));
       window.location.href = `mailto:${address}?subject=${subject}&body=${body}`;
       note.textContent = "Opening your email app — send that message over and I'll be in touch.";
@@ -231,9 +275,11 @@ if (form) {
       if (!response.ok) throw new Error(`Request failed (${response.status})`);
       form.reset();
       note.classList.add("success");
-      note.textContent = "Got it — thank you! I read every submission and will reply within two business days.";
-    } catch (error) {
-      note.textContent = "Hmm, that didn't go through. Please try again, or email hello@empatheticbot.com directly.";
+      note.textContent =
+        "Got it — thank you! I read every submission and will reply within two business days.";
+    } catch {
+      note.textContent =
+        "Hmm, that didn't go through. Please try again, or email hello@empatheticbot.com directly.";
       button.disabled = false;
     }
   });

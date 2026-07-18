@@ -94,7 +94,7 @@ svg {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  /* border-radius: 2px; */
 }
 
 /* --------------------------- Typography ----------------------------- */
@@ -254,7 +254,9 @@ a {
   background-size: 0% 1.5px;
   background-position: 0 100%;
   padding-bottom: 2px;
-  transition: background-size 0.25s, color 0.25s;
+  transition:
+    background-size 0.25s,
+    color 0.25s;
 }
 
 .site-header nav a:hover {
@@ -281,7 +283,10 @@ a {
   border: 1px solid var(--ink);
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background-color 0.15s;
 }
 
 .button:hover {
@@ -335,6 +340,13 @@ a {
   animation: hover 2.4s cubic-bezier(0.45, 0, 0.55, 1) alternate infinite;
 }
 
+/* When you hover a call-to-action, every bot gets a little excited hop. */
+.happy .bot,
+.happy .wordmark-bot,
+.happy .footer-bot {
+  animation: bounce 0.6s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+}
+
 .bot-heart {
   transform-origin: 72% 20%;
   animation: beat 1.5s cubic-bezier(0.21, -0.08, 0.54, 1.15) 0.4s infinite;
@@ -375,13 +387,24 @@ a {
   }
 }
 
-
 @keyframes hover {
   from {
     transform: translateY(4px);
   }
   to {
     transform: translateY(-8px);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    /* Percentage is relative to each bot's own height, so the hop stays
+       proportional whether it's the big hero or a tiny header bot. */
+    transform: translateY(-12%);
   }
 }
 
@@ -462,7 +485,9 @@ a {
 .reveal {
   opacity: 0;
   translate: 0 18px;
-  transition: opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease;
 }
 
 .reveal.in {
@@ -512,7 +537,11 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.75rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.6s ease,
+    translate 0.6s ease;
 }
 
 .compare-card:hover {
@@ -580,6 +609,12 @@ a {
   margin-inline: auto;
 }
 
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 135deg;
+}
+
 .price-card {
   max-width: 26rem;
   margin: 3rem auto 0;
@@ -589,7 +624,14 @@ a {
   box-shadow: var(--shadow);
   background:
     linear-gradient(var(--bg-raised), var(--bg-raised)) padding-box,
-    linear-gradient(135deg, var(--accent-bright), var(--line) 38% 62%, #ff6a00) border-box;
+    linear-gradient(var(--border-angle), var(--accent-bright), var(--line) 38% 62%, #ff6a00) border-box;
+  animation: border-spin 18s linear infinite;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 495deg;
+  }
 }
 
 .price {
@@ -676,7 +718,9 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0 1.5rem;
-  transition: opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease;
   interpolate-size: allow-keywords;
 }
 
@@ -715,7 +759,9 @@ a {
 .faq-list details::details-content {
   block-size: 0;
   overflow: hidden;
-  transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+  transition:
+    block-size 0.35s ease,
+    content-visibility 0.35s allow-discrete;
 }
 
 .faq-list details[open]::details-content {
@@ -776,10 +822,12 @@ textarea {
   color: var(--ink);
   background: var(--bg-raised);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 1rem;
   padding: 0.7rem 0.9rem;
   width: 100%;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 input::placeholder,
@@ -815,7 +863,9 @@ textarea {
   background: var(--bg-raised);
   cursor: pointer;
   font-size: 0.95rem;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 }
 
 .radio:has(input:checked) {
@@ -854,6 +904,8 @@ textarea {
   justify-items: center;
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: the .happy hop rule
+   only sets animation, so it never actually competes with these base sizes. */
 .footer-bot {
   width: 2.5rem;
   margin-bottom: 0.75rem;
@@ -870,6 +922,8 @@ textarea {
     scroll-behavior: auto;
   }
 
+  /* biome-ignore-start lint/complexity/noImportantStyles: honouring a motion
+     preference has to beat every other rule, however specific. */
   *,
   *::before,
   *::after {
@@ -877,6 +931,7 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* biome-ignore-end lint/complexity/noImportantStyles: reduced-motion reset */
 
   .reveal {
     opacity: 1;
