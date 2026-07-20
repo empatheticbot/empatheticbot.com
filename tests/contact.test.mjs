@@ -13,6 +13,7 @@ function validForm(overrides = {}) {
     website: "example.com",
     need: "A brand-new website",
     goals: "Bring in more calls from local customers.",
+    timing: "Before our fall opening",
     "cf-turnstile-response": "valid-test-token",
     ...overrides,
   };
@@ -66,10 +67,14 @@ describe("POST /api/contact", () => {
     assert.equal(response.status, 200);
     assert.deepEqual(await response.json(), { ok: true });
     assert.equal(response.headers.get("Cache-Control"), "no-store");
+    assert.equal(response.headers.get("X-Content-Type-Options"), "nosniff");
+    assert.equal(response.headers.get("X-Frame-Options"), "DENY");
+    assert.match(response.headers.get("Content-Security-Policy"), /default-src 'none'/);
     assert.equal(harness.turnstileCalls(), 1);
     assert.equal(harness.sent.length, 1);
     assert.equal(harness.sent[0].replyTo, "avery@example.com");
     assert.match(harness.sent[0].text, /https:\/\/example\.com\//);
+    assert.match(harness.sent[0].text, /Before our fall opening/);
     assert.doesNotMatch(harness.sent[0].text, /valid-test-token|test-secret/);
   });
 
@@ -149,6 +154,30 @@ describe("POST /api/contact", () => {
     assert.equal(response.status, 400);
     assert.equal(harness.turnstileCalls(), 0);
     assert.equal(harness.sent.length, 0);
+  });
+
+  test("accepts an omitted optional timing value", async () => {
+    const harness = createHarness();
+    const form = validForm();
+    form.delete("timing");
+    const response = await handleRequest(contactRequest(form), harness.env, {
+      fetch: harness.fetch,
+    });
+
+    assert.equal(response.status, 200);
+    assert.match(harness.sent[0].text, /No date provided/);
+  });
+
+  test("rejects an overlong timing value before calling Turnstile", async () => {
+    const harness = createHarness();
+    const response = await handleRequest(
+      contactRequest(validForm({ timing: "x".repeat(301) })),
+      harness.env,
+      { fetch: harness.fetch },
+    );
+
+    assert.equal(response.status, 400);
+    assert.equal(harness.turnstileCalls(), 0);
   });
 
   test("rejects failed or mismatched Turnstile validations", async () => {

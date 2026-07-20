@@ -3,12 +3,17 @@
   "name": "empatheticbot-com",
   "main": "./worker/contact.mjs",
   "compatibility_date": "2026-07-17",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
   "secrets": {
     "required": ["TURNSTILE_SECRET_KEY"]
   },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
+    "not_found_handling": "404-page",
     "run_worker_first": ["/api/*"]
   },
   "vars": {

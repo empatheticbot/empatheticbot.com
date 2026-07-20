@@ -33,6 +33,7 @@ if (!reducedMotion && "IntersectionObserver" in window) {
     { threshold: 0, rootMargin: "0px 0px -40px" },
   );
   for (const el of revealables) observer.observe(el);
+  document.documentElement.classList.add("reveal-enabled");
   // Never let content stay hidden — e.g. when printing.
   window.addEventListener("beforeprint", () => {
     for (const el of revealables) el.classList.add("in");
@@ -243,6 +244,18 @@ if (form) {
     note.textContent = "The security check expired. Please complete it again.";
   };
 
+  /* Use the provider's public test key locally so npm start exercises the
+     complete form without weakening the production widget. */
+  const localHostnames = new Set(["localhost", "127.0.0.1", "[::1]"]);
+  turnstileWidget.dataset.sitekey = localHostnames.has(window.location.hostname)
+    ? "1x00000000000000000000AA"
+    : "0x4AAAAAAD4lhcXg34wOO6Wb";
+  const turnstileScript = document.createElement("script");
+  turnstileScript.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+  turnstileScript.async = true;
+  turnstileScript.defer = true;
+  document.head.append(turnstileScript);
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(form);
@@ -274,7 +287,9 @@ if (form) {
         "Got it — thank you! I read every submission and will reply within two business days.";
     } catch (error) {
       resetTurnstile();
-      note.textContent = `${error.message} You can also email hello@empatheticbot.com directly.`;
+      const message =
+        error instanceof Error ? error.message : "That didn’t go through. Please try again.";
+      note.textContent = `${message} You can also email hello@empatheticbot.com directly.`;
     } finally {
       button.disabled = false;
     }

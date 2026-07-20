@@ -10,15 +10,14 @@ validates Turnstile and sends a notification through a restricted `send_email` b
 npm install
 npm test
 npm run check
-cp .dev.vars.example .dev.vars
 npm start
 ```
 
-For local browser testing, temporarily use Cloudflare's always-pass Turnstile site key
-`1x00000000000000000000AA` in `public/index.html`. `.dev.vars.example` already contains the matching
-test secret. Wrangler simulates the email binding locally; it does not send an external email.
+Local development automatically uses Cloudflare's public always-pass Turnstile test keys. Wrangler
+simulates the email binding locally; it does not send an external email. Production continues to
+use the real widget key and the deployed `TURNSTILE_SECRET_KEY` secret.
 
-## One-time Cloudflare setup
+## One-time Cloudflare setup (free plan)
 
 1. Add `empatheticbot.com` to Cloudflare and use Cloudflare DNS. Preserve the existing Google
    Workspace MX records on the apex domain.
@@ -28,13 +27,16 @@ test secret. Wrangler simulates the email binding locally; it does not send an e
 3. Add `inquiry@empatheticbot.com` as a destination address and complete its verification email.
    `wrangler.jsonc` already uses this address for both `CONTACT_RECIPIENT` and the binding's
    restricted `destination_address`.
-4. In **Compute > Email Service > Email Sending**, onboard `empatheticbot.com` and confirm its
-   sending DNS records are active. This adds the `cf-bounce` and DKIM records used to authenticate
-   outbound messages without replacing Google Workspace's MX records. `wrangler.jsonc` uses
-   `inquiry@forms.empatheticbot.com` for `CONTACT_FROM`.
-5. In **Turnstile**, confirm the configured widget allows `empatheticbot.com`. Its public site key
-   is already set in `public/index.html`.
-6. Run the local checks below, authenticate Wrangler, then store the Turnstile secret without
+4. In **Compute > Email Service > Email Routing**, select `forms.empatheticbot.com`, open
+   **Settings**, and confirm the subdomain's routing DNS records are active. Email Routing adds the
+   MX, SPF, and DKIM records to the subdomain without replacing Google Workspace's apex records.
+   `wrangler.jsonc` uses `inquiry@forms.empatheticbot.com` for `CONTACT_FROM`.
+5. Do not onboard **Email Sending** for this form. Arbitrary-recipient sending requires a paid
+   plan, but sends to a verified Email Routing destination are free on all plans. This Worker is
+   restricted to the verified `inquiry@empatheticbot.com` destination.
+6. In **Turnstile**, confirm the configured widget allows `empatheticbot.com`. Its public site key
+   is already set in `public/main.js`.
+7. Run the local checks below, authenticate Wrangler, then store the Turnstile secret without
    committing it. The secret command creates and immediately deploys a Worker version:
 
    ```sh
@@ -42,17 +44,16 @@ test secret. Wrangler simulates the email binding locally; it does not send an e
    npx wrangler secret put TURNSTILE_SECRET_KEY
    ```
 
-7. Deploy the finalized version with `npm run deploy`. In the Worker dashboard, open
+8. Deploy the finalized version with `npm run deploy`. In the Worker dashboard, open
    **Settings > Domains & Routes**, add a Custom Domain, and choose `empatheticbot.com`.
 
 This configuration intentionally sends only to one verified destination, so the notification
-remains free. The sender domain still needs Email Sending onboarding so its SPF and DKIM
-authentication records are present; that does not require arbitrary-recipient sending.
+remains free. The sender must stay on the active `forms.empatheticbot.com` Email Routing subdomain;
+sending to arbitrary recipients would require the paid Email Sending plan.
 
-For local form testing, copy `.dev.vars.example` to `.dev.vars`. Its test-only values allow the
-Wrangler preview origin, enable local test-token handling, and use Cloudflare's always-pass
-Turnstile keys; they never apply to the deployed Worker. Do not configure `TURNSTILE_TEST_MODE`
-in Cloudflare.
+The test-only values in `npm start` allow the Wrangler preview origin, enable local test-token
+handling, and use Cloudflare's always-pass Turnstile keys; they never apply to the deployed Worker.
+Do not configure `TURNSTILE_TEST_MODE` in Cloudflare.
 
 If `www.empatheticbot.com` will also submit the form, add it to the Turnstile widget and append
 it to `ALLOWED_ORIGINS` as a comma-separated origin.

@@ -23,13 +23,23 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://empatheticbot.com/" />
     <meta property="og:title" content="empatheticbot — your website, cared for by an actual human" />
+    <meta property="og:site_name" content="empatheticbot" />
     <meta
       property="og:description"
       content="Small-business web design and ongoing care for $200/month. Based in Canton, Michigan and available to businesses anywhere."
     />
     <meta property="og:image" content="https://empatheticbot.com/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="empatheticbot — small-business websites, made with care"
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@empatheticbot" />
+    <meta
+      name="twitter:image:alt"
+      content="empatheticbot — small-business websites, made with care"
+    />
 
     <link
       rel="preload"
@@ -40,7 +50,6 @@
     />
     <link href="style.css" rel="stylesheet" />
     <script src="main.js" defer></script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -81,7 +90,7 @@
     <!-- Shared paint definitions for every bot on the page.
          (Deliberately not inside <defs>+<use> — WebKit doesn't restyle
          use-element shadow trees dynamically, so each bot is real markup.) -->
-    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute">
+    <svg class="svg-definitions" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
           <stop stop-color="#da1212" offset="0%"></stop>
@@ -194,7 +203,9 @@
           <a class="button" href="#contact">Start the conversation</a>
           <a class="button button-ghost" href="#why">Why a subscription?</a>
         </div>
-        <p class="hero-terms">$200/month &middot; 12-month initial partnership &middot; no setup fee</p>
+        <p class="hero-terms">
+          $2,400 initial commitment &middot; billed at $200/month for 12 months &middot; no setup fee
+        </p>
       </section>
 
       <!-- ======================= Why a subscription ======================= -->
@@ -304,9 +315,9 @@
           <div class="founder-portrait-frame">
             <img
               class="founder-portrait"
-              src="https://sledsworth.com/_astro/avatar.J64Jdgco_Cd16J.webp"
-              width="300"
-              height="300"
+              src="assets/steve-ledsworth.jpg"
+              width="600"
+              height="600"
               loading="lazy"
               alt="Steve Ledsworth"
             />
@@ -369,7 +380,7 @@
         <ul class="included-list">
           <li class="reveal">Design &amp; build of your website</li>
           <li class="reveal">Managed hosting</li>
-          <li class="reveal">Domain, email &amp; third-party account setup</li>
+          <li class="reveal">One standard domain, DNS, email &amp; account setup</li>
           <li class="reveal">Unlimited small updates — new hours, photos, copy, menus</li>
           <li class="reveal">Security patches &amp; software maintenance</li>
           <li class="reveal">Speed &amp; accessibility, routinely tested and tuned</li>
@@ -391,7 +402,8 @@
             <span class="price-period">per month</span>
           </p>
           <p class="price-terms">
-            12-month initial partnership, then month-to-month with 30 days’ notice.
+            $2,400 initial commitment, billed as twelve monthly payments of $200. Then
+            month-to-month with 30 days’ notice.
           </p>
           <ul class="price-list">
             <li>Design, build, managed hosting, updates, and ongoing care</li>
@@ -402,8 +414,9 @@
         </div>
 
         <p class="price-disclosure">
-          If your site needs a paid third-party service, you pay that provider directly. I
-          never mark up those costs or add one without your approval.
+          Basic hosting and one standard domain are included. If your site needs another paid
+          third-party service, you pay that provider directly. I never mark up those costs or
+          add one without your approval.
         </p>
 
         <aside class="why-twelve reveal">
@@ -427,11 +440,12 @@
           <details class="reveal">
             <summary>Who owns the website?</summary>
             <p>
-              You do. Your domain, content, third-party accounts, and GitHub repository stay
-              in your name. Managed hosting is included while you subscribe. If we part ways,
-              I’ll provide the complete source, assets, deployment notes, and reasonable help
-              moving elsewhere. You arrange the replacement hosting; I make sure you have what
-              you need. No hostages.
+              You do. Your domain, content, third-party accounts, and custom website stay yours.
+              I may administer the included domain, repository, and managed hosting while you
+              subscribe, and you have ongoing repository access. If we part ways, I’ll transfer
+              the repository and domain, provide the source, assets, and deployment notes, and
+              give reasonable help moving elsewhere. You arrange the replacement hosting; I
+              make sure you have what you need. No hostages.
             </p>
           </details>
           <details class="reveal">
@@ -455,10 +469,11 @@
           <details class="reveal">
             <summary>Who handles domains, email, and paid services?</summary>
             <p>
-              Your accounts, my problem. Domains and third-party services stay in your name
-              and use your payment method, while I handle setup, DNS, integrations, and
-              day-to-day administration through secure access. Any provider fees are shown to
-              you first, paid directly, and never marked up.
+              One standard domain and basic hosting are included. The domain is yours; I handle
+              its registration, DNS, and day-to-day administration during the subscription.
+              Other third-party services stay in your name and use your payment method while I
+              handle setup and integrations through secure access. Any additional provider fees
+              are shown to you first, paid directly, and never marked up.
             </p>
           </details>
           <details class="reveal">
@@ -481,8 +496,12 @@
           <details class="reveal">
             <summary>What if it isn’t working out mid-contract?</summary>
             <p>
-              Talk to me. If I can’t make it right, we’ll agree on a fair way to wind down.
-              A relationship held together only by a contract isn’t one I want either.
+              The first year is a real commitment, not month-to-month; the $2,400 minimum
+              applies. I also understand that businesses can face genuinely difficult
+              circumstances. If that happens, talk to me early. I’ll listen and work in good
+              faith toward a reasonable written solution where I can, but early cancellation
+              isn’t automatic. The agreement protects the up-front work; it isn’t an excuse to
+              treat people unfairly.
             </p>
           </details>
         </div>
@@ -505,11 +524,26 @@
           <div class="form-row">
             <div class="field">
               <label for="name">Your name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                minlength="2"
+                maxlength="100"
+                required
+              />
             </div>
             <div class="field">
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+              />
             </div>
           </div>
 
@@ -519,6 +553,8 @@
               id="business"
               name="business"
               type="text"
+              minlength="2"
+              maxlength="180"
               placeholder="e.g. Ledsworth & Sons, a family-run plumbing company"
               required
             />
@@ -534,6 +570,7 @@
               autocomplete="url"
               autocapitalize="none"
               spellcheck="false"
+              maxlength="300"
               placeholder="example.com"
             />
           </div>
@@ -555,16 +592,28 @@
               id="goals"
               name="goals"
               rows="4"
+              minlength="10"
+              maxlength="2000"
               placeholder="More calls? Online bookings? Looking as good as you actually are?"
               required
             ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="timing">Is there a date or deadline you’re working toward? (optional)</label>
+            <input
+              id="timing"
+              name="timing"
+              type="text"
+              maxlength="300"
+              placeholder="For example, opening a new location this fall"
+            />
           </div>
 
           <div class="turnstile-wrap">
             <div
               id="contact-turnstile"
               class="cf-turnstile"
-              data-sitekey="0x4AAAAAAD4lhcXg34wOO6Wb"
               data-action="contact"
               data-appearance="interaction-only"
               data-theme="auto"
@@ -583,7 +632,8 @@
           <button class="button button-wide" type="submit">Send it over</button>
           <p class="form-privacy">
             I use this information only to reply to you. I don’t sell it or add you to a
-            marketing list without separate permission.
+            marketing list without separate permission. Read the
+            <a href="/privacy">privacy notice</a>.
           </p>
           <p class="form-note" role="status" aria-live="polite"></p>
         </form>
@@ -612,6 +662,7 @@
         Hand-coded in HTML &amp; CSS. No templates, no page builders —
         <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
       </p>
+      <p class="footer-small"><a href="/privacy">Privacy</a></p>
       <p class="footer-small">&copy; <span id="year">2026</span> Steve Ledsworth</p>
     </footer>
   </body>

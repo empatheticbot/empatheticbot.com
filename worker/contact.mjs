@@ -14,8 +14,12 @@ function jsonResponse(status, body, extraHeaders = {}) {
     status,
     headers: {
       "Cache-Control": "no-store",
+      "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; sandbox",
       "Content-Type": "application/json; charset=utf-8",
+      "Permissions-Policy": "camera=(), geolocation=(), microphone=(), payment=()",
+      "Referrer-Policy": "no-referrer",
       "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
       ...extraHeaders,
     },
   });
@@ -108,6 +112,7 @@ function validateForm(form) {
   const website = normalizeWebsite(textValue(form, "website"));
   const need = normalizeLine(textValue(form, "need"), 100);
   const goals = normalizeParagraph(textValue(form, "goals"), 2_000);
+  const timing = normalizeParagraph(textValue(form, "timing"), 300, false);
   const turnstileToken = normalizeLine(textValue(form, "cf-turnstile-response"), 2_048);
 
   const emailIsValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && !/[\r\n]/.test(email);
@@ -123,6 +128,7 @@ function validateForm(form) {
     !NEED_OPTIONS.has(need) ||
     !goals ||
     goals.length < 10 ||
+    timing === null ||
     !turnstileToken
   ) {
     return null;
@@ -135,6 +141,7 @@ function validateForm(form) {
     website,
     need,
     goals,
+    timing,
     turnstileToken,
   };
 }
@@ -215,6 +222,7 @@ function buildEmail(lead, env) {
     ["Current website", lead.website || "Not provided"],
     ["What they need", lead.need],
     ["Goals", lead.goals],
+    ["Timing", lead.timing || "No date provided"],
   ];
 
   const text = [
@@ -252,7 +260,10 @@ export async function handleRequest(request, env, dependencies = {}) {
   }
 
   if (!hasConfiguration(env)) {
-    console.error("Contact Worker is missing required bindings or variables.");
+    console.error({
+      event: "contact_configuration_missing",
+      cfRay: request.headers.get("CF-Ray") || undefined,
+    });
     return jsonResponse(503, {
       ok: false,
       error: "The contact form is temporarily unavailable.",
@@ -298,8 +309,12 @@ export async function handleRequest(request, env, dependencies = {}) {
       env,
       fetchImplementation,
     );
-  } catch {
-    console.error("Turnstile verification was unavailable.");
+  } catch (error) {
+    console.error({
+      event: "contact_security_check_unavailable",
+      errorType: error instanceof Error ? error.name : "UnknownError",
+      cfRay: request.headers.get("CF-Ray") || undefined,
+    });
     return jsonResponse(502, {
       ok: false,
       error: "The security check is temporarily unavailable. Please try again.",
@@ -315,8 +330,12 @@ export async function handleRequest(request, env, dependencies = {}) {
 
   try {
     await env.CONTACT_EMAIL.send(buildEmail(lead, env));
-  } catch {
-    console.error("Contact notification email could not be sent.");
+  } catch (error) {
+    console.error({
+      event: "contact_email_send_failed",
+      errorType: error instanceof Error ? error.name : "UnknownError",
+      cfRay: request.headers.get("CF-Ray") || undefined,
+    });
     return jsonResponse(502, {
       ok: false,
       error: "Your message could not be sent. Please try again.",

@@ -34,6 +34,7 @@
   --accent-bright: #da1212;
   --accent-soft: rgba(218, 18, 18, 0.07);
   --shadow: 0 1px 2px rgba(33, 29, 26, 0.05), 0 12px 32px -12px rgba(33, 29, 26, 0.12);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -86,6 +87,10 @@ svg {
   max-width: 100%;
 }
 
+.svg-definitions {
+  position: absolute;
+}
+
 ::selection {
   background: var(--accent);
   color: #fff;
@@ -94,7 +99,6 @@ svg {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  /* border-radius: 2px; */
 }
 
 /* --------------------------- Typography ----------------------------- */
@@ -286,6 +290,11 @@ a {
   display: none;
 }
 
+.mobile-navigation summary:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--focus-ring);
+}
+
 .mobile-navigation summary::after {
   content: "\00a0\25be";
   color: var(--ink-soft);
@@ -341,7 +350,7 @@ a {
   }
 
   .desktop-navigation,
-  .header-cta {
+  .button.header-cta {
     display: none;
   }
 
@@ -374,6 +383,11 @@ a {
   box-shadow: var(--shadow);
 }
 
+.button:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--focus-ring);
+}
+
 .button:active {
   transform: translateY(0);
 }
@@ -387,6 +401,10 @@ a {
 .button-small {
   padding: 0.5rem 1.1rem;
   font-size: 0.875rem;
+}
+
+.header-cta {
+  white-space: nowrap;
 }
 
 .button-wide {
@@ -561,8 +579,9 @@ a {
   padding-bottom: var(--space);
 }
 
-/* Reveal-on-scroll (JS adds .in; motion respected in media query below) */
-.reveal {
+/* Content is visible by default. JavaScript opts into the hidden starting
+   state only after IntersectionObserver is ready. */
+.reveal-enabled .reveal {
   opacity: 0;
   translate: 0 18px;
   transition:
@@ -570,7 +589,7 @@ a {
     translate 0.6s ease;
 }
 
-.reveal.in {
+.reveal-enabled .reveal.in {
   opacity: 1;
   translate: 0 0;
 }
@@ -923,8 +942,15 @@ a {
   padding: 0 1.5rem;
   transition:
     opacity 0.6s ease,
-    translate 0.6s ease;
+    translate 0.6s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   interpolate-size: allow-keywords;
+}
+
+.faq-list details:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .faq-list summary {
@@ -936,6 +962,10 @@ a {
   gap: 1rem;
   padding: 1.1rem 0;
   font-weight: 600;
+}
+
+.faq-list summary:focus-visible {
+  outline: 2px solid transparent;
 }
 
 .faq-list summary::-webkit-details-marker {
@@ -1041,15 +1071,16 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: color-mix(in srgb, var(--ink-soft) 65%, transparent);
+  color: color-mix(in srgb, var(--ink-soft) 85%, transparent);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: var(--focus-ring);
 }
 
 textarea {
@@ -1067,6 +1098,23 @@ textarea {
   color: var(--ink-soft);
   font-size: 0.85rem;
   text-align: center;
+}
+
+@media (forced-colors: active) {
+  .mobile-navigation summary:focus-visible,
+  .button:focus-visible,
+  .faq-list details:focus-within,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  .faq-list summary:focus-visible {
+    outline: none;
+  }
 }
 
 .form-note.success {
@@ -1098,6 +1146,72 @@ textarea {
   font-size: 0.875rem;
 }
 
+/* ------------------------- Privacy and errors ------------------------- */
+
+.legal-header {
+  position: static;
+}
+
+.wordmark-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.legal-main {
+  width: min(100% - 3rem, 46rem);
+  margin-inline: auto;
+  padding-block: clamp(4rem, 10vw, 7rem);
+}
+
+.legal-content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.legal-content h1 {
+  max-width: none;
+  margin-inline: 0;
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+}
+
+.legal-content h2 {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+.legal-content p,
+.legal-content li {
+  color: var(--ink-soft);
+}
+
+.legal-content ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.legal-meta {
+  font-size: 0.925rem;
+}
+
+.error-page {
+  min-height: calc(100svh - 8rem);
+  align-content: center;
+  text-align: center;
+  justify-items: center;
+}
+
+.error-code {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 7rem);
+  line-height: 1;
+}
+
+.error-page p {
+  max-width: 36rem;
+}
+
 /* --------------------------- Reduced motion --------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1116,7 +1230,7 @@ textarea {
   }
   /* biome-ignore-end lint/complexity/noImportantStyles: reduced-motion reset */
 
-  .reveal {
+  .reveal-enabled .reveal {
     opacity: 1;
     translate: none;
   }
