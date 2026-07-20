@@ -12,7 +12,7 @@
     <title>empatheticbot — your website, cared for by an actual human</title>
     <meta
       name="description"
-      content="A one-person web studio. I design, build, host, and care for small-business websites for one flat monthly price — $200/month, everything included."
+      content="A one-person web studio in Canton, Michigan. Small-business website design, hosting, and ongoing care for $200/month with no setup fee."
     />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://empatheticbot.com/" />
@@ -23,13 +23,23 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://empatheticbot.com/" />
     <meta property="og:title" content="empatheticbot — your website, cared for by an actual human" />
+    <meta property="og:site_name" content="empatheticbot" />
     <meta
       property="og:description"
-      content="Web design & development by subscription. One flat monthly price, one person who knows your site as well as you know your business."
+      content="Small-business web design and ongoing care for $200/month. Based in Canton, Michigan and available to businesses anywhere."
     />
     <meta property="og:image" content="https://empatheticbot.com/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="empatheticbot — small-business websites, made with care"
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@empatheticbot" />
+    <meta
+      name="twitter:image:alt"
+      content="empatheticbot — small-business websites, made with care"
+    />
 
     <link
       rel="preload"
@@ -40,6 +50,37 @@
     />
     <link href="style.css" rel="stylesheet" />
     <script src="main.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "empatheticbot",
+        "url": "https://empatheticbot.com/",
+        "image": "https://empatheticbot.com/assets/og.png",
+        "description": "Small-business website design, managed hosting, and ongoing care.",
+        "email": "hello@empatheticbot.com",
+        "founder": {
+          "@type": "Person",
+          "name": "Steve Ledsworth",
+          "url": "https://sledsworth.com/"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Canton, Michigan"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Michigan"
+          },
+          {
+            "@type": "Country",
+            "name": "United States"
+          }
+        ],
+        "priceRange": "$200/month"
+      }
+    </script>
   </head>
 
   <body>
@@ -49,7 +90,7 @@
     <!-- Shared paint definitions for every bot on the page.
          (Deliberately not inside <defs>+<use> — WebKit doesn't restyle
          use-element shadow trees dynamically, so each bot is real markup.) -->
-    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute">
+    <svg class="svg-definitions" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
           <stop stop-color="#da1212" offset="0%"></stop>
@@ -83,13 +124,25 @@
         </svg>
         <span>empatheticbot</span>
       </a>
-      <nav aria-label="Sections">
+      <nav class="desktop-navigation" aria-label="Sections">
         <a href="#why">The&nbsp;model</a>
         <a href="#human">The&nbsp;difference</a>
+        <a href="#work">Work</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="button button-small" href="#contact">Start a project</a>
+      <details class="mobile-navigation">
+        <summary>Menu</summary>
+        <nav class="mobile-navigation-panel" aria-label="Mobile sections">
+          <a href="#why">The model</a>
+          <a href="#human">The difference</a>
+          <a href="#work">Work</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a class="mobile-navigation-cta" href="#contact">Start a project</a>
+        </nav>
+      </details>
+      <a class="button button-small header-cta" href="#contact">Start a project</a>
     </header>
 
     <main id="main">
@@ -138,18 +191,21 @@
           </g>
         </svg>
 
-        <p class="eyebrow">A one-person web design &amp; development studio</p>
-        <h1>Your website deserves better than <em>“done.”</em></h1>
+        <p class="eyebrow">Small-business websites · Canton, Michigan &amp; beyond</p>
+        <h1 class="headline">Your website is never <em>finished</em>. Let’s treat it that way.</h1>
         <p class="lede">
-          I design, build, host, and care for small-business websites — for one flat monthly
-          price. No surprise invoices. No handoff-and-disappear. Just a working relationship
-          with the person who wrote every line.
+          I design, build, host, and care for small-business websites for one flat monthly
+          price. No setup fee. No surprise invoices. No disappearing after launch. Just a
+          working relationship with the person who fretted over every line. Software built
+          with ❤️.
         </p>
         <div class="hero-actions">
           <a class="button" href="#contact">Start the conversation</a>
           <a class="button button-ghost" href="#why">Why a subscription?</a>
         </div>
-        <p class="hero-terms">$200/month &middot; 12-month initial partnership &middot; everything included</p>
+        <p class="hero-terms">
+          $2,400 initial commitment &middot; billed at $200/month for 12 months &middot; no setup fee
+        </p>
       </section>
 
       <!-- ======================= Why a subscription ======================= -->
@@ -185,9 +241,10 @@
             <span class="reason-number" aria-hidden="true">03</span>
             <h3>Trust is built over time</h3>
             <p>
-              In month one I learn your business and we launch. By month six I know your
-              customers, your busy season, and which page actually earns you calls. That
-              context compounds — and it’s something no vendor-of-the-week can offer.
+              In month one I learn your business and we start building something together.
+              By month six I know your customers, your busy season, and which page actually
+              earns you business.
+              That context compounds — and it’s something no vendor-of-the-week can offer.
             </p>
           </li>
           <li class="reason reveal">
@@ -217,7 +274,7 @@
             <p>
               With Wix or Squarespace, the subscription buys you software — the work is
               still yours. You’re the designer, the writer, the SEO person, and the one
-              debugging the layout at 11pm. That’s a second job, not a solution.
+              debugging the layout at 11 p.m. That’s a second job, not a solution.
             </p>
           </article>
           <article class="compare-card reveal">
@@ -225,26 +282,94 @@
             <p>
               An AI will produce a plausible, averaged version of a website in seconds. It
               won’t sit with you, ask the second question, notice that your booking page is
-              broken on phones, or call you when something looks off. Judgment and follow-through are the product here — not markup.
+              broken on phones, or call you when something looks off. Judgment and
+              follow-through are the product here — not markup.
             </p>
           </article>
           <article class="compare-card reveal">
             <h3>You get me. Directly.</h3>
             <p>
               No ticket queues, no account managers, no support chatbot. When you email,
-              the person who answers is the person who built your site and will fix it —
-              usually the same day.
+              the person who answers is the person who built your site and will fix it. I
+              reply within two business days, often sooner.
             </p>
           </article>
           <article class="compare-card reveal">
             <h3>Handmade is the fast kind</h3>
             <p>
-              Every site is written by hand — no page-builder bloat, no fifty plugins.
-              That’s why they load in a blink, work on every device, meet accessibility
-              standards, and are a pleasure for search engines. This page is one; view
-              source and look around.
+              Every site is written by hand — no page-builder bloat, no stack of 50 plugins.
+              That keeps the result fast, portable, and easy to test across modern devices
+              and assistive technology. Search engines appreciate the clean foundation too.
+              This page is one; view source and look around.
             </p>
           </article>
+        </div>
+      </section>
+
+      <!-- ========================== Founder & work ========================== -->
+      <section class="section" id="work">
+        <p class="kicker">Experience</p>
+        <h2>The studio is new. I’m not new to the web.</h2>
+
+        <div class="founder reveal">
+          <div class="founder-portrait-frame">
+            <img
+              class="founder-portrait"
+              src="assets/steve-ledsworth.jpg"
+              width="600"
+              height="600"
+              loading="lazy"
+              alt="Steve Ledsworth"
+            />
+          </div>
+          <div class="founder-copy">
+            <h3>Hi, I’m Steve.</h3>
+            <p>
+              I’m a front-end developer in Canton, Michigan, with more than a decade of
+              professional experience at a large insurance company. I’ve spent that time
+              making complicated interfaces clearer, faster, and easier to use.
+            </p>
+            <p>
+              empatheticbot is my new studio, built around a simple idea: small businesses
+              deserve that same level of care without hiring a department or managing a pile
+              of vendors. When you work with me, you work directly with the person doing the
+              work.
+            </p>
+            <p><a href="https://sledsworth.com/">More about me at sledsworth.com&nbsp;→</a></p>
+          </div>
+        </div>
+
+        <div class="selected-work">
+          <h3>Selected work</h3>
+          <div class="work-grid">
+            <a class="work-card reveal" href="https://sledsworth.com/">
+              <span class="work-mark" aria-hidden="true">✍️</span>
+              <strong>sledsworth.com</strong>
+              <span>
+                A long-running personal publishing site built for clear reading, accessible
+                navigation, and easy maintenance.
+              </span>
+              <span class="work-link">Visit the site&nbsp;→</span>
+            </a>
+            <a class="work-card reveal" href="https://waffle.how/">
+              <span class="work-mark" aria-hidden="true">🧇</span>
+              <strong>waffle.how</strong>
+              <span>
+                A focused recipe experience with adjustable servings, weight and volume
+                views, recommendations, and AI-assisted recipe creation.
+              </span>
+              <span class="work-link">Visit the site&nbsp;→</span>
+            </a>
+            <a class="work-card reveal" href="https://movie.surf/">
+              <span class="work-mark" aria-hidden="true">🍿</span>
+              <strong>movie.surf</strong>
+              <span>
+                An AI-assisted movie finder combining natural-language search with genre,
+                decade, and streaming-service filters.
+              </span>
+              <span class="work-link">Visit the site&nbsp;→</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -254,13 +379,14 @@
         <h2>One subscription. The whole job.</h2>
         <ul class="included-list">
           <li class="reveal">Design &amp; build of your website</li>
-          <li class="reveal">Hosting, domain &amp; email setup</li>
+          <li class="reveal">Managed hosting</li>
+          <li class="reveal">One standard domain, DNS, email &amp; account setup</li>
           <li class="reveal">Unlimited small updates — new hours, photos, copy, menus</li>
           <li class="reveal">Security patches &amp; software maintenance</li>
-          <li class="reveal">Speed &amp; accessibility, continuously tuned</li>
+          <li class="reveal">Speed &amp; accessibility, routinely tested and tuned</li>
           <li class="reveal">Search-engine basics done right</li>
           <li class="reveal">Analytics you can actually read</li>
-          <li class="reveal">New pages &amp; features, planned month by month</li>
+          <li class="reveal">New pages &amp; modest features, planned month by month</li>
           <li class="reveal">A real human who answers</li>
         </ul>
       </section>
@@ -268,21 +394,30 @@
       <!-- ============================== Pricing ============================== -->
       <section class="section" id="pricing">
         <p class="kicker">Pricing</p>
-        <h2>One plan. No asterisks.</h2>
+        <h2>One plan. No surprise invoices.</h2>
 
         <div class="price-card reveal">
           <p class="price">
             <span class="price-amount">$200</span>
             <span class="price-period">per month</span>
           </p>
-          <p class="price-terms">12-month initial partnership, then month-to-month. Cancel anytime after.</p>
+          <p class="price-terms">
+            $2,400 initial commitment, billed as twelve monthly payments of $200. Then
+            month-to-month with 30 days’ notice.
+          </p>
           <ul class="price-list">
-            <li>Everything listed above — design, build, hosting, care</li>
-            <li>One active request at a time, most turned around in days</li>
-            <li>Your domain, your content, your site. You own it all.</li>
+            <li>Design, build, managed hosting, updates, and ongoing care</li>
+            <li>One active request at a time — most completed in a few business days</li>
+            <li>Your domain, accounts, content, and GitHub repository stay yours</li>
           </ul>
           <a class="button button-wide" href="#contact">Start the conversation</a>
         </div>
+
+        <p class="price-disclosure">
+          Basic hosting and one standard domain are included. If your site needs another paid
+          third-party service, you pay that provider directly. I never mark up those costs or
+          add one without your approval.
+        </p>
 
         <aside class="why-twelve reveal">
           <h3>Why twelve months?</h3>
@@ -305,8 +440,12 @@
           <details class="reveal">
             <summary>Who owns the website?</summary>
             <p>
-              You do. The domain is registered to you, the content is yours, and if we ever
-              part ways you keep the site and I’ll help you move it. No hostages.
+              You do. Your domain, content, third-party accounts, and custom website stay yours.
+              I may administer the included domain, repository, and managed hosting while you
+              subscribe, and you have ongoing repository access. If we part ways, I’ll transfer
+              the repository and domain, provide the source, assets, and deployment notes, and
+              give reasonable help moving elsewhere. You arrange the replacement hosting; I
+              make sure you have what you need. No hostages.
             </p>
           </details>
           <details class="reveal">
@@ -319,11 +458,22 @@
             </p>
           </details>
           <details class="reveal">
-            <summary>What if I need something big, like online booking or a shop?</summary>
+            <summary>What kinds of websites aren’t a fit?</summary>
             <p>
-              We roadmap it. Many “big” features can be built incrementally within the
-              subscription over a few months. If something is genuinely beyond that scope,
-              I’ll tell you plainly and quote it separately — no padding, no surprises.
+              I focus on small-business marketing and service websites. Simple booking embeds
+              or payment links may fit, but full online stores and complex web applications
+              aren’t currently part of this plan. Have an unusual idea? Reach out anyway. We
+              can talk through it before either of us commits.
+            </p>
+          </details>
+          <details class="reveal">
+            <summary>Who handles domains, email, and paid services?</summary>
+            <p>
+              One standard domain and basic hosting are included. The domain is yours; I handle
+              its registration, DNS, and day-to-day administration during the subscription.
+              Other third-party services stay in your name and use your payment method while I
+              handle setup and integrations through secure access. Any additional provider fees
+              are shown to you first, paid directly, and never marked up.
             </p>
           </details>
           <details class="reveal">
@@ -337,16 +487,21 @@
           <details class="reveal">
             <summary>What happens after the first 12 months?</summary>
             <p>
-              The plan continues month-to-month at the same price, and you can cancel with
-              30 days’ notice. Most of the value shows up in the long run — but that should
-              be your conclusion, not a clause in a contract.
+              The plan continues month-to-month, and you can cancel with 30 days’ notice. Your
+              $200 rate is fixed for the initial year. If pricing changes later, existing
+              clients receive at least 90 days’ notice and new-client pricing will usually
+              change first.
             </p>
           </details>
           <details class="reveal">
             <summary>What if it isn’t working out mid-contract?</summary>
             <p>
-              Talk to me. If I can’t make it right, we’ll agree on a fair way to wind down.
-              A relationship held together only by a contract isn’t one I want either.
+              The first year is a real commitment, not month-to-month; the $2,400 minimum
+              applies. I also understand that businesses can face genuinely difficult
+              circumstances. If that happens, talk to me early. I’ll listen and work in good
+              faith toward a reasonable written solution where I can, but early cancellation
+              isn’t automatic. The agreement protects the up-front work; it isn’t an excuse to
+              treat people unfairly.
             </p>
           </details>
         </div>
@@ -360,20 +515,35 @@
           A few questions so our first conversation counts. I read every submission
           personally and reply within two business days.
         </p>
+        <p class="contact-fallback">
+          Prefer email? Write to
+          <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a>.
+        </p>
 
-        <!--
-          Point the action at your form endpoint (e.g. Formspree: https://formspree.io/f/xxxxxxx).
-          Until then, JavaScript falls back to opening a pre-filled email.
-        -->
-        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form class="contact-form" action="/api/contact" method="POST">
           <div class="form-row">
             <div class="field">
               <label for="name">Your name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                minlength="2"
+                maxlength="100"
+                required
+              />
             </div>
             <div class="field">
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+              />
             </div>
           </div>
 
@@ -383,6 +553,8 @@
               id="business"
               name="business"
               type="text"
+              minlength="2"
+              maxlength="180"
               placeholder="e.g. Ledsworth & Sons, a family-run plumbing company"
               required
             />
@@ -390,7 +562,17 @@
 
           <div class="field">
             <label for="website">Current website, if you have one</label>
-            <input id="website" name="website" type="url" placeholder="https://…" />
+            <input
+              id="website"
+              name="website"
+              type="text"
+              inputmode="url"
+              autocomplete="url"
+              autocapitalize="none"
+              spellcheck="false"
+              maxlength="300"
+              placeholder="example.com"
+            />
           </div>
 
           <div class="field">
@@ -410,42 +592,49 @@
               id="goals"
               name="goals"
               rows="4"
+              minlength="10"
+              maxlength="2000"
               placeholder="More calls? Online bookings? Looking as good as you actually are?"
               required
             ></textarea>
           </div>
 
-          <fieldset class="field">
-            <legend>The subscription is $200/month with a 12-month initial commitment.</legend>
-            <div class="radio-row">
-              <label class="radio">
-                <input type="radio" name="budget" value="That works for me" required />
-                <span>That works for me</span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="budget" value="I'd like to talk it through" />
-                <span>I’d like to talk it through</span>
-              </label>
-            </div>
-          </fieldset>
-
           <div class="field">
-            <label for="timeline">When would you like to start?</label>
-            <select id="timeline" name="timeline" required>
-              <option value="" selected disabled>Choose one…</option>
-              <option>As soon as possible</option>
-              <option>In the next month or two</option>
-              <option>Sometime this year</option>
-              <option>Just exploring for now</option>
-            </select>
+            <label for="timing">Is there a date or deadline you’re working toward? (optional)</label>
+            <input
+              id="timing"
+              name="timing"
+              type="text"
+              maxlength="300"
+              placeholder="For example, opening a new location this fall"
+            />
           </div>
 
-          <div class="field">
-            <label for="extra">Anything else I should know? <span class="optional">(optional)</span></label>
-            <textarea id="extra" name="extra" rows="3"></textarea>
+          <div class="turnstile-wrap">
+            <div
+              id="contact-turnstile"
+              class="cf-turnstile"
+              data-action="contact"
+              data-appearance="interaction-only"
+              data-theme="auto"
+              data-error-callback="handleTurnstileError"
+              data-expired-callback="handleTurnstileExpired"
+            ></div>
           </div>
+
+          <noscript>
+            <p class="form-no-script">
+              JavaScript is required for the security check. You can still email
+              <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a> directly.
+            </p>
+          </noscript>
 
           <button class="button button-wide" type="submit">Send it over</button>
+          <p class="form-privacy">
+            I use this information only to reply to you. I don’t sell it or add you to a
+            marketing list without separate permission. Read the
+            <a href="/privacy">privacy notice</a>.
+          </p>
           <p class="form-note" role="status" aria-live="polite"></p>
         </form>
       </section>
@@ -466,12 +655,14 @@
         </g>
       </svg>
       <p>
-        <strong>empatheticbot</strong> — software with heart, since 2015.
+        <strong>empatheticbot</strong> — small-business websites, made with care in Canton,
+        Michigan.
       </p>
       <p class="footer-small">
         Hand-coded in HTML &amp; CSS. No templates, no page builders —
         <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
       </p>
+      <p class="footer-small"><a href="/privacy">Privacy</a></p>
       <p class="footer-small">&copy; <span id="year">2026</span> Steve Ledsworth</p>
     </footer>
   </body>

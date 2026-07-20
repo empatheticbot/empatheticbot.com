@@ -34,6 +34,7 @@
   --accent-bright: #da1212;
   --accent-soft: rgba(218, 18, 18, 0.07);
   --shadow: 0 1px 2px rgba(33, 29, 26, 0.05), 0 12px 32px -12px rgba(33, 29, 26, 0.12);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -86,6 +87,10 @@ svg {
   max-width: 100%;
 }
 
+.svg-definitions {
+  position: absolute;
+}
+
 ::selection {
   background: var(--accent);
   color: #fff;
@@ -94,7 +99,6 @@ svg {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 /* --------------------------- Typography ----------------------------- */
@@ -240,12 +244,12 @@ a {
   height: 1.75rem;
 }
 
-.site-header nav {
+.desktop-navigation {
   display: flex;
   gap: 1.5rem;
 }
 
-.site-header nav a {
+.desktop-navigation a {
   font-size: 0.925rem;
   color: var(--ink-soft);
   text-decoration: none;
@@ -254,17 +258,104 @@ a {
   background-size: 0% 1.5px;
   background-position: 0 100%;
   padding-bottom: 2px;
-  transition: background-size 0.25s, color 0.25s;
+  transition:
+    background-size 0.25s,
+    color 0.25s;
 }
 
-.site-header nav a:hover {
+.desktop-navigation a:hover {
   color: var(--ink);
   background-size: 100% 1.5px;
 }
 
+.mobile-navigation {
+  display: none;
+  position: relative;
+}
+
+.mobile-navigation summary {
+  list-style: none;
+  padding: 0.45rem 0.8rem;
+  color: var(--ink);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.mobile-navigation summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-navigation summary:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--focus-ring);
+}
+
+.mobile-navigation summary::after {
+  content: "\00a0\25be";
+  color: var(--ink-soft);
+}
+
+.mobile-navigation[open] summary::after {
+  content: "\00a0\25b4";
+}
+
+.mobile-navigation-panel {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  right: 0;
+  display: grid;
+  gap: 0.2rem;
+  width: min(13rem, calc(100vw - 2rem));
+  padding: 0.6rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.mobile-navigation-panel a {
+  padding: 0.55rem 0.7rem;
+  color: var(--ink);
+  border-radius: 0.55rem;
+  font-size: 0.925rem;
+  text-decoration: none;
+}
+
+.mobile-navigation-panel a:hover,
+.mobile-navigation-panel a:focus-visible {
+  background: var(--accent-soft);
+}
+
+.mobile-navigation-panel .mobile-navigation-cta {
+  margin-top: 0.2rem;
+  color: var(--bg);
+  background: var(--ink);
+  text-align: center;
+}
+
+.mobile-navigation-panel .mobile-navigation-cta:hover,
+.mobile-navigation-panel .mobile-navigation-cta:focus-visible {
+  background: var(--ink);
+}
+
 @media (max-width: 760px) {
-  .site-header nav {
+  .site-header {
+    gap: 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  .desktop-navigation,
+  .button.header-cta {
     display: none;
+  }
+
+  .mobile-navigation {
+    display: block;
   }
 }
 
@@ -281,12 +372,20 @@ a {
   border: 1px solid var(--ink);
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background-color 0.15s;
 }
 
 .button:hover {
   transform: translateY(-1.5px);
   box-shadow: var(--shadow);
+}
+
+.button:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--focus-ring);
 }
 
 .button:active {
@@ -302,6 +401,10 @@ a {
 .button-small {
   padding: 0.5rem 1.1rem;
   font-size: 0.875rem;
+}
+
+.header-cta {
+  white-space: nowrap;
 }
 
 .button-wide {
@@ -322,7 +425,7 @@ a {
 
 .hero-glow {
   position: absolute;
-  inset: -20% -30% auto;
+  inset: -20% 0 auto;
   height: 34rem;
   background: radial-gradient(closest-side, var(--accent-soft), transparent 70%);
   pointer-events: none;
@@ -333,6 +436,13 @@ a {
   width: clamp(6.5rem, 14vw, 9rem);
   margin: 0 auto 1.75rem;
   animation: hover 2.4s cubic-bezier(0.45, 0, 0.55, 1) alternate infinite;
+}
+
+/* When you hover a call-to-action, every bot gets a little excited hop. */
+.happy .bot,
+.happy .wordmark-bot,
+.happy .footer-bot {
+  animation: bounce 0.6s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
 }
 
 .bot-heart {
@@ -375,13 +485,24 @@ a {
   }
 }
 
-
 @keyframes hover {
   from {
     transform: translateY(4px);
   }
   to {
     transform: translateY(-8px);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    /* Percentage is relative to each bot's own height, so the hop stays
+       proportional whether it's the big hero or a tiny header bot. */
+    transform: translateY(-12%);
   }
 }
 
@@ -458,14 +579,17 @@ a {
   padding-bottom: var(--space);
 }
 
-/* Reveal-on-scroll (JS adds .in; motion respected in media query below) */
-.reveal {
+/* Content is visible by default. JavaScript opts into the hidden starting
+   state only after IntersectionObserver is ready. */
+.reveal-enabled .reveal {
   opacity: 0;
   translate: 0 18px;
-  transition: opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease;
 }
 
-.reveal.in {
+.reveal-enabled .reveal.in {
   opacity: 1;
   translate: 0 0;
 }
@@ -512,7 +636,11 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.75rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.6s ease,
+    translate 0.6s ease;
 }
 
 .compare-card:hover {
@@ -527,6 +655,121 @@ a {
 .compare-card p {
   color: var(--ink-soft);
   font-size: 0.975rem;
+}
+
+/* ----------------------- Founder & selected work ---------------------- */
+
+.founder {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: minmax(9rem, 12rem) 1fr;
+  align-items: start;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
+}
+
+.founder-portrait-frame {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--bg-raised), var(--bg-raised)) padding-box,
+    linear-gradient(var(--border-angle), var(--accent-bright), var(--line) 38% 62%, #ff6a00)
+    border-box;
+  box-shadow: var(--shadow);
+  animation: border-spin 18s linear infinite;
+}
+
+.founder-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.founder-copy h3 {
+  font-size: 1.5rem;
+}
+
+.founder-copy p {
+  margin-top: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.selected-work {
+  margin-top: 3.5rem;
+}
+
+.selected-work > h3 {
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1.25rem;
+}
+
+.work-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1.5rem;
+  color: var(--ink-soft);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.6s ease,
+    translate 0.6s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: var(--shadow);
+}
+
+.work-card strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.work-mark {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.work-link {
+  margin-top: auto;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .founder {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .founder-portrait-frame {
+    width: 9rem;
+    justify-self: center;
+  }
 }
 
 /* -------------------------- Included list ----------------------------- */
@@ -580,6 +823,12 @@ a {
   margin-inline: auto;
 }
 
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 135deg;
+}
+
 .price-card {
   max-width: 26rem;
   margin: 3rem auto 0;
@@ -589,7 +838,15 @@ a {
   box-shadow: var(--shadow);
   background:
     linear-gradient(var(--bg-raised), var(--bg-raised)) padding-box,
-    linear-gradient(135deg, var(--accent-bright), var(--line) 38% 62%, #ff6a00) border-box;
+    linear-gradient(var(--border-angle), var(--accent-bright), var(--line) 38% 62%, #ff6a00)
+    border-box;
+  animation: border-spin 18s linear infinite;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 495deg;
+  }
 }
 
 .price {
@@ -643,6 +900,13 @@ a {
   top: 0.25em;
 }
 
+.price-disclosure {
+  max-width: 40rem;
+  margin: 1.5rem auto 0;
+  color: var(--ink-soft);
+  font-size: 0.925rem;
+}
+
 .why-twelve {
   max-width: var(--measure);
   margin: 3.5rem auto 0;
@@ -676,8 +940,17 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0 1.5rem;
-  transition: opacity 0.6s ease, translate 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   interpolate-size: allow-keywords;
+}
+
+.faq-list details:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .faq-list summary {
@@ -689,6 +962,10 @@ a {
   gap: 1rem;
   padding: 1.1rem 0;
   font-weight: 600;
+}
+
+.faq-list summary:focus-visible {
+  outline: 2px solid transparent;
 }
 
 .faq-list summary::-webkit-details-marker {
@@ -715,7 +992,9 @@ a {
 .faq-list details::details-content {
   block-size: 0;
   overflow: hidden;
-  transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+  transition:
+    block-size 0.35s ease,
+    content-visibility 0.35s allow-discrete;
 }
 
 .faq-list details[open]::details-content {
@@ -740,6 +1019,23 @@ a {
   gap: 1.5rem;
 }
 
+.contact-fallback {
+  margin-top: 1rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.turnstile-wrap {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.form-no-script {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
@@ -753,20 +1049,9 @@ a {
   padding: 0;
 }
 
-.field label,
-.field legend {
+.field label {
   font-weight: 600;
   font-size: 0.95rem;
-}
-
-.field legend {
-  margin-bottom: 0.65rem;
-  padding: 0;
-}
-
-.optional {
-  font-weight: 400;
-  color: var(--ink-soft);
 }
 
 input,
@@ -776,57 +1061,30 @@ textarea {
   color: var(--ink);
   background: var(--bg-raised);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 1rem;
   padding: 0.7rem 0.9rem;
   width: 100%;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: color-mix(in srgb, var(--ink-soft) 65%, transparent);
+  color: color-mix(in srgb, var(--ink-soft) 85%, transparent);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: var(--focus-ring);
 }
 
 textarea {
   resize: vertical;
-}
-
-.radio-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.radio {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.65rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg-raised);
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: border-color 0.2s, background-color 0.2s;
-}
-
-.radio:has(input:checked) {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.radio input {
-  width: auto;
-  accent-color: var(--accent-bright);
-  margin: 0;
 }
 
 .form-note {
@@ -834,6 +1092,29 @@ textarea {
   color: var(--ink-soft);
   min-height: 1.5em;
   text-align: center;
+}
+
+.form-privacy {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (forced-colors: active) {
+  .mobile-navigation summary:focus-visible,
+  .button:focus-visible,
+  .faq-list details:focus-within,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  .faq-list summary:focus-visible {
+    outline: none;
+  }
 }
 
 .form-note.success {
@@ -854,6 +1135,8 @@ textarea {
   justify-items: center;
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: the .happy hop rule
+   only sets animation, so it never actually competes with these base sizes. */
 .footer-bot {
   width: 2.5rem;
   margin-bottom: 0.75rem;
@@ -863,6 +1146,72 @@ textarea {
   font-size: 0.875rem;
 }
 
+/* ------------------------- Privacy and errors ------------------------- */
+
+.legal-header {
+  position: static;
+}
+
+.wordmark-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.legal-main {
+  width: min(100% - 3rem, 46rem);
+  margin-inline: auto;
+  padding-block: clamp(4rem, 10vw, 7rem);
+}
+
+.legal-content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.legal-content h1 {
+  max-width: none;
+  margin-inline: 0;
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+}
+
+.legal-content h2 {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+.legal-content p,
+.legal-content li {
+  color: var(--ink-soft);
+}
+
+.legal-content ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.legal-meta {
+  font-size: 0.925rem;
+}
+
+.error-page {
+  min-height: calc(100svh - 8rem);
+  align-content: center;
+  text-align: center;
+  justify-items: center;
+}
+
+.error-code {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 7rem);
+  line-height: 1;
+}
+
+.error-page p {
+  max-width: 36rem;
+}
+
 /* --------------------------- Reduced motion --------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -870,6 +1219,8 @@ textarea {
     scroll-behavior: auto;
   }
 
+  /* biome-ignore-start lint/complexity/noImportantStyles: honouring a motion
+     preference has to beat every other rule, however specific. */
   *,
   *::before,
   *::after {
@@ -877,8 +1228,9 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* biome-ignore-end lint/complexity/noImportantStyles: reduced-motion reset */
 
-  .reveal {
+  .reveal-enabled .reveal {
     opacity: 1;
     translate: none;
   }
