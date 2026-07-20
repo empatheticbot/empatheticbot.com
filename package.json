@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Empatheticbot website",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA wrangler dev --port 8787 --var ALLOWED_ORIGINS:http://localhost:8787,http://127.0.0.1:8787 --var TURNSTILE_TEST_MODE:true",
     "deploy": "wrangler deploy",
@@ -13,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/empatheticbot/empatheticbot.com.git"
   },
-  "author": "Steve Ledsworth",
-  "license": "ISC",
+  "author": "Steven Ledsworth",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/empatheticbot/empatheticbot.com/issues"
   },

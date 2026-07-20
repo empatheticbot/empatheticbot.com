@@ -1,4 +1,4 @@
-# Website Services Subscription Agreement
+# Website Services Sample Subscription Agreement
 
 > Complete every bracketed field before signing. This agreement is a business-to-business contract and is intended for attorney review.
 
