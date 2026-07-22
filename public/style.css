@@ -199,13 +199,15 @@ a {
   padding: 0.5rem 1rem;
   background: var(--bg-raised);
   border-radius: 999px;
-  box-shadow: var(--shadow);
+  /* The shadow appears only on focus — on the base rule it bleeds into the
+     viewport's top edge while the link is tucked away above it. */
   translate: 0 calc(-100% - 1.5rem);
   transition: translate 0.2s;
 }
 
 .skip-link:focus {
   translate: 0 0;
+  box-shadow: var(--shadow);
 }
 
 .site-header {
@@ -352,6 +354,11 @@ a {
   .desktop-navigation,
   .button.header-cta {
     display: none;
+  }
+
+  /* Legal pages have no menu, so their header CTA fits on small screens. */
+  .legal-header .button.header-cta {
+    display: inline-block;
   }
 
   .mobile-navigation {
@@ -1031,6 +1038,13 @@ a {
   justify-items: start;
 }
 
+/* The interaction-only widget stays out of sight AND out of the tab order
+   (visibility, unlike opacity, removes it from keyboard focus). JS lifts
+   this class the moment Turnstile says a visible challenge is required. */
+.turnstile-pending {
+  visibility: hidden;
+}
+
 .form-no-script {
   color: var(--ink-soft);
   font-size: 0.875rem;
@@ -1196,9 +1210,183 @@ textarea {
 
 .error-page {
   min-height: calc(100svh - 8rem);
+  display: grid;
   align-content: center;
-  text-align: center;
   justify-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.error-page .button {
+  margin-top: 0.75rem;
+}
+
+/* The 404 pratfall, one shared 5s timeline in four synchronized tracks:
+   the bot falls in (eyes open, watching the ground), slams into the 404 —
+   which shakes — and winces; the 404 drops off the bottom of the screen,
+   returns from the top a beat later, and smacks him on the way down; his
+   eyes snap to Xs and he does the classic video-game defeat spin.
+   Runs once; the global reduced-motion rule collapses everything to the
+   final resting pose (404 in place, bot knocked out).
+   overflow: clip on .error-page keeps the offscreen travel from creating
+   scrollbars mid-animation. */
+.error-page {
+  overflow: clip;
+}
+
+.error-bot {
+  width: clamp(6.5rem, 14vw, 9rem);
+  transform-origin: 50% 60%;
+  animation: bot-defeat 5s 0.3s both;
+}
+
+.error-code {
+  animation: code-crash 5s 0.3s both;
+}
+
+.error-bot-eyes-open,
+.error-bot-eyes-x {
+  transform-box: view-box;
+  transform-origin: 16px 18px;
+}
+
+.error-bot-eyes-open {
+  animation: eyes-open 5s 0.3s both;
+}
+
+.error-bot-eyes-x {
+  animation: eyes-x 5s 0.3s both;
+}
+
+@keyframes bot-defeat {
+  0% {
+    transform: translateY(-70vh);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
+  }
+  /* Slams down onto the 404 below, squashing on contact… */
+  10% {
+    transform: translateY(55%) scale(1.16, 0.74);
+    animation-timing-function: ease-out;
+  }
+  /* …then bounces back up to his spot. */
+  15% {
+    transform: translateY(0) scale(0.96, 1.03);
+  }
+  /* Standing pause while the 404 leaves and returns. */
+  21%,
+  64% {
+    transform: scale(1);
+  }
+  /* Bonked on the head by the returning 404. */
+  66% {
+    transform: scale(1.15, 0.78);
+    animation-timing-function: ease-out;
+  }
+  70% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0.3, 0.4, 1);
+  }
+  78% {
+    transform: translateY(-38%) rotate(1.5turn);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.6);
+  }
+  88% {
+    transform: translateY(0) rotate(3turn);
+    animation-timing-function: ease-out;
+  }
+  91% {
+    transform: scale(1.1, 0.86) rotate(3turn);
+  }
+  100% {
+    transform: scale(1) rotate(3turn);
+  }
+}
+
+@keyframes code-crash {
+  /* Rattled by the bot's landing. */
+  0%,
+  10% {
+    transform: translate(0, 0);
+  }
+  12% {
+    transform: translateX(-5px);
+  }
+  14% {
+    transform: translateX(5px);
+  }
+  16% {
+    transform: translateX(-3px);
+  }
+  18% {
+    transform: translateX(2px);
+  }
+  /* Gives out and falls off the bottom of the screen… */
+  20%,
+  36% {
+    transform: translate(0, 0);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
+  }
+  44%,
+  59.9% {
+    transform: translateY(80vh);
+  }
+  /* …then returns from the top a beat later, smacking the bot on the way. */
+  60% {
+    transform: translateY(-85vh);
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.7);
+  }
+  68% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes eyes-open {
+  /* Watching the ground rush up. */
+  0%,
+  9% {
+    transform: translateY(1.2px);
+    opacity: 1;
+  }
+  /* Wincing from the landing. */
+  10%,
+  20% {
+    transform: scaleY(0.12);
+  }
+  24%,
+  38% {
+    transform: none;
+  }
+  /* Watching the 404 disappear below… */
+  44%,
+  58% {
+    transform: translateY(1.2px);
+  }
+  /* …then spotting it coming back down. */
+  62%,
+  65.9% {
+    transform: translateY(-1.2px);
+    opacity: 1;
+  }
+  66%,
+  100% {
+    transform: translateY(-1.2px);
+    opacity: 0;
+  }
+}
+
+@keyframes eyes-x {
+  0%,
+  65.9% {
+    opacity: 0;
+  }
+  66%,
+  100% {
+    opacity: 1;
+  }
 }
 
 .error-code {
