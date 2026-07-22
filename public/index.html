@@ -452,7 +452,7 @@
             <summary>What does “unlimited small updates” actually mean?</summary>
             <p>
               Send as many requests as you like; I work through them one at a time, and most
-              are done within a couple of business days. “Small” means things like content
+              are done within a few business days. “Small” means things like content
               changes, new photos, a new section, a tweak to a form. Bigger ideas get
               planned into upcoming months — that’s the fun part.
             </p>
@@ -610,7 +610,7 @@
             />
           </div>
 
-          <div class="turnstile-wrap">
+          <div class="turnstile-wrap turnstile-pending" inert>
             <div
               id="contact-turnstile"
               class="cf-turnstile"
@@ -619,6 +619,8 @@
               data-theme="auto"
               data-error-callback="handleTurnstileError"
               data-expired-callback="handleTurnstileExpired"
+              data-before-interactive-callback="handleTurnstileInteractive"
+              data-after-interactive-callback="handleTurnstileInteractiveEnd"
             ></div>
           </div>
 
@@ -654,16 +656,12 @@
           <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
         </g>
       </svg>
-      <p>
-        <strong>empatheticbot</strong> — small-business websites, made with care in Canton,
-        Michigan.
-      </p>
       <p class="footer-small">
         Hand-coded in HTML &amp; CSS. No templates, no page builders —
         <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
       </p>
       <p class="footer-small"><a href="/privacy">Privacy</a></p>
-      <p class="footer-small">&copy; <span id="year">2026</span> Steve Ledsworth</p>
+      <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>
     </footer>
   </body>
 </html>

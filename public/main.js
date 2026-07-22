@@ -227,6 +227,7 @@ if (form) {
   const note = form.querySelector(".form-note");
   const button = form.querySelector('button[type="submit"]');
   const turnstileWidget = form.querySelector(".cf-turnstile");
+  const turnstileWrap = turnstileWidget.closest(".turnstile-wrap");
 
   const resetTurnstile = () => {
     if (window.turnstile && turnstileWidget) window.turnstile.reset("#contact-turnstile");
@@ -242,6 +243,18 @@ if (form) {
   window.handleTurnstileExpired = () => {
     note.classList.remove("success");
     note.textContent = "The security check expired. Please complete it again.";
+  };
+
+  /* The widget stays hidden (and out of the tab order) until Turnstile
+     reports that a visible, interactive challenge is actually required. */
+  window.handleTurnstileInteractive = () => {
+    turnstileWrap.classList.remove("turnstile-pending");
+    turnstileWrap.inert = false;
+  };
+
+  window.handleTurnstileInteractiveEnd = () => {
+    turnstileWrap.classList.add("turnstile-pending");
+    turnstileWrap.inert = true;
   };
 
   /* Use the provider's public test key locally so npm start exercises the
