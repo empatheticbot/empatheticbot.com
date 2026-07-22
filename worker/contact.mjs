@@ -214,6 +214,17 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function emailText(value) {
+  return escapeHtml(value).replaceAll("\n", "<br />");
+}
+
+function detailRow(label, value) {
+  return `<tr>
+    <td class="detail-label" valign="top" style="width:148px;padding:13px 16px 13px 0;border-bottom:1px solid #e6dfd4;color:#766d64;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.1px;line-height:18px;text-transform:uppercase;">${escapeHtml(label)}</td>
+    <td class="detail-value" valign="top" style="padding:13px 0;border-bottom:1px solid #e6dfd4;color:#211d1a;font-family:Arial,sans-serif;font-size:15px;line-height:23px;">${value}</td>
+  </tr>`;
+}
+
 function buildEmail(lead, env) {
   const rows = [
     ["Name", lead.name],
@@ -226,25 +237,113 @@ function buildEmail(lead, env) {
   ];
 
   const text = [
+    "empatheticbot",
+    "================",
+    "",
     "New website inquiry",
+    `A new conversation with ${lead.name} at ${lead.business}.`,
     "",
     ...rows.flatMap(([label, value]) => [`${label}:`, value, ""]),
+    "Reply to this email to write back directly.",
   ].join("\n");
 
-  const htmlRows = rows
-    .map(
-      ([label, value]) =>
-        `<tr><th align="left" valign="top" style="padding:8px 16px 8px 0">${escapeHtml(label)}</th><td style="padding:8px 0;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`,
-    )
-    .join("");
+  const emailHref = escapeHtml(`mailto:${lead.email}`);
+  const websiteValue = lead.website
+    ? `<a href="${escapeHtml(lead.website)}" style="color:#a91f15;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;">${escapeHtml(lead.website)}</a>`
+    : '<span style="color:#766d64;">Not provided</span>';
+  const details = [
+    detailRow("Name", emailText(lead.name)),
+    detailRow(
+      "Email",
+      `<a href="${emailHref}" style="color:#a91f15;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;">${escapeHtml(lead.email)}</a>`,
+    ),
+    detailRow("Business", emailText(lead.business)),
+    detailRow("Current website", websiteValue),
+    detailRow("What they need", emailText(lead.need)),
+    detailRow("Timing", emailText(lead.timing || "No date provided")),
+  ].join("");
+
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="supported-color-schemes" content="light" />
+    <title>New website inquiry</title>
+    <style>
+      @media only screen and (max-width: 620px) {
+        .email-shell { padding: 16px 8px !important; }
+        .email-card { border-radius: 10px !important; }
+        .email-header, .email-content { padding-left: 24px !important; padding-right: 24px !important; }
+        .detail-label, .detail-value { display: block !important; width: auto !important; }
+        .detail-label { padding: 13px 0 0 !important; border-bottom: 0 !important; }
+        .detail-value { padding: 2px 0 13px !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0;padding:0;background-color:#faf8f4;color:#211d1a;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;mso-hide:all;">${escapeHtml(lead.name)} from ${escapeHtml(lead.business)} sent a new website inquiry.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background-color:#faf8f4;">
+      <tr>
+        <td class="email-shell" align="center" style="padding:40px 16px;">
+          <table role="presentation" class="email-card" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:620px;background-color:#ffffff;border:1px solid #e6dfd4;border-top:4px solid #c22417;border-radius:14px;box-shadow:0 12px 32px rgba(33,29,26,0.08);overflow:hidden;">
+            <tr>
+              <td class="email-header" style="padding:28px 40px 24px;border-bottom:1px solid #e6dfd4;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td valign="middle" style="padding-right:11px;">
+                      <div style="width:34px;height:34px;border-radius:10px;background-color:#c22417;color:#ffffff;font-family:Arial,sans-serif;font-size:18px;font-weight:700;line-height:34px;text-align:center;">♥</div>
+                    </td>
+                    <td valign="middle" style="color:#211d1a;font-family:Georgia,'Times New Roman',serif;font-size:21px;font-weight:700;line-height:28px;">empatheticbot</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="email-content" style="padding:36px 40px 40px;">
+                <p style="margin:0 0 10px;color:#c22417;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;line-height:18px;text-transform:uppercase;">New website inquiry</p>
+                <h1 style="margin:0;color:#211d1a;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;letter-spacing:-0.5px;line-height:39px;">A new conversation has started.</h1>
+                <p style="margin:14px 0 26px;color:#625a52;font-family:Arial,sans-serif;font-size:16px;line-height:25px;"><strong style="color:#211d1a;">${escapeHtml(lead.name)}</strong> from ${escapeHtml(lead.business)} reached out through the website.</p>
+
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 34px;">
+                  <tr>
+                    <td style="border-radius:8px;background-color:#c22417;">
+                      <a href="${emailHref}" style="display:inline-block;padding:12px 19px;color:#ffffff;font-family:Arial,sans-serif;font-size:14px;font-weight:700;line-height:20px;text-decoration:none;">Reply to ${escapeHtml(lead.name)}</a>
+                    </td>
+                  </tr>
+                </table>
+
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;margin:0 0 28px;background-color:#faf8f4;border-left:3px solid #c22417;border-radius:8px;">
+                  <tr>
+                    <td style="padding:20px 22px;">
+                      <p style="margin:0 0 7px;color:#766d64;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.1px;line-height:18px;text-transform:uppercase;">What they’re hoping to accomplish</p>
+                      <p style="margin:0;color:#211d1a;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:28px;">${emailText(lead.goals)}</p>
+                    </td>
+                  </tr>
+                </table>
+
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-top:1px solid #e6dfd4;">
+                  ${details}
+                </table>
+
+                <p style="margin:28px 0 0;color:#8a8178;font-family:Arial,sans-serif;font-size:12px;line-height:19px;">Replying to this email goes directly to ${escapeHtml(lead.name)}. Sent with care from the <a href="https://empatheticbot.com/" style="color:#766d64;text-decoration:underline;">empatheticbot contact form</a>.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
 
   return {
     to: env.CONTACT_RECIPIENT,
-    from: { email: env.CONTACT_FROM, name: "empatheticbot website" },
+    from: { email: env.CONTACT_FROM, name: "empatheticbot inquiries" },
     replyTo: lead.email,
     subject: `New website inquiry from ${lead.name}`,
     text,
-    html: `<h1>New website inquiry</h1><table>${htmlRows}</table>`,
+    html,
   };
 }
 

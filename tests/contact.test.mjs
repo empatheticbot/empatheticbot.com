@@ -73,9 +73,41 @@ describe("POST /api/contact", () => {
     assert.equal(harness.turnstileCalls(), 1);
     assert.equal(harness.sent.length, 1);
     assert.equal(harness.sent[0].replyTo, "avery@example.com");
+    assert.deepEqual(harness.sent[0].from, {
+      email: "hello@empatheticbot.com",
+      name: "empatheticbot inquiries",
+    });
     assert.match(harness.sent[0].text, /https:\/\/example\.com\//);
     assert.match(harness.sent[0].text, /Before our fall opening/);
     assert.doesNotMatch(harness.sent[0].text, /valid-test-token|test-secret/);
+    assert.match(harness.sent[0].html, /A new conversation has started\./);
+    assert.match(harness.sent[0].html, /background-color:#faf8f4/);
+    assert.match(harness.sent[0].html, /border-top:4px solid #c22417/);
+    assert.match(harness.sent[0].html, /Reply to Avery Example/);
+  });
+
+  test("escapes inquiry content in the branded HTML email", async () => {
+    const harness = createHarness();
+    const response = await handleRequest(
+      contactRequest(
+        validForm({
+          name: "Avery & Co.",
+          business: "Example <Builders>",
+          goals: '<script>alert("nope")</script>\nBuild trust & win more work.',
+        }),
+      ),
+      harness.env,
+      { fetch: harness.fetch },
+    );
+
+    assert.equal(response.status, 200);
+    assert.match(harness.sent[0].html, /Avery &amp; Co\./);
+    assert.match(harness.sent[0].html, /Example &lt;Builders&gt;/);
+    assert.match(
+      harness.sent[0].html,
+      /&lt;script&gt;alert\(&quot;nope&quot;\)&lt;\/script&gt;<br \/>/,
+    );
+    assert.doesNotMatch(harness.sent[0].html, /<script>alert/);
   });
 
   test("accepts the native form's URL-encoded submission format", async () => {

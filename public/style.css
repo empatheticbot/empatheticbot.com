@@ -1208,6 +1208,81 @@ textarea {
   font-size: 0.925rem;
 }
 
+/* -------------------------- Thank-you page --------------------------- */
+
+.thanks-main {
+  width: min(100% - 3rem, 48rem);
+  min-height: calc(100svh - 5rem);
+  margin-inline: auto;
+  padding-block: clamp(4rem, 10vw, 7rem);
+  display: grid;
+  align-content: center;
+}
+
+.thanks-content {
+  display: grid;
+  justify-items: center;
+  gap: 1.4rem;
+  text-align: center;
+}
+
+.thanks-bot {
+  width: clamp(7.5rem, 18vw, 10rem);
+  margin-bottom: 0.35rem;
+  animation: hover 2.4s cubic-bezier(0.45, 0, 0.55, 1) alternate infinite;
+}
+
+.thanks-content .kicker {
+  margin-bottom: -0.65rem;
+}
+
+.thanks-content h1 {
+  max-width: 18ch;
+}
+
+.thanks-intro,
+.thanks-reassurance {
+  max-width: 40rem;
+  color: var(--ink-soft);
+}
+
+.thanks-intro {
+  font-size: 1.1em;
+}
+
+.thanks-next {
+  width: 100%;
+  max-width: 40rem;
+  margin-block: 0.8rem 0.25rem;
+  padding: clamp(1.5rem, 5vw, 2.25rem);
+  text-align: left;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.thanks-next h2 {
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+}
+
+.thanks-next ol {
+  display: grid;
+  gap: 0.8rem;
+  padding-left: 1.5rem;
+  color: var(--ink-soft);
+}
+
+.thanks-next li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.thanks-content > .button {
+  margin-top: 0.35rem;
+}
+
 .error-page {
   min-height: calc(100svh - 8rem);
   display: grid;

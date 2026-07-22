@@ -228,12 +228,25 @@ if (form) {
   const button = form.querySelector('button[type="submit"]');
   const turnstileWidget = form.querySelector(".cf-turnstile");
   const turnstileWrap = turnstileWidget.closest(".turnstile-wrap");
+  let turnstileToken = "";
+  let turnstileSubmissionPending = false;
+
+  const hideTurnstile = () => {
+    turnstileWrap.classList.add("turnstile-pending");
+    turnstileWrap.inert = true;
+  };
 
   const resetTurnstile = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     if (window.turnstile && turnstileWidget) window.turnstile.reset("#contact-turnstile");
   };
 
   window.handleTurnstileError = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     note.classList.remove("success");
     note.textContent =
       "The security check couldn’t load. Please try again, or email hello@empatheticbot.com.";
@@ -241,8 +254,28 @@ if (form) {
   };
 
   window.handleTurnstileExpired = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     note.classList.remove("success");
-    note.textContent = "The security check expired. Please complete it again.";
+    note.textContent = "The security check expired. Select Send it over to try again.";
+  };
+
+  window.handleTurnstileTimeout = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
+    note.classList.remove("success");
+    note.textContent = "The security check timed out. Select Send it over to try again.";
+  };
+
+  window.handleTurnstileSuccess = (token) => {
+    turnstileToken = token;
+    hideTurnstile();
+    if (turnstileSubmissionPending) {
+      turnstileSubmissionPending = false;
+      form.requestSubmit();
+    }
   };
 
   /* The widget stays hidden (and out of the tab order) until Turnstile
@@ -250,17 +283,21 @@ if (form) {
   window.handleTurnstileInteractive = () => {
     turnstileWrap.classList.remove("turnstile-pending");
     turnstileWrap.inert = false;
+    note.classList.remove("success");
+    note.textContent = "Please complete the security check, then your message will send.";
   };
 
-  window.handleTurnstileInteractiveEnd = () => {
-    turnstileWrap.classList.add("turnstile-pending");
-    turnstileWrap.inert = true;
-  };
+  window.handleTurnstileInteractiveEnd = hideTurnstile;
 
-  /* Use the provider's public test key locally so npm start exercises the
-     complete form without weakening the production widget. */
-  const localHostnames = new Set(["localhost", "127.0.0.1", "[::1]"]);
-  turnstileWidget.dataset.sitekey = localHostnames.has(window.location.hostname)
+  /* Use the provider's public test key locally and on the isolated test
+     Worker without weakening the production widget. */
+  const turnstileTestHostnames = new Set([
+    "localhost",
+    "127.0.0.1",
+    "[::1]",
+    "empatheticbot-com-test.empatheticbot.workers.dev",
+  ]);
+  turnstileWidget.dataset.sitekey = turnstileTestHostnames.has(window.location.hostname)
     ? "1x00000000000000000000AA"
     : "0x4AAAAAAD4lhcXg34wOO6Wb";
   const turnstileScript = document.createElement("script");
@@ -273,12 +310,27 @@ if (form) {
     event.preventDefault();
     const data = new FormData(form);
 
-    if (!data.get("cf-turnstile-response")) {
+    if (!turnstileToken) {
+      if (turnstileSubmissionPending) return;
+
       note.classList.remove("success");
-      note.textContent = "Please complete the security check before sending.";
+      if (!window.turnstile) {
+        note.textContent =
+          "The security check is still loading. Please try again, or email hello@empatheticbot.com.";
+        return;
+      }
+
+      turnstileSubmissionPending = true;
+      note.textContent = "Running a quick security check…";
+      try {
+        window.turnstile.execute("#contact-turnstile");
+      } catch {
+        window.handleTurnstileError();
+      }
       return;
     }
 
+    data.set("cf-turnstile-response", turnstileToken);
     button.disabled = true;
     note.classList.remove("success");
     note.textContent = "Sending…";
@@ -296,8 +348,8 @@ if (form) {
       form.reset();
       resetTurnstile();
       note.classList.add("success");
-      note.textContent =
-        "Got it — thank you! I read every submission and will reply within two business days.";
+      note.textContent = "Sent — opening your next steps…";
+      window.location.assign("/thank-you");
     } catch (error) {
       resetTurnstile();
       const message =

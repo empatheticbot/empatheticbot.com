@@ -610,20 +610,6 @@
             />
           </div>
 
-          <div class="turnstile-wrap turnstile-pending" inert>
-            <div
-              id="contact-turnstile"
-              class="cf-turnstile"
-              data-action="contact"
-              data-appearance="interaction-only"
-              data-theme="auto"
-              data-error-callback="handleTurnstileError"
-              data-expired-callback="handleTurnstileExpired"
-              data-before-interactive-callback="handleTurnstileInteractive"
-              data-after-interactive-callback="handleTurnstileInteractiveEnd"
-            ></div>
-          </div>
-
           <noscript>
             <p class="form-no-script">
               JavaScript is required for the security check. You can still email
@@ -632,6 +618,24 @@
           </noscript>
 
           <button class="button button-wide" type="submit">Send it over</button>
+
+          <div class="turnstile-wrap turnstile-pending" inert>
+            <div
+              id="contact-turnstile"
+              class="cf-turnstile"
+              data-action="contact"
+              data-appearance="interaction-only"
+              data-execution="execute"
+              data-theme="auto"
+              data-callback="handleTurnstileSuccess"
+              data-error-callback="handleTurnstileError"
+              data-expired-callback="handleTurnstileExpired"
+              data-timeout-callback="handleTurnstileTimeout"
+              data-before-interactive-callback="handleTurnstileInteractive"
+              data-after-interactive-callback="handleTurnstileInteractiveEnd"
+            ></div>
+          </div>
+
           <p class="form-privacy">
             I use this information only to reply to you. I don’t sell it or add you to a
             marketing list without separate permission. Read the
