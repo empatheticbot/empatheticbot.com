@@ -3,14 +3,14 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { describe, test } from "node:test";
 
-const [index, styles, headers, mainScript, privacy, thankYou, happyBot] = await Promise.all([
+const [index, styles, headers, mainScript, privacy, thanks, notFound] = await Promise.all([
   readFile(new URL("../public/index.html", import.meta.url), "utf8"),
   readFile(new URL("../public/style.css", import.meta.url), "utf8"),
   readFile(new URL("../public/_headers", import.meta.url), "utf8"),
   readFile(new URL("../public/main.js", import.meta.url), "utf8"),
   readFile(new URL("../public/privacy.html", import.meta.url), "utf8"),
-  readFile(new URL("../public/thank-you.html", import.meta.url), "utf8"),
-  readFile(new URL("../public/assets/happy-bot.svg", import.meta.url), "utf8"),
+  readFile(new URL("../public/thanks.html", import.meta.url), "utf8"),
+  readFile(new URL("../public/404.html", import.meta.url), "utf8"),
 ]);
 
 describe("progressive enhancement", () => {
@@ -22,6 +22,34 @@ describe("progressive enhancement", () => {
   test("the portrait is served as a local asset", () => {
     assert.match(index, /src="assets\/steve-ledsworth\.jpg"/);
     assert.doesNotMatch(index, /src="https:\/\/sledsworth\.com\/[^" ]+avatar/);
+  });
+});
+
+describe("404 animation", () => {
+  test("starts the staged bot and 404 together without mutating animation timestamps", () => {
+    assert.match(
+      mainScript,
+      /errorPage\.classList\.add\("is-playing"\)[\s\S]*stage\?\.classList\.add\("is-playing"\)/,
+    );
+    assert.doesNotMatch(mainScript, /\.startTime\s*=/);
+  });
+
+  test("measures the returning 404 against the rounded head instead of the antenna", () => {
+    assert.match(notFound, /class="error-bot-head"/);
+    assert.match(mainScript, /querySelector\("\.error-bot-head"\)/);
+    assert.match(styles, /66\.7%\s*\{\s*transform: translateY\(var\(--bonk\)\)/s);
+    assert.match(styles, /68\.2%\s*\{\s*transform: translateY\(var\(--bonk\)\)/s);
+  });
+
+  test("returns the finished 404 to normal document scrolling", () => {
+    assert.match(
+      mainScript,
+      /addEventListener\([\s\S]*"animationend"[\s\S]*classList\.replace\(\s*"has-fall-stage",\s*"fall-complete"[\s\S]*stage\.remove\(\)/,
+    );
+    assert.match(
+      styles,
+      /\.error-page\.fall-complete \.error-code\s*\{[^}]*visibility:\s*visible;[^}]*animation:\s*none;/s,
+    );
   });
 });
 
@@ -62,16 +90,33 @@ describe("contact confirmation", () => {
   test("redirects to next steps only after the contact API succeeds", () => {
     assert.match(
       mainScript,
-      /if \(!response\.ok \|\| !result\?\.ok\)[\s\S]*window\.location\.assign\("\/thank-you"\)/,
+      /if \(!response\.ok \|\| !result\?\.ok\)[\s\S]*window\.location\.replace\("\/thanks"\)/,
     );
   });
 
+  test("leaves no spent form for the Back button to return to", () => {
+    assert.doesNotMatch(mainScript, /window\.location\.assign\("\/thanks"\)/);
+  });
+
   test("provides an accessible, private confirmation page with a happy bot", () => {
-    assert.match(thankYou, /<meta name="robots" content="noindex"/);
-    assert.match(thankYou, /<h1 id="thanks-heading">Thanks — your message is on its way\.<\/h1>/);
-    assert.match(thankYou, /<h2>What happens next<\/h2>/);
-    assert.match(thankYou, /src="\/assets\/happy-bot\.svg"/);
-    assert.match(thankYou, /alt="The empatheticbot mascot smiling"/);
-    assert.match(happyBot, /M7\.6,19\.6 Q11,14\.6 14\.4,19\.6/);
+    assert.match(thanks, /<meta name="robots" content="noindex"/);
+    assert.match(thanks, /<h1 id="thanks-heading">Thanks — your message is on its way\.<\/h1>/);
+    assert.match(thanks, /<h2>What happens next<\/h2>/);
+    assert.match(thanks, /<link rel="canonical" href="https:\/\/empatheticbot\.com\/thanks" \/>/);
+    assert.match(thanks, /aria-label="The empatheticbot mascot, smiling"/);
+    // Inline, so the heart beats and the antenna pulses as on every other page.
+    assert.match(thanks, /class="thanks-bot"/);
+    assert.match(thanks, /M7\.6,19\.6 Q11,14\.6 14\.4,19\.6/);
+  });
+});
+
+describe("shared chrome", () => {
+  test("every page carries the same footer", () => {
+    const footer = (page) => page.match(/<footer class="site-footer">([\s\S]*?)<\/footer>/)?.[1];
+    const home = footer(index);
+    assert.ok(home);
+    for (const page of [privacy, thanks, notFound]) {
+      assert.equal(footer(page), home);
+    }
   });
 });

@@ -1283,12 +1283,24 @@ textarea {
   margin-top: 0.35rem;
 }
 
+/* Declared on both roots: the fixed fall stage sits outside .error-page, and
+   the staged copy of the 404 sizes itself from these same tokens. */
+.error-page,
+.fall-stage {
+  --bot-size: clamp(6.5rem, 14vw, 9rem);
+  --code-size: clamp(4rem, 12vw, 7rem);
+  --stack-gap: 1.25rem;
+}
+
 .error-page {
-  min-height: calc(100svh - 8rem);
+  /* Roughly a screenful, less the header above it. Nothing about the animation
+     depends on this being exact any more — the falling 404 is clipped by the
+     fixed stage, which is the viewport itself. */
+  min-height: calc(100svh - 4rem);
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 1.25rem;
+  gap: var(--stack-gap);
   text-align: center;
 }
 
@@ -1298,29 +1310,61 @@ textarea {
 
 /* The 404 pratfall, one shared 5s timeline in four synchronized tracks:
    the bot falls in (eyes open, watching the ground), slams into the 404 —
-   which shakes — and winces; the 404 drops off the bottom of the screen,
-   returns from the top a beat later, and smacks him on the way down; his
-   eyes snap to Xs and he does the classic video-game defeat spin.
-   Runs once; the global reduced-motion rule collapses everything to the
-   final resting pose (404 in place, bot knocked out).
-   overflow: clip on .error-page keeps the offscreen travel from creating
-   scrollbars mid-animation. */
+   which shakes — and winces; the 404 gives out and keeps falling off the
+   bottom of the screen, returns from the top a beat later, and smacks him on
+   the way down; his eyes cross into dizzy spirals and he does the classic
+   video-game defeat spin. Runs once; the global reduced-motion rule collapses
+   everything to the final resting pose (404 in place, bot knocked out).
+
+   The falling 404 needs to leave the screen without its travel turning into
+   scrollable overflow. Clipping it here is the no-JS answer, but the clip edge
+   is this box's bottom edge, which is never quite the bottom of the screen —
+   the 404 gets cut off in mid-air above it. So when JavaScript is available,
+   main.js moves the fall into a fixed, viewport-sized stage and this clip is
+   switched off: a fixed subtree adds no scrollable overflow, so there is
+   nothing left to hold back. */
 .error-page {
   overflow: clip;
 }
 
-.error-bot {
-  width: clamp(6.5rem, 14vw, 9rem);
-  transform-origin: 50% 60%;
-  animation: bot-defeat 5s 0.3s both;
+/* The stage is exactly the viewport, so the edge the 404 vanishes at is the
+   edge of the screen — at any window size, at any scroll offset, with no
+   measuring. It sits under the sticky header and must never swallow a click.
+   (The rules that hand the fall over to it live below, after the plain
+   .error-code rules, so specificity climbs in source order.) */
+.fall-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: clip;
+  pointer-events: none;
 }
 
+/* The arc and the spin ride separate transform properties (translate/scale vs
+   rotate) so each keeps its own easing: the flight is ballistic, the spin is
+   dead linear like a defeated game sprite. Individual properties compose as
+   translate → rotate → scale, so the squash still lands on his own axis. */
+.error-bot {
+  width: var(--bot-size);
+  transform-origin: 50% 60%;
+  animation:
+    bot-defeat 5s 0.3s both,
+    bot-spin 5s 0.3s both;
+}
+
+/* How far the 404 has to rise from its resting spot for its lowest ink to meet
+   the top of the bot's head. This calc is only the no-JS approximation, built
+   from the same two clamps that size the pair; main.js overwrites --bonk with
+   the measured ink geometry, which lands about 8px lower because the digits
+   barely descend past their baseline. */
 .error-code {
+  --bonk: calc(-0.92 * var(--bot-size) - 0.8 * var(--code-size) - var(--stack-gap));
+  --bonk-rebound: calc(var(--bonk) - 0.35 * var(--code-size));
   animation: code-crash 5s 0.3s both;
 }
 
 .error-bot-eyes-open,
-.error-bot-eyes-x {
+.error-bot-eyes-spiral {
   transform-box: view-box;
   transform-origin: 16px 18px;
 }
@@ -1329,150 +1373,359 @@ textarea {
   animation: eyes-open 5s 0.3s both;
 }
 
-.error-bot-eyes-x {
-  animation: eyes-x 5s 0.3s both;
+/* Pupil size rides stroke-width rather than a group scale, so the eyes bug
+   out in place instead of drifting apart from each other. */
+.error-bot-eyes-open path {
+  animation: eyes-dilate 5s 0.3s both;
+}
+
+/* Knocked out: the spirals are hidden until the bonk, fade in on the hit, and
+   then keep spinning for good — the classic dizzy-eyed daze. Each spins about
+   its own eye centre, so the bot's 45deg resting tilt is irrelevant to them
+   (which is also why spirals sidestep the X-reads-as-plus problem). */
+.error-bot-eyes-spiral {
+  animation: spiral-in 5s 0.3s both;
+}
+
+.error-bot-spiral {
+  transform-box: view-box;
+  animation: spiral-spin 1.3s linear infinite;
+}
+
+.error-bot-spiral-left {
+  transform-origin: 11px 18px;
+}
+
+.error-bot-spiral-right {
+  transform-origin: 21px 18px;
 }
 
 @keyframes bot-defeat {
   0% {
-    transform: translateY(-70vh);
+    translate: 0 -70vh;
+    scale: 1 1;
     animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
   }
-  /* Slams down onto the 404 below, squashing on contact… */
-  10% {
-    transform: translateY(55%) scale(1.16, 0.74);
+  /* Falls the whole way at full height — the squash starts on contact, not
+     before it, so keep an un-scaled keyframe at the exact touchdown frame. */
+  9% {
+    translate: 0 40%;
+    scale: 1 1;
+    animation-timing-function: ease-out;
+  }
+  /* Slams into the 404 below, squashing on contact… */
+  10.5% {
+    translate: 0 55%;
+    scale: 1.16 0.74;
     animation-timing-function: ease-out;
   }
   /* …then bounces back up to his spot. */
   15% {
-    transform: translateY(0) scale(0.96, 1.03);
+    translate: 0 0;
+    scale: 0.96 1.03;
   }
-  /* Standing pause while the 404 leaves and returns. */
+  /* Standing pause while the 404 leaves and returns — held until the falling
+     404 actually reaches his head. */
   21%,
-  64% {
-    transform: scale(1);
-  }
-  /* Bonked on the head by the returning 404. */
-  66% {
-    transform: scale(1.15, 0.78);
+  66.7% {
+    translate: 0 0;
+    scale: 1 1;
     animation-timing-function: ease-out;
   }
+  /* Clonked. The squash is the launch — no beat of standing around between
+     the hit and the spin, which is what made the old version feel staged.
+     The upward offset compensates for scaling around the 60% origin, keeping
+     the rounded crown pinned beneath the 404 while the shell compresses. */
+  68.2% {
+    translate: 0 -7.7%;
+    scale: 1.18 0.76;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.35, 1);
+  }
+  /* Stretches as he's punted off the ground. */
   70% {
-    transform: scale(1);
-    animation-timing-function: cubic-bezier(0.3, 0.3, 0.4, 1);
+    translate: 0 -14%;
+    scale: 0.84 1.22;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.5, 1);
   }
-  78% {
-    transform: translateY(-38%) rotate(1.5turn);
-    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.6);
+  /* Apex of the pop-up. */
+  75% {
+    translate: 0 -48%;
+    scale: 1 1;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.7);
   }
-  88% {
-    transform: translateY(0) rotate(3turn);
+  /* Hits the deck on his corner. */
+  85% {
+    translate: 0 0;
+    scale: 1 1;
     animation-timing-function: ease-out;
   }
-  91% {
-    transform: scale(1.1, 0.86) rotate(3turn);
+  86.5% {
+    translate: 0 0;
+    scale: 1.12 0.88;
   }
+  89% {
+    translate: 0 0;
+    scale: 0.98 1.02;
+  }
+  92%,
   100% {
-    transform: scale(1) rotate(3turn);
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+
+/* Three flat rotations at a constant rate, stopping 45deg over — the sprite
+   that spins off and settles on its corner. */
+@keyframes bot-spin {
+  0%,
+  68.2% {
+    rotate: 0turn;
+    animation-timing-function: linear;
+  }
+  /* Overshoots the tilt on landing, then rocks back into it. */
+  85% {
+    rotate: 3.15turn;
+    animation-timing-function: cubic-bezier(0.3, 0.8, 0.4, 1);
+  }
+  89%,
+  100% {
+    rotate: 3.125turn;
   }
 }
 
 @keyframes code-crash {
-  /* Rattled by the bot's landing. */
+  /* Rattled by the bot's landing — still until he actually touches down. */
   0%,
-  10% {
+  9% {
     transform: translate(0, 0);
   }
-  12% {
+  10.5% {
     transform: translateX(-5px);
   }
-  14% {
+  12.5% {
     transform: translateX(5px);
   }
-  16% {
+  14.5% {
     transform: translateX(-3px);
   }
-  18% {
+  16.5% {
     transform: translateX(2px);
   }
   /* Gives out and falls off the bottom of the screen… */
   20%,
   36% {
     transform: translate(0, 0);
-    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.85, 0.5);
   }
-  44%,
+  /* …and keeps accelerating straight past the bottom edge rather than parking.
+     It's clear of the tallest viewport by ~46% (105vh always overshoots the
+     window, since the digits rest well below its top) and simply keeps
+     travelling, so it reads as falling off the page instead of blinking out
+     at a fixed spot. The tail keyframe only has to stay gone; it's the motion
+     across the visible edge that matters. */
+  46% {
+    transform: translateY(105vh);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.7);
+  }
   59.9% {
-    transform: translateY(80vh);
+    transform: translateY(255vh);
   }
-  /* …then returns from the top a beat later, smacking the bot on the way. */
+  /* …then returns from the top a beat later, straight onto the bot's head.
+     Offsets here are percentages of the 404's own height, which tracks its
+     font-size, so the contact point holds as the type scales. */
   60% {
     transform: translateY(-85vh);
     animation-timing-function: cubic-bezier(0.4, 0, 1, 0.7);
   }
-  68% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
+  /* Lands on his head. Hold through the squash for 75ms so a display cannot
+     skip the single mathematical contact frame, then rebound off the shell. */
+  66.7% {
+    transform: translateY(var(--bonk));
   }
+  68.2% {
+    transform: translateY(var(--bonk));
+    animation-timing-function: cubic-bezier(0.15, 0.75, 0.4, 1);
+  }
+  70.5% {
+    transform: translateY(var(--bonk-rebound));
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
+  }
+  /* Drops into place while he's still spinning overhead. */
+  78% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+  }
+  80% {
+    transform: translateY(-14%);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6);
+  }
+  83%,
   100% {
     transform: translate(0, 0);
   }
 }
 
+/* Every keyframe carries the same translate+scale pair so the browser
+   interpolates component-wise instead of falling back to matrix maths. */
 @keyframes eyes-open {
   /* Watching the ground rush up. */
   0%,
-  9% {
-    transform: translateY(1.2px);
+  6% {
+    transform: translateY(1.2px) scale(1, 1);
     opacity: 1;
   }
-  /* Wincing from the landing. */
-  10%,
-  20% {
-    transform: scaleY(0.12);
+  /* Braced, eyes saucering, an instant before touchdown. */
+  9% {
+    transform: translateY(1.2px) scale(1.08, 1.08);
+    opacity: 1;
   }
-  24%,
+  /* Clamped shut on impact… */
+  10.5%,
+  14% {
+    transform: translateY(2px) scale(1, 0.06);
+    opacity: 1;
+  }
+  /* …then a pained flutter — cracks open, screws shut again, and only
+     gingerly reopens. One flat squint read as bored rather than hurt. */
+  16.5% {
+    transform: translateY(2px) scale(1, 0.34);
+    opacity: 1;
+  }
+  18.5% {
+    transform: translateY(2px) scale(1, 0.09);
+    opacity: 1;
+  }
+  22% {
+    transform: translateY(1.5px) scale(1, 0.42);
+    opacity: 1;
+  }
+  26%,
   38% {
-    transform: none;
+    transform: translateY(0) scale(1, 1);
+    opacity: 1;
   }
   /* Watching the 404 disappear below… */
   44%,
   58% {
-    transform: translateY(1.2px);
-  }
-  /* …then spotting it coming back down. */
-  62%,
-  65.9% {
-    transform: translateY(-1.2px);
+    transform: translateY(1.2px) scale(1, 1);
     opacity: 1;
   }
-  66%,
+  /* …then spotting it coming back down and shrinking away from it. */
+  62% {
+    transform: translateY(-1.2px) scale(1, 1);
+    opacity: 1;
+  }
+  66.6% {
+    transform: translateY(-1.6px) scale(1.22, 1.22);
+    opacity: 1;
+  }
+  66.7%,
   100% {
-    transform: translateY(-1.2px);
+    transform: translateY(-1.6px) scale(1.22, 1.22);
     opacity: 0;
   }
 }
 
-@keyframes eyes-x {
+/* The alarm beat: pupils blow out as the 404 bears down on him, and again
+   for a beat before the first landing. The group scale in `eyes-open` does
+   most of the work — this only adds pupil on top of it, and has to stay
+   under the 10-unit gap between the eyes or the two merge into one blob. */
+@keyframes eyes-dilate {
   0%,
-  65.9% {
+  6% {
+    stroke-width: 8;
+  }
+  9%,
+  10.5% {
+    stroke-width: 8.6;
+  }
+  14%,
+  62% {
+    stroke-width: 8;
+  }
+  66.6%,
+  100% {
+    stroke-width: 8.8;
+  }
+}
+
+@keyframes spiral-in {
+  0%,
+  66.6% {
     opacity: 0;
   }
-  66%,
+  66.7%,
   100% {
     opacity: 1;
+  }
+}
+
+/* One steady turn, looped forever — the spin never resolves, so he stays
+   woozy. Runs from load beneath the spiral-in fade; invisible until the bonk. */
+@keyframes spiral-spin {
+  to {
+    transform: rotate(1turn);
   }
 }
 
 .error-code {
   color: var(--accent);
   font-family: var(--font-display);
-  font-size: clamp(4rem, 12vw, 7rem);
+  font-size: var(--code-size);
+  /* The --bonk maths above assumes the em box is the line box. */
   line-height: 1;
 }
 
 .error-page p {
   max-width: 36rem;
+}
+
+/* Placed over the slot the real 404 occupies, in viewport coordinates. */
+.fall-stage .error-code {
+  position: absolute;
+  margin: 0;
+  visibility: hidden;
+  animation: none;
+}
+
+/* JavaScript first resets every track, finishes the font and collision
+   measurements, then adds is-playing to the page and stage in one frame. This
+   starts the whole scene from a shared CSS state without animation timestamps. */
+.error-page.has-fall-stage:not(.is-playing) .error-bot,
+.error-page.has-fall-stage:not(.is-playing) .error-bot-eyes-open,
+.error-page.has-fall-stage:not(.is-playing) .error-bot-eyes-open path,
+.error-page.has-fall-stage:not(.is-playing) .error-bot-eyes-spiral,
+.error-page.has-fall-stage:not(.is-playing) .error-bot-spiral {
+  animation: none;
+}
+
+.error-page.has-fall-stage:not(.is-playing) .error-bot {
+  visibility: hidden;
+}
+
+.fall-stage.is-playing .error-code {
+  visibility: visible;
+  animation: code-crash 5s 0.3s both;
+}
+
+/* Once the stage has taken the fall, the page no longer needs to clip it. */
+.error-page.has-fall-stage {
+  overflow: visible;
+}
+
+/* The real 404 keeps its slot in the grid but hands the performance over — the
+   animation has to come off too, or it would still be travelling 255vh
+   invisibly and dragging the scrollbar out with it. */
+.error-page.has-fall-stage .error-code {
+  visibility: hidden;
+  animation: none;
+}
+
+/* After the offscreen travel finishes, the fixed stage is removed and the
+   ordinary in-page digits take over in the same final pose. */
+.error-page.fall-complete .error-code {
+  visibility: visible;
+  animation: none;
 }
 
 /* --------------------------- Reduced motion --------------------------- */
