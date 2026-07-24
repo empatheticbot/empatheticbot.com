@@ -14,6 +14,19 @@ const [index, styles, headers, mainScript, privacy, thanks, notFound, favicon] =
   readFile(new URL("../public/favicon.svg", import.meta.url), "utf8"),
 ]);
 
+const socialImagePaths = {
+  index: new URL("../public/assets/og-home.png", import.meta.url),
+  privacy: new URL("../public/assets/og-privacy.png", import.meta.url),
+  thanks: new URL("../public/assets/og-thanks.png", import.meta.url),
+  notFound: new URL("../public/assets/og-404.png", import.meta.url),
+};
+
+const readPngDimensions = async (path) => {
+  const png = await readFile(path);
+  assert.equal(png.subarray(1, 4).toString("ascii"), "PNG");
+  return { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
+};
+
 describe("progressive enhancement", () => {
   test("reveal content is visible unless JavaScript explicitly enables the animation", () => {
     assert.doesNotMatch(styles, /(?:^|})\s*\.reveal\s*\{[^}]*opacity:\s*0/s);
@@ -63,6 +76,53 @@ describe("launch polish", () => {
     );
     assert.match(favicon, /@media \(prefers-color-scheme: dark\)/);
     assert.match(favicon, /class="bot-body"/);
+  });
+});
+
+describe("social previews", () => {
+  const pages = [
+    ["index", index, "https://empatheticbot.com/", "https://empatheticbot.com/assets/og-home.png"],
+    [
+      "privacy",
+      privacy,
+      "https://empatheticbot.com/privacy",
+      "https://empatheticbot.com/assets/og-privacy.png",
+    ],
+    [
+      "thanks",
+      thanks,
+      "https://empatheticbot.com/thanks",
+      "https://empatheticbot.com/assets/og-thanks.png",
+    ],
+    [
+      "notFound",
+      notFound,
+      "https://empatheticbot.com/404",
+      "https://empatheticbot.com/assets/og-404.png",
+    ],
+  ];
+
+  test("every page supplies complete Open Graph and Twitter/X metadata", () => {
+    for (const [, page, url, image] of pages) {
+      assert.match(page, new RegExp(`<meta property="og:url" content="${url}" \\/>`));
+      assert.match(page, /property="og:title"[\s\S]*?content="[^"]+"/);
+      assert.match(page, /property="og:description"/);
+      assert.match(page, new RegExp(`<meta property="og:image" content="${image}" \\/>`));
+      assert.match(page, /<meta property="og:image:width" content="1200" \/>/);
+      assert.match(page, /<meta property="og:image:height" content="630" \/>/);
+      assert.match(page, /property="og:image:alt"/);
+      assert.match(page, /<meta name="twitter:card" content="summary_large_image" \/>/);
+      assert.match(page, /name="twitter:title"/);
+      assert.match(page, /name="twitter:description"/);
+      assert.match(page, /name="twitter:image"/);
+      assert.match(page, /name="twitter:image:alt"/);
+    }
+  });
+
+  test("every social image is a 1200 by 630 PNG", async () => {
+    for (const path of Object.values(socialImagePaths)) {
+      assert.deepEqual(await readPngDimensions(path), { width: 1200, height: 630 });
+    }
   });
 });
 
