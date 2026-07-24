@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { describe, test } from "node:test";
 
-const [index, styles, headers, mainScript, privacy, thanks, notFound] = await Promise.all([
+const [index, styles, headers, mainScript, privacy, thanks, notFound, favicon] = await Promise.all([
   readFile(new URL("../public/index.html", import.meta.url), "utf8"),
   readFile(new URL("../public/style.css", import.meta.url), "utf8"),
   readFile(new URL("../public/_headers", import.meta.url), "utf8"),
@@ -11,6 +11,7 @@ const [index, styles, headers, mainScript, privacy, thanks, notFound] = await Pr
   readFile(new URL("../public/privacy.html", import.meta.url), "utf8"),
   readFile(new URL("../public/thanks.html", import.meta.url), "utf8"),
   readFile(new URL("../public/404.html", import.meta.url), "utf8"),
+  readFile(new URL("../public/favicon.svg", import.meta.url), "utf8"),
 ]);
 
 describe("progressive enhancement", () => {
@@ -22,6 +23,46 @@ describe("progressive enhancement", () => {
   test("the portrait is served as a local asset", () => {
     assert.match(index, /src="assets\/steve-ledsworth\.jpg"/);
     assert.doesNotMatch(index, /src="https:\/\/sledsworth\.com\/[^" ]+avatar/);
+  });
+});
+
+describe("launch polish", () => {
+  test("uses stationary, pointer-aware shine effects instead of upward hover movement", () => {
+    assert.doesNotMatch(styles, /\.(?:button|compare-card|work-card):hover\s*{[^}]*translateY/s);
+    assert.match(styles, /\.button:hover\s*{\s*transform: scale/s);
+    assert.doesNotMatch(styles, /\.(?:compare-card|work-card):hover\s*{[^}]*transform/s);
+    assert.match(mainScript, /style\.setProperty\("--shine-x"/);
+    assert.match(mainScript, /style\.setProperty\("--shine-y"/);
+    assert.match(mainScript, /const perimeterPoint = \(position\)/);
+    assert.match(mainScript, /target \+= Math\.round\(\(state\.current - target\) \/ 4\) \* 4/);
+    assert.match(mainScript, /state\.frame = requestAnimationFrame\(animateShine\)/);
+  });
+
+  test("uses lightly styled placeholder examples in the inquiry form", () => {
+    assert.equal(index.match(/placeholder=/g)?.length, 4);
+    assert.doesNotMatch(index, /class="field-example"/);
+    assert.match(styles, /input::placeholder,[\s\S]*var\(--ink-soft\) 72%/);
+  });
+
+  test("includes Skyglow and keeps the personal site out of selected work", () => {
+    assert.match(index, /href="https:\/\/skyglow\.tech\/"/);
+    assert.match(index, /href="https:\/\/sledsworth\.com\/about\/"/);
+    assert.doesNotMatch(index, /class="work-card reveal" href="https:\/\/sledsworth\.com\//);
+    assert.match(
+      index,
+      /class="work-grid">[\s\S]*skyglow\.tech[\s\S]*movie\.surf[\s\S]*waffle\.how[\s\S]*<\/div>/,
+    );
+  });
+
+  test("brightens every bot treatment in dark mode", () => {
+    assert.match(styles, /#body-gradient stop:first-child\s*{\s*stop-color: #ff7a70;/s);
+    assert.match(styles, /#body-gradient stop:last-child\s*{[^}]*stop-opacity: 1;/s);
+    assert.match(
+      styles,
+      /\.wordmark-icon, \.footer-bot, \.thanks-bot, \.error-bot\)\s*{[^}]*drop-shadow/s,
+    );
+    assert.match(favicon, /@media \(prefers-color-scheme: dark\)/);
+    assert.match(favicon, /class="bot-body"/);
   });
 });
 

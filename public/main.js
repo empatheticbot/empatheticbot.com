@@ -18,6 +18,82 @@ if (mobileNavigation) {
   }
 }
 
+/* Cards and buttons grow in place instead of drifting upward. On devices with
+   a precise pointer, the warm shine follows the cursor around the perimeter.
+   Its position eases along the shortest route so changing edges never causes
+   it to teleport across a surface. Touch and keyboard users get the same
+   static highlight. */
+const shineSurfaces = document.querySelectorAll(".button, .compare-card, .work-card");
+if (window.matchMedia("(pointer: fine)").matches) {
+  const perimeterPoint = (position) => {
+    const point = ((position % 4) + 4) % 4;
+    if (point < 1) return { x: point, y: 0 };
+    if (point < 2) return { x: 1, y: point - 1 };
+    if (point < 3) return { x: 3 - point, y: 1 };
+    return { x: 0, y: 4 - point };
+  };
+
+  const closestPerimeterPosition = (x, y) =>
+    [
+      { distance: y, position: x },
+      { distance: 1 - x, position: 1 + y },
+      { distance: 1 - y, position: 3 - x },
+      { distance: x, position: 4 - y },
+    ].reduce((closest, point) => (point.distance < closest.distance ? point : closest)).position;
+
+  for (const surface of shineSurfaces) {
+    const state = { current: null, target: 0, frame: null };
+
+    const drawShine = (position) => {
+      const point = perimeterPoint(position);
+      surface.style.setProperty("--shine-x", `${point.x * 100}%`);
+      surface.style.setProperty("--shine-y", `${point.y * 100}%`);
+    };
+
+    const animateShine = () => {
+      const remaining = state.target - state.current;
+      if (Math.abs(remaining) < 0.002) {
+        state.current = state.target;
+        drawShine(state.current);
+        state.frame = null;
+        return;
+      }
+      state.current += remaining * 0.22;
+      drawShine(state.current);
+      state.frame = requestAnimationFrame(animateShine);
+    };
+
+    surface.addEventListener(
+      "pointermove",
+      (event) => {
+        const rect = surface.getBoundingClientRect();
+        const x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+        const y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+        let target = closestPerimeterPosition(x, y);
+
+        if (state.current === null || reducedMotion) {
+          state.current = target;
+          state.target = target;
+          drawShine(target);
+          return;
+        }
+
+        target += Math.round((state.current - target) / 4) * 4;
+        state.target = target;
+        if (!state.frame) state.frame = requestAnimationFrame(animateShine);
+      },
+      { passive: true },
+    );
+    surface.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(state.frame);
+      state.current = null;
+      state.frame = null;
+      surface.style.removeProperty("--shine-x");
+      surface.style.removeProperty("--shine-y");
+    });
+  }
+}
+
 /* Reveal-on-scroll. If anything's unsupported, everything is simply visible. */
 const revealables = document.querySelectorAll(".reveal");
 if (!reducedMotion && "IntersectionObserver" in window) {

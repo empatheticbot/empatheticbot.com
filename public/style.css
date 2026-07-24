@@ -56,6 +56,36 @@
     --accent-soft: rgba(255, 90, 78, 0.09);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.5);
   }
+
+  #heart-gradient stop:first-child {
+    stop-color: #ffb3ad;
+  }
+
+  #heart-gradient stop:last-child {
+    stop-color: #ff453a;
+  }
+
+  #antenna-gradient stop:first-child {
+    stop-color: #ff6a5e;
+  }
+
+  #antenna-gradient stop:last-child {
+    stop-color: #a82b24;
+    stop-opacity: 1;
+  }
+
+  #body-gradient stop:first-child {
+    stop-color: #ff7a70;
+  }
+
+  #body-gradient stop:last-child {
+    stop-color: #b92f28;
+    stop-opacity: 1;
+  }
+
+  :where(.bot, .wordmark-bot, .wordmark-icon, .footer-bot, .thanks-bot, .error-bot) {
+    filter: drop-shadow(0 2px 8px rgba(255, 90, 78, 0.18));
+  }
 }
 
 /* ------------------------------ Reset ------------------------------- */
@@ -369,6 +399,12 @@ a {
 /* ----------------------------- Buttons -------------------------------- */
 
 .button {
+  --shine-size: 8rem;
+  --shine-x: 50%;
+  --shine-y: 50%;
+
+  position: relative;
+  isolation: isolate;
   display: inline-block;
   padding: 0.8rem 1.6rem;
   background: var(--ink);
@@ -386,7 +422,6 @@ a {
 }
 
 .button:hover {
-  transform: translateY(-1.5px);
   box-shadow: var(--shadow);
 }
 
@@ -396,7 +431,7 @@ a {
 }
 
 .button:active {
-  transform: translateY(0);
+  transform: scale(0.99);
 }
 
 .button-ghost {
@@ -639,6 +674,12 @@ a {
 }
 
 .compare-card {
+  --shine-size: 15rem;
+  --shine-x: 50%;
+  --shine-y: 50%;
+
+  position: relative;
+  isolation: isolate;
   background: var(--bg-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -651,7 +692,6 @@ a {
 }
 
 .compare-card:hover {
-  transform: translateY(-3px);
   box-shadow: var(--shadow);
 }
 
@@ -725,6 +765,12 @@ a {
 }
 
 .work-card {
+  --shine-size: 15rem;
+  --shine-x: 50%;
+  --shine-y: 50%;
+
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 0.75rem;
@@ -744,9 +790,43 @@ a {
 }
 
 .work-card:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   box-shadow: var(--shadow);
+}
+
+:where(.button, .compare-card, .work-card)::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  padding: 1.5px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--shine-size) circle at var(--shine-x) var(--shine-y),
+    var(--accent-bright),
+    #ff6a00 35%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+:where(.button, .compare-card, .work-card):is(:hover, :focus-visible)::before {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: scale(1.012);
+  }
 }
 
 .work-card strong {
@@ -1085,7 +1165,7 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: color-mix(in srgb, var(--ink-soft) 85%, transparent);
+  color: color-mix(in srgb, var(--ink-soft) 72%, transparent);
 }
 
 input:focus,
@@ -1174,12 +1254,16 @@ textarea {
 .legal-main {
   width: min(100% - 3rem, 46rem);
   margin-inline: auto;
-  padding-block: clamp(4rem, 10vw, 7rem);
+  padding-block: clamp(2.75rem, 7vw, 5rem) clamp(4rem, 10vw, 7rem);
 }
 
 .legal-content {
   display: grid;
   gap: 1.5rem;
+}
+
+.legal-content > .kicker {
+  margin-bottom: -0.5rem;
 }
 
 .legal-content h1 {
