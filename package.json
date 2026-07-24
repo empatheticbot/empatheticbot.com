@@ -7,6 +7,7 @@
   "scripts": {
     "start": "TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA wrangler dev --port 8787 --var ALLOWED_ORIGINS:http://localhost:8787,http://127.0.0.1:8787 --var TURNSTILE_TEST_MODE:true",
     "deploy": "wrangler deploy",
+    "deploy:test": "wrangler deploy --env test",
     "check": "biome check --write .",
     "test": "node --test"
   },
