@@ -13,6 +13,43 @@
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171412" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://empatheticbot.com/privacy" />
+    <meta property="og:title" content="Privacy notice — empatheticbot" />
+    <meta property="og:site_name" content="empatheticbot" />
+    <meta
+      property="og:description"
+      content="A straightforward explanation of how empatheticbot handles information submitted through its website."
+    />
+    <meta property="og:image" content="https://empatheticbot.com/assets/og-privacy.png" />
+    <meta
+      property="og:image:secure_url"
+      content="https://empatheticbot.com/assets/og-privacy.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Privacy, in plain language — empatheticbot is straightforward about your information"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Privacy notice — empatheticbot" />
+    <meta
+      name="twitter:description"
+      content="A straightforward explanation of how empatheticbot handles information submitted through its website."
+    />
+    <meta
+      name="twitter:image"
+      content="https://empatheticbot.com/assets/og-privacy.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Privacy, in plain language — empatheticbot is straightforward about your information"
+    />
+
     <link
       rel="preload"
       href="assets/fonts/fraunces-latin.woff2"
@@ -21,6 +58,7 @@
       crossorigin
     />
     <link href="style.css" rel="stylesheet" />
+    <script src="/main.js" defer></script>
   </head>
 
   <body>
@@ -59,7 +97,7 @@
         <p class="legal-meta">Effective July 21, 2026</p>
         <p>
           When you contact empatheticbot, you’re trusting me with information about you and
-          your business. I use it to understand your inquiry and reply—not to build an
+          your business. I use it to understand your inquiry and reply — not to build an
           advertising profile or fill a marketing list.
         </p>
 
@@ -82,7 +120,7 @@
           I use this information to respond to you, evaluate whether we’re a good fit, prepare
           requested proposals or agreements, protect the contact form, and keep reasonable
           business records. I do not sell your information. I will not add you to a marketing
-          list without separate permission.
+          list.
         </p>
 
         <h2>Who helps process it</h2>
@@ -97,7 +135,7 @@
           I use Cloudflare Turnstile on the contact form to distinguish people from automated
           abuse. When Turnstile runs, Cloudflare may process technical signals such as your IP
           address, browser information, connection characteristics, and the website you’re
-          visiting. Cloudflare uses these signals to provide and improve bot detection—not to
+          visiting. Cloudflare uses these signals to provide and improve bot detection — not to
           identify, profile, or target you. Learn more in Cloudflare’s
           <a href="https://www.cloudflare.com/turnstile-privacy-policy/"
             >Turnstile Privacy Addendum</a
@@ -139,11 +177,11 @@
         </g>
       </svg>
       <p class="footer-small">
-        Hand-coded in HTML &amp; CSS. No templates, no page builders —
+        Crafted with care in HTML, CSS, and just a bit of JavaScript. No templates, no page builders —
         <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
       </p>
       <p class="footer-small"><a href="/privacy">Privacy</a></p>
-      <p class="footer-small">&copy; 2026 Empatheticbot LLC</p>
+      <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>
     </footer>
   </body>
 </html>

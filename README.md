@@ -17,6 +17,20 @@ Local development automatically uses Cloudflare's public always-pass Turnstile t
 simulates the email binding locally; it does not send an external email. Production continues to
 use the real widget key and the deployed `TURNSTILE_SECRET_KEY` secret.
 
+## Test environment
+
+The named `test` environment deploys to
+`https://empatheticbot-com-test.empatheticbot.workers.dev` with Cloudflare's public Turnstile test
+keys. Set its public test secret once, then deploy it independently of production:
+
+```sh
+npx wrangler secret put TURNSTILE_SECRET_KEY --env test
+npx wrangler deploy --env test
+```
+
+The test Worker uses the same restricted email destination as production, so submitting its contact
+form sends a real inquiry email.
+
 ## One-time Cloudflare setup (free plan)
 
 1. Add `empatheticbot.com` to Cloudflare and use Cloudflare DNS. Preserve the existing Google
@@ -51,9 +65,9 @@ This configuration intentionally sends only to one verified destination, so the 
 remains free. The sender must stay on the active `forms.empatheticbot.com` Email Routing subdomain;
 sending to arbitrary recipients would require the paid Email Sending plan.
 
-The test-only values in `npm start` allow the Wrangler preview origin, enable local test-token
-handling, and use Cloudflare's always-pass Turnstile keys; they never apply to the deployed Worker.
-Do not configure `TURNSTILE_TEST_MODE` in Cloudflare.
+The test-only values in `npm start` allow local origins and use Cloudflare's always-pass Turnstile
+keys. `TURNSTILE_TEST_MODE` is configured only for the isolated `test` environment; never enable it
+on the default production Worker.
 
 If `www.empatheticbot.com` will also submit the form, add it to the Turnstile widget and append
 it to `ALLOWED_ORIGINS` as a comma-separated origin.

@@ -19,12 +19,35 @@
   "vars": {
     "ALLOWED_ORIGINS": "https://empatheticbot.com,https://empatheticbot-com.empatheticbot.workers.dev",
     "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
-    "CONTACT_RECIPIENT": "inquiry@empatheticbot.com"
+    "CONTACT_RECIPIENT": "inquiry@empatheticbot.com",
+    "EMAIL_ASSET_ORIGIN": "https://empatheticbot.com"
   },
   "send_email": [
     {
       "name": "CONTACT_EMAIL",
       "destination_address": "inquiry@empatheticbot.com"
     }
-  ]
+  ],
+  "env": {
+    "test": {
+      "name": "empatheticbot-com-test",
+      "workers_dev": true,
+      "secrets": {
+        "required": ["TURNSTILE_SECRET_KEY"]
+      },
+      "vars": {
+        "ALLOWED_ORIGINS": "https://empatheticbot-com-test.empatheticbot.workers.dev",
+        "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
+        "CONTACT_RECIPIENT": "inquiry@empatheticbot.com",
+        "EMAIL_ASSET_ORIGIN": "https://empatheticbot-com-test.empatheticbot.workers.dev",
+        "TURNSTILE_TEST_MODE": "true"
+      },
+      "send_email": [
+        {
+          "name": "CONTACT_EMAIL",
+          "destination_address": "inquiry@empatheticbot.com"
+        }
+      ]
+    }
+  }
 }

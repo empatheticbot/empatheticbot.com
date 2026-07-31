@@ -18,6 +18,82 @@ if (mobileNavigation) {
   }
 }
 
+/* Cards and buttons grow in place instead of drifting upward. On devices with
+   a precise pointer, the warm shine follows the cursor around the perimeter.
+   Its position eases along the shortest route so changing edges never causes
+   it to teleport across a surface. Touch and keyboard users get the same
+   static highlight. */
+const shineSurfaces = document.querySelectorAll(".button, .compare-card, .work-card");
+if (window.matchMedia("(pointer: fine)").matches) {
+  const perimeterPoint = (position) => {
+    const point = ((position % 4) + 4) % 4;
+    if (point < 1) return { x: point, y: 0 };
+    if (point < 2) return { x: 1, y: point - 1 };
+    if (point < 3) return { x: 3 - point, y: 1 };
+    return { x: 0, y: 4 - point };
+  };
+
+  const closestPerimeterPosition = (x, y) =>
+    [
+      { distance: y, position: x },
+      { distance: 1 - x, position: 1 + y },
+      { distance: 1 - y, position: 3 - x },
+      { distance: x, position: 4 - y },
+    ].reduce((closest, point) => (point.distance < closest.distance ? point : closest)).position;
+
+  for (const surface of shineSurfaces) {
+    const state = { current: null, target: 0, frame: null };
+
+    const drawShine = (position) => {
+      const point = perimeterPoint(position);
+      surface.style.setProperty("--shine-x", `${point.x * 100}%`);
+      surface.style.setProperty("--shine-y", `${point.y * 100}%`);
+    };
+
+    const animateShine = () => {
+      const remaining = state.target - state.current;
+      if (Math.abs(remaining) < 0.002) {
+        state.current = state.target;
+        drawShine(state.current);
+        state.frame = null;
+        return;
+      }
+      state.current += remaining * 0.22;
+      drawShine(state.current);
+      state.frame = requestAnimationFrame(animateShine);
+    };
+
+    surface.addEventListener(
+      "pointermove",
+      (event) => {
+        const rect = surface.getBoundingClientRect();
+        const x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+        const y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+        let target = closestPerimeterPosition(x, y);
+
+        if (state.current === null || reducedMotion) {
+          state.current = target;
+          state.target = target;
+          drawShine(target);
+          return;
+        }
+
+        target += Math.round((state.current - target) / 4) * 4;
+        state.target = target;
+        if (!state.frame) state.frame = requestAnimationFrame(animateShine);
+      },
+      { passive: true },
+    );
+    surface.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(state.frame);
+      state.current = null;
+      state.frame = null;
+      surface.style.removeProperty("--shine-x");
+      surface.style.removeProperty("--shine-y");
+    });
+  }
+}
+
 /* Reveal-on-scroll. If anything's unsupported, everything is simply visible. */
 const revealables = document.querySelectorAll(".reveal");
 if (!reducedMotion && "IntersectionObserver" in window) {
@@ -228,12 +304,25 @@ if (form) {
   const button = form.querySelector('button[type="submit"]');
   const turnstileWidget = form.querySelector(".cf-turnstile");
   const turnstileWrap = turnstileWidget.closest(".turnstile-wrap");
+  let turnstileToken = "";
+  let turnstileSubmissionPending = false;
+
+  const hideTurnstile = () => {
+    turnstileWrap.classList.add("turnstile-pending");
+    turnstileWrap.inert = true;
+  };
 
   const resetTurnstile = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     if (window.turnstile && turnstileWidget) window.turnstile.reset("#contact-turnstile");
   };
 
   window.handleTurnstileError = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     note.classList.remove("success");
     note.textContent =
       "The security check couldn’t load. Please try again, or email hello@empatheticbot.com.";
@@ -241,8 +330,28 @@ if (form) {
   };
 
   window.handleTurnstileExpired = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
     note.classList.remove("success");
-    note.textContent = "The security check expired. Please complete it again.";
+    note.textContent = "The security check expired. Select Send it over to try again.";
+  };
+
+  window.handleTurnstileTimeout = () => {
+    turnstileToken = "";
+    turnstileSubmissionPending = false;
+    hideTurnstile();
+    note.classList.remove("success");
+    note.textContent = "The security check timed out. Select Send it over to try again.";
+  };
+
+  window.handleTurnstileSuccess = (token) => {
+    turnstileToken = token;
+    hideTurnstile();
+    if (turnstileSubmissionPending) {
+      turnstileSubmissionPending = false;
+      form.requestSubmit();
+    }
   };
 
   /* The widget stays hidden (and out of the tab order) until Turnstile
@@ -250,17 +359,21 @@ if (form) {
   window.handleTurnstileInteractive = () => {
     turnstileWrap.classList.remove("turnstile-pending");
     turnstileWrap.inert = false;
+    note.classList.remove("success");
+    note.textContent = "Please complete the security check, then your message will send.";
   };
 
-  window.handleTurnstileInteractiveEnd = () => {
-    turnstileWrap.classList.add("turnstile-pending");
-    turnstileWrap.inert = true;
-  };
+  window.handleTurnstileInteractiveEnd = hideTurnstile;
 
-  /* Use the provider's public test key locally so npm start exercises the
-     complete form without weakening the production widget. */
-  const localHostnames = new Set(["localhost", "127.0.0.1", "[::1]"]);
-  turnstileWidget.dataset.sitekey = localHostnames.has(window.location.hostname)
+  /* Use the provider's public test key locally and on the isolated test
+     Worker without weakening the production widget. */
+  const turnstileTestHostnames = new Set([
+    "localhost",
+    "127.0.0.1",
+    "[::1]",
+    "empatheticbot-com-test.empatheticbot.workers.dev",
+  ]);
+  turnstileWidget.dataset.sitekey = turnstileTestHostnames.has(window.location.hostname)
     ? "1x00000000000000000000AA"
     : "0x4AAAAAAD4lhcXg34wOO6Wb";
   const turnstileScript = document.createElement("script");
@@ -273,12 +386,27 @@ if (form) {
     event.preventDefault();
     const data = new FormData(form);
 
-    if (!data.get("cf-turnstile-response")) {
+    if (!turnstileToken) {
+      if (turnstileSubmissionPending) return;
+
       note.classList.remove("success");
-      note.textContent = "Please complete the security check before sending.";
+      if (!window.turnstile) {
+        note.textContent =
+          "The security check is still loading. Please try again, or email hello@empatheticbot.com.";
+        return;
+      }
+
+      turnstileSubmissionPending = true;
+      note.textContent = "Running a quick security check…";
+      try {
+        window.turnstile.execute("#contact-turnstile");
+      } catch {
+        window.handleTurnstileError();
+      }
       return;
     }
 
+    data.set("cf-turnstile-response", turnstileToken);
     button.disabled = true;
     note.classList.remove("success");
     note.textContent = "Sending…";
@@ -296,8 +424,10 @@ if (form) {
       form.reset();
       resetTurnstile();
       note.classList.add("success");
-      note.textContent =
-        "Got it — thank you! I read every submission and will reply within two business days.";
+      note.textContent = "Sent — opening your next steps…";
+      /* replace(), not assign(): Back should return to wherever the visitor
+         came from, never to a spent form they might submit a second time. */
+      window.location.replace("/thanks");
     } catch (error) {
       resetTurnstile();
       const message =
@@ -307,6 +437,173 @@ if (form) {
       button.disabled = false;
     }
   });
+}
+
+/* 404 pratfall: measure where the falling 404 actually meets the bot's head.
+   Both are fluid-sized and they clamp at different breakpoints, so no single
+   authored offset lands on his head at every width. The stylesheet ships a
+   calc() approximation as the no-JS default; this replaces it with the real
+   painted geometry.
+
+   The heart and antenna sit above the rounded shell, so the topmost SVG ink is
+   not the collision point visitors read as his head. The body path is marked
+   explicitly in 404.html and getBBox() gives its crown in viewBox units. For
+   the type, TextMetrics reports how far the digits' ink actually descends in
+   their line box. Neither measurement is affected by the animation transforms,
+   so both remain safe to recalculate after a resize.
+
+   This deliberately runs ahead of time rather than watching for the hit. The
+   squash has to *start* on the contact frame, so the distance has to be known
+   before the animation is composited — see the note on IntersectionObserver
+   in the commit; observing the collision would report it a frame or more after
+   it happened, and only ever for boxes, never ink. */
+function measureBonkDistance() {
+  const bot = document.querySelector(".error-bot");
+  const head = bot?.querySelector(".error-bot-head");
+  const code = document.querySelector(".error-code");
+  const page = document.querySelector(".error-page");
+  if (!bot || !head || !code || !page || typeof head.getBBox !== "function") return;
+
+  let headBox;
+  try {
+    headBox = head.getBBox();
+  } catch {
+    return;
+  }
+  if (!headBox.width || !headBox.height) return;
+
+  const viewBox = bot.viewBox.baseVal;
+  const botHeight = parseFloat(getComputedStyle(bot).height);
+  if (!viewBox?.height || !botHeight) return;
+  const botHead = (headBox.y - viewBox.y) * (botHeight / viewBox.height);
+
+  /* How far the digits' lowest ink sits below the top of their line box. */
+  const type = getComputedStyle(code);
+  measureBonkDistance.context ||= document.createElement("canvas").getContext("2d");
+  const context = measureBonkDistance.context;
+  if (!context) return;
+  context.font = `${type.fontStyle} ${type.fontWeight} ${type.fontSize} ${type.fontFamily}`;
+  const glyphs = context.measureText(code.textContent.trim());
+  const lineBox = code.getBoundingClientRect().height;
+  const fontAscent = glyphs.fontBoundingBoxAscent ?? glyphs.actualBoundingBoxAscent;
+  const fontDescent = glyphs.fontBoundingBoxDescent ?? glyphs.actualBoundingBoxDescent;
+  const actualDescent = glyphs.actualBoundingBoxDescent ?? 0;
+  const halfLeading = (lineBox - (fontAscent + fontDescent)) / 2;
+  const codeInk = halfLeading + fontAscent + actualDescent;
+  if (!Number.isFinite(codeInk)) return;
+
+  const gap = parseFloat(getComputedStyle(page).rowGap) || 0;
+  /* A couple of pixels of optical overlap prevent antialiasing around the
+     curved crown from reading as a gap at the exact contact frame. */
+  const contactOverlap = Math.max(2, Math.round(botHeight * 0.02));
+  const bonk = Math.round(botHead - botHeight - gap - codeInk + contactOverlap);
+  /* Written to whichever copy is actually animating. The rebound is resolved
+     here too: the stage copy sits outside .error-page, so it can't see the
+     --code-size the stylesheet's calc() version depends on. */
+  const target = fallingCode ?? code;
+  target.style.setProperty("--bonk", `${bonk}px`);
+  target.style.setProperty("--bonk-rebound", `${Math.round(bonk - 0.35 * lineBox)}px`);
+}
+
+/* The falling 404 is animated inside a fixed, viewport-sized stage rather than
+   in the page itself. Two things fall out of that, both of which the in-page
+   version could never get right:
+
+   A fixed subtree contributes nothing to scrollable overflow, so the 404 can
+   travel far below the bottom edge without producing a scrollbar — no clipping
+   needed to hold it back. And the stage's own box IS the viewport, so the edge
+   it disappears at is the edge of the screen by construction: no measuring the
+   header, no min-height arithmetic, correct at every window size and scroll
+   offset.
+
+   The in-page 404 stays where it is to hold its slot in the grid, hidden with
+   its animation off. Without JavaScript none of this happens and it keeps the
+   plain CSS fall inside .error-page's own overflow:clip — which cuts at that
+   box's bottom edge rather than the screen's, the very thing this replaces. */
+let fallingCode = null;
+let fallStage = null;
+
+function buildFallStage(page) {
+  const code = page.querySelector(".error-code");
+  if (!code || fallingCode) return fallStage;
+
+  const stage = document.createElement("div");
+  stage.className = "fall-stage";
+  stage.setAttribute("aria-hidden", "true");
+
+  fallingCode = code.cloneNode(true);
+  fallingCode.removeAttribute("id");
+  stage.appendChild(fallingCode);
+  document.body.appendChild(stage);
+  page.classList.add("has-fall-stage");
+  fallStage = stage;
+
+  /* The fixed copy is only needed while the digits travel beyond the viewport.
+     Once the performance is over, atomically reveal the real in-page 404 and
+     retire the stage. Leaving the fixed copy alive would make scroll updates
+     chase the document position and visibly jitter behind the page. */
+  fallingCode.addEventListener(
+    "animationend",
+    (event) => {
+      if (event.animationName !== "code-crash") return;
+      page.classList.replace("has-fall-stage", "fall-complete");
+      stage.remove();
+      fallingCode = null;
+      fallStage = null;
+    },
+    { once: true },
+  );
+  return stage;
+}
+
+/* Pin the clone over the slot the real one occupies. Viewport coordinates, so
+   they can be used as-is inside the fixed stage. */
+function placeFallingCode(page) {
+  if (!fallingCode) return;
+  const box = page.querySelector(".error-code").getBoundingClientRect();
+  fallingCode.style.left = `${box.left}px`;
+  fallingCode.style.top = `${box.top}px`;
+  fallingCode.style.width = `${box.width}px`;
+}
+
+const errorPage = document.querySelector(".error-page");
+if (errorPage) {
+  /* Reduced motion collapses the whole timeline to its resting pose, so there
+     is no travel to stage — leave the real 404 in place and visible. */
+  if (!reducedMotion) {
+    const stage = buildFallStage(errorPage);
+    placeFallingCode(errorPage);
+    measureBonkDistance();
+
+    /* Fraunces has a different descent to the fallback serif. Finish measuring
+       after it is ready, then release both paused actors in one style update.
+       This gives them the same CSS start frame without timestamp bookkeeping. */
+    const playScene = () => {
+      placeFallingCode(errorPage);
+      measureBonkDistance();
+      requestAnimationFrame(() => {
+        errorPage.classList.add("is-playing");
+        stage?.classList.add("is-playing");
+      });
+    };
+    if (document.fonts?.ready) document.fonts.ready.then(playScene, playScene);
+    else playScene();
+  } else {
+    measureBonkDistance();
+  }
+  /* The clone is pinned to the viewport, so it has to be re-pinned as the page
+     scrolls under it or it would drift away from its slot. */
+  window.addEventListener("scroll", () => placeFallingCode(errorPage), { passive: true });
+  /* Watch the box rather than the window: both the mascot and the type are
+     sized off the viewport, so anything that moves them resizes this element —
+     and unlike a resize listener this also covers zoom and the initial layout
+     pass, which fires the observer once on its own. */
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      placeFallingCode(errorPage);
+      measureBonkDistance();
+    }).observe(errorPage);
+  }
 }
 
 /* Footer year. */
