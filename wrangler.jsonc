@@ -19,7 +19,8 @@
   "vars": {
     "ALLOWED_ORIGINS": "https://empatheticbot.com,https://empatheticbot-com.empatheticbot.workers.dev",
     "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
-    "CONTACT_RECIPIENT": "inquiry@empatheticbot.com"
+    "CONTACT_RECIPIENT": "inquiry@empatheticbot.com",
+    "EMAIL_ASSET_ORIGIN": "https://empatheticbot.com"
   },
   "send_email": [
     {
@@ -38,6 +39,7 @@
         "ALLOWED_ORIGINS": "https://empatheticbot-com-test.empatheticbot.workers.dev",
         "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
         "CONTACT_RECIPIENT": "inquiry@empatheticbot.com",
+        "EMAIL_ASSET_ORIGIN": "https://empatheticbot-com-test.empatheticbot.workers.dev",
         "TURNSTILE_TEST_MODE": "true"
       },
       "send_email": [

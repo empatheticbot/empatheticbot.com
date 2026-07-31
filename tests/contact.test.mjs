@@ -29,6 +29,7 @@ function createHarness(options = {}) {
     ALLOWED_ORIGINS: ORIGIN,
     CONTACT_FROM: "hello@empatheticbot.com",
     CONTACT_RECIPIENT: "owner@example.com",
+    EMAIL_ASSET_ORIGIN: options.emailAssetOrigin ?? ORIGIN,
     TURNSTILE_SECRET_KEY: "test-secret",
     CONTACT_EMAIL: {
       async send(message) {
@@ -83,6 +84,11 @@ describe("POST /api/contact", () => {
     assert.match(harness.sent[0].html, /A new conversation has started\./);
     assert.match(harness.sent[0].html, /background-color:#faf8f4/);
     assert.match(harness.sent[0].html, /border-top:4px solid #c22417/);
+    assert.match(
+      harness.sent[0].html,
+      /src="https:\/\/empatheticbot\.com\/assets\/email-bot\.png"/,
+    );
+    assert.doesNotMatch(harness.sent[0].html, />♥<\/div>/);
     assert.match(harness.sent[0].html, /Reply to Avery Example/);
   });
 
@@ -108,6 +114,21 @@ describe("POST /api/contact", () => {
       /&lt;script&gt;alert\(&quot;nope&quot;\)&lt;\/script&gt;<br \/>/,
     );
     assert.doesNotMatch(harness.sent[0].html, /<script>alert/);
+  });
+
+  test("uses the configured environment origin for email assets", async () => {
+    const harness = createHarness({
+      emailAssetOrigin: "https://empatheticbot-com-test.empatheticbot.workers.dev",
+    });
+    const response = await handleRequest(contactRequest(), harness.env, {
+      fetch: harness.fetch,
+    });
+
+    assert.equal(response.status, 200);
+    assert.match(
+      harness.sent[0].html,
+      /src="https:\/\/empatheticbot-com-test\.empatheticbot\.workers\.dev\/assets\/email-bot\.png"/,
+    );
   });
 
   test("accepts the native form's URL-encoded submission format", async () => {

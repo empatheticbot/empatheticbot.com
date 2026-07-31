@@ -139,7 +139,7 @@ When this Agreement ends, and after Client has paid all undisputed amounts then 
 
 Client is responsible for designating and purchasing any replacement hosting, registrar, and other replacement services. The Parties will use reasonable efforts to begin the transfer during the 30-day notice period and avoid unnecessary website downtime. If reasonably necessary for an orderly transfer, Provider will keep the existing basic hosting available for up to 30 days after the effective termination date, provided Client’s account is current and continued hosting does not create a legal or security risk. This limited transition hosting does not extend the subscription or include ongoing website work. Any transition help beyond the included two hours requires a separate written agreement.
 
-Sections that by their nature should continue—including payment, ownership, confidentiality, warranty disclaimers, indemnification, limitations of liability, dispute terms, and general terms—survive termination.
+Sections that by their nature should continue — including payment, ownership, confidentiality, warranty disclaimers, indemnification, limitations of liability, dispute terms, and general terms — survive termination.
 
 ## 6. Ownership and Licenses
 

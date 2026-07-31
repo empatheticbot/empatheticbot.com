@@ -39,6 +39,7 @@ function hasConfiguration(env) {
     env.TURNSTILE_SECRET_KEY &&
       env.CONTACT_FROM &&
       env.CONTACT_RECIPIENT &&
+      env.EMAIL_ASSET_ORIGIN &&
       env.ALLOWED_ORIGINS &&
       env.CONTACT_EMAIL?.send,
   );
@@ -226,6 +227,7 @@ function detailRow(label, value) {
 }
 
 function buildEmail(lead, env) {
+  const botImageUrl = new URL("/assets/email-bot.png", env.EMAIL_ASSET_ORIGIN).href;
   const rows = [
     ["Name", lead.name],
     ["Email", lead.email],
@@ -293,7 +295,7 @@ function buildEmail(lead, env) {
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                   <tr>
                     <td valign="middle" style="padding-right:11px;">
-                      <div style="width:34px;height:34px;border-radius:10px;background-color:#c22417;color:#ffffff;font-family:Arial,sans-serif;font-size:18px;font-weight:700;line-height:34px;text-align:center;">♥</div>
+                      <img src="${escapeHtml(botImageUrl)}" width="34" height="34" alt="" style="display:block;width:34px;height:34px;border:0;" />
                     </td>
                     <td valign="middle" style="color:#211d1a;font-family:Georgia,'Times New Roman',serif;font-size:21px;font-weight:700;line-height:28px;">empatheticbot</td>
                   </tr>
