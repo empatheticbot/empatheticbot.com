@@ -3,20 +3,34 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { describe, test } from "node:test";
 
-const [index, styles, headers, mainScript, privacy, thanks, notFound, favicon] = await Promise.all([
+const [
+  index,
+  styles,
+  headers,
+  mainScript,
+  privacy,
+  workingTogether,
+  thanks,
+  notFound,
+  favicon,
+  sitemap,
+] = await Promise.all([
   readFile(new URL("../public/index.html", import.meta.url), "utf8"),
   readFile(new URL("../public/style.css", import.meta.url), "utf8"),
   readFile(new URL("../public/_headers", import.meta.url), "utf8"),
   readFile(new URL("../public/main.js", import.meta.url), "utf8"),
   readFile(new URL("../public/privacy.html", import.meta.url), "utf8"),
+  readFile(new URL("../public/working-together.html", import.meta.url), "utf8"),
   readFile(new URL("../public/thanks.html", import.meta.url), "utf8"),
   readFile(new URL("../public/404.html", import.meta.url), "utf8"),
   readFile(new URL("../public/favicon.svg", import.meta.url), "utf8"),
+  readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8"),
 ]);
 
 const socialImagePaths = {
   index: new URL("../public/assets/og-home.png", import.meta.url),
   privacy: new URL("../public/assets/og-privacy.png", import.meta.url),
+  workingTogether: new URL("../public/assets/og.png", import.meta.url),
   thanks: new URL("../public/assets/og-thanks.png", import.meta.url),
   notFound: new URL("../public/assets/og-404.png", import.meta.url),
 };
@@ -89,6 +103,12 @@ describe("social previews", () => {
       "https://empatheticbot.com/assets/og-privacy.png",
     ],
     [
+      "workingTogether",
+      workingTogether,
+      "https://empatheticbot.com/working-together",
+      "https://empatheticbot.com/assets/og.png",
+    ],
+    [
       "thanks",
       thanks,
       "https://empatheticbot.com/thanks",
@@ -123,6 +143,11 @@ describe("social previews", () => {
     for (const path of Object.values(socialImagePaths)) {
       assert.deepEqual(await readPngDimensions(path), { width: 1200, height: 630 });
     }
+  });
+
+  test("publishes the working-together page in navigation and the sitemap", () => {
+    assert.match(index, /href="\/working-together"/);
+    assert.match(sitemap, /<loc>https:\/\/empatheticbot\.com\/working-together<\/loc>/);
   });
 });
 
@@ -216,7 +241,7 @@ describe("shared chrome", () => {
     const footer = (page) => page.match(/<footer class="site-footer">([\s\S]*?)<\/footer>/)?.[1];
     const home = footer(index);
     assert.ok(home);
-    for (const page of [privacy, thanks, notFound]) {
+    for (const page of [privacy, workingTogether, thanks, notFound]) {
       assert.equal(footer(page), home);
     }
   });

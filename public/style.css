@@ -994,6 +994,11 @@ a {
   font-size: 0.925rem;
 }
 
+.price-summary-link {
+  margin-top: 0.65rem;
+  font-size: 0.925rem;
+}
+
 .why-twelve {
   max-width: var(--measure);
   margin: 3.5rem auto 0;
@@ -1290,6 +1295,19 @@ textarea {
 
 .legal-meta {
   font-size: 0.925rem;
+}
+
+.agreement-note {
+  margin-top: 1rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.agreement-note h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
 /* -------------------------- Thank-you page --------------------------- */
