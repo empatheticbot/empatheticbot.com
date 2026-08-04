@@ -210,6 +210,12 @@ describe("Turnstile accessibility and privacy", () => {
     assert.match(privacy, /Cloudflare Turnstile/);
     assert.match(privacy, /https:\/\/www\.cloudflare\.com\/turnstile-privacy-policy\//);
   });
+
+  test("names inquiry processors and provides a retention target", () => {
+    assert.match(privacy, /Cloudflare/);
+    assert.match(privacy, /Google Workspace/);
+    assert.match(privacy, /12\s+months/);
+  });
 });
 
 describe("contact confirmation", () => {
