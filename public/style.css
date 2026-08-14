@@ -916,6 +916,24 @@ a {
   initial-value: 135deg;
 }
 
+.plan-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  max-width: 54rem;
+  margin: 3rem auto 0;
+}
+
+.plan-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+}
+
 .price-card {
   max-width: 26rem;
   margin: 3rem auto 0;
@@ -952,6 +970,10 @@ a {
   font-variant-numeric: lining-nums;
 }
 
+.price-amount-quoted {
+  font-size: 3.25rem;
+}
+
 .price-period {
   color: var(--ink-soft);
 }
@@ -976,6 +998,48 @@ a {
   padding-left: 1.5rem;
   position: relative;
   color: var(--ink-soft);
+}
+
+/* Side-by-side plan overrides, after the single-card defaults they adjust. */
+.plan-grid .price-card {
+  max-width: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The quoted plan is the answer to a question, not the headline offer — so it
+   sits quietly beside the $200 card instead of competing with it. */
+.plan-grid .price-card-secondary {
+  border-color: var(--line);
+  box-shadow: none;
+  background: var(--bg-raised);
+  animation: none;
+}
+
+.plan-grid .price-card-secondary .plan-label,
+.plan-grid .price-card-secondary .price-amount {
+  color: var(--ink-soft);
+}
+
+/* No feature list on this card, so the CTA takes up the slack itself. */
+.plan-grid .price-card-secondary .button {
+  margin-top: auto;
+}
+
+.plan-grid .price-card-secondary .price-list li::before {
+  color: var(--ink-soft);
+}
+
+/* Hold the row at full $200 height so both cards' copy starts on the same line. */
+.plan-grid .price {
+  min-height: 4.25rem;
+}
+
+/* Keep the two calls to action lined up when the cards differ in height. */
+.plan-grid .price-card .price-list {
+  margin-bottom: auto;
+  padding-bottom: 2rem;
 }
 
 .price-list li::before {
@@ -1197,6 +1261,12 @@ textarea {
   color: var(--ink-soft);
   font-size: 0.85rem;
   text-align: center;
+}
+
+.field-help {
+  margin-top: 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
 }
 
 @media (forced-colors: active) {

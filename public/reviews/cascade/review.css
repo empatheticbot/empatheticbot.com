@@ -1,0 +1,608 @@
+.cascade-page {
+  --cascade-teal: #073f4a;
+  /* Inherit the site accent so this page tracks light/dark with everything else. */
+  --cascade-accent: var(--accent);
+  --cascade-cream: #f7f1e8;
+}
+
+.cascade-header {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+}
+
+.cascade-header .wordmark-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.cascade-header-label {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-size: 0.825rem;
+  letter-spacing: 0.02em;
+  text-align: right;
+}
+
+.cascade-hero,
+.cascade-section,
+.cascade-method {
+  width: min(100% - 3rem, 72rem);
+  margin-inline: auto;
+}
+
+.cascade-footer .footer-bot {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.cascade-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.75fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: center;
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.cascade-hero h1 {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  text-align: left;
+}
+
+.cascade-hero-lede {
+  max-width: 52ch;
+  margin-top: 2rem;
+  color: var(--ink-soft);
+  font-size: clamp(1.08rem, 1rem + 0.35vw, 1.3rem);
+}
+
+.cascade-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+}
+
+.cascade-text-link {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cascade-summary {
+  padding: 2rem;
+  background: var(--cascade-teal);
+  color: #fff;
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: var(--shadow);
+}
+
+.cascade-summary-label {
+  margin-bottom: 0.75rem;
+  color: #a9d3d7;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cascade-summary > p:not(.cascade-summary-label, .cascade-summary-note) {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+
+.cascade-summary dl {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cascade-summary dl div {
+  display: grid;
+  grid-template-columns: 3.75rem 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cascade-summary dt {
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
+.cascade-summary dd {
+  color: #cfe3e5;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cascade-summary-note {
+  margin-top: 1.5rem;
+  color: #a9c9cd;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.cascade-section {
+  padding-block: clamp(4.75rem, 9vw, 8rem) 0;
+}
+
+.cascade-framing {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: start;
+  border-top: 1px solid var(--line);
+}
+
+.cascade-framing h2,
+.cascade-section-heading h2,
+.cascade-roadmap h2,
+.cascade-cta h2 {
+  max-width: 22ch;
+}
+
+.cascade-strengths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cascade-strengths li {
+  position: relative;
+  padding-left: 1.75rem;
+  color: var(--ink-soft);
+}
+
+.cascade-strengths li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--cascade-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--cascade-accent) 12%, transparent);
+}
+
+.cascade-section-heading {
+  max-width: 46rem;
+}
+
+.cascade-section-heading > p:last-child {
+  max-width: 62ch;
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+}
+
+.cascade-priorities {
+  padding: 0;
+  margin-top: 3.5rem;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.cascade-priorities > li {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  padding-block: 2.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cascade-priority-number {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--cascade-accent);
+}
+
+.cascade-impact {
+  margin-bottom: 0.35rem;
+  color: var(--cascade-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cascade-priorities h3 {
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+}
+
+.cascade-priorities li div > p:not(.cascade-impact) {
+  max-width: 68ch;
+  margin-top: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.cascade-recommendation strong {
+  color: var(--ink);
+}
+
+.cascade-current-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.24fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+  margin-top: 3rem;
+}
+
+.cascade-browser-shot,
+.cascade-phone-shot {
+  overflow: auto;
+  max-height: 70rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  scrollbar-gutter: stable;
+}
+
+.cascade-browser-shot {
+  border-radius: 14px;
+}
+
+.cascade-phone-shot {
+  border-radius: 20px;
+}
+
+.cascade-browser-shot img,
+.cascade-phone-shot img {
+  width: 100%;
+  height: auto;
+}
+
+.cascade-browser-bar {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.7rem;
+  background: #eeeae4;
+}
+
+.cascade-browser-bar span {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #b8afa4;
+}
+
+.cascade-browser-shot figcaption,
+.cascade-phone-shot figcaption {
+  position: sticky;
+  bottom: 0;
+  padding: 0.8rem 1rem;
+  background: #fff;
+  color: #4e4740;
+  font-size: 0.8rem;
+  border-top: 1px solid #e6dfd4;
+}
+
+.cascade-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.cascade-detail-grid article {
+  padding: 1.5rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.cascade-detail-score {
+  color: var(--cascade-teal);
+  font-family: var(--font-display);
+  font-size: 2.7rem;
+  line-height: 1;
+}
+
+.cascade-detail-score span {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.cascade-detail-grid h3 {
+  margin-top: 1.25rem;
+}
+
+.cascade-detail-grid article > p:last-child {
+  margin-top: 0.7rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.cascade-concepts {
+  display: grid;
+  gap: 5rem;
+  margin-top: 3.5rem;
+}
+
+.cascade-concept header {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(12rem, 0.55fr) 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+}
+
+.cascade-concept header span {
+  color: var(--cascade-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cascade-concept header p {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.cascade-concept-images {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, 0.27fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.cascade-concept-button {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  cursor: zoom-in;
+}
+
+.cascade-concept-button:hover {
+  border-color: var(--cascade-accent);
+}
+
+.cascade-concept-button:focus-visible {
+  outline: 3px solid var(--cascade-accent);
+  outline-offset: 3px;
+}
+
+.cascade-concept-button img {
+  width: 100%;
+  height: auto;
+}
+
+.cascade-concept-mobile {
+  border-radius: 18px;
+}
+
+.cascade-roadmap {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: start;
+}
+
+.cascade-roadmap-note {
+  max-width: 34ch;
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+}
+
+.cascade-roadmap ol {
+  display: grid;
+  gap: 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cascade-roadmap li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 1rem;
+}
+
+.cascade-roadmap li > span {
+  color: var(--cascade-accent);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.cascade-roadmap strong {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.cascade-roadmap li p {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+}
+
+.cascade-cta {
+  margin-top: clamp(5rem, 10vw, 9rem);
+  padding: clamp(2rem, 6vw, 4.5rem);
+  background: var(--cascade-cream);
+  border: 1px solid color-mix(in srgb, var(--cascade-accent) 16%, var(--line));
+  border-radius: calc(var(--radius) + 8px);
+}
+
+.cascade-cta-actions {
+  margin-top: 3rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cascade-cta {
+    background: #251d19;
+  }
+
+  .cascade-detail-score {
+    color: #9fd0d6;
+  }
+}
+
+.cascade-cta > p:not(.kicker) {
+  max-width: 66ch;
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+}
+
+.cascade-method {
+  padding-block: 3rem;
+  color: var(--ink-soft);
+  font-size: 0.775rem;
+}
+
+.cascade-lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-raised);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+
+.cascade-lightbox[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modal dialogs don't stop the page behind them from scrolling. */
+html:has(.cascade-lightbox[open]) {
+  overflow: hidden;
+}
+
+.cascade-lightbox::backdrop {
+  background: rgba(15, 13, 12, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.cascade-lightbox-bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem clamp(1rem, 3vw, 2rem);
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--line);
+}
+
+.cascade-lightbox-close {
+  padding: 0.45rem 0.85rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.cascade-lightbox-body {
+  flex: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Fills the dialog, but never upscales past the screenshot's own resolution. */
+.cascade-lightbox img {
+  display: block;
+  width: 100%;
+  max-width: max-content;
+  height: auto;
+  margin-inline: auto;
+}
+
+.cascade-footer {
+  margin-top: 2rem;
+}
+
+@media (max-width: 860px) {
+  .cascade-header-label {
+    display: none;
+  }
+
+  .cascade-hero,
+  .cascade-framing,
+  .cascade-roadmap {
+    grid-template-columns: 1fr;
+  }
+
+  .cascade-hero {
+    padding-block: 4.5rem;
+  }
+
+  .cascade-summary {
+    max-width: 36rem;
+  }
+
+  .cascade-detail-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cascade-concept header {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .cascade-hero,
+  .cascade-section,
+  .cascade-method {
+    width: min(100% - 2rem, 72rem);
+  }
+
+  .cascade-hero h1 {
+    font-size: clamp(2.75rem, 14vw, 4rem);
+  }
+
+  .cascade-strengths,
+  .cascade-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cascade-priorities > li {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+  }
+
+  .cascade-current-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(5rem, 0.32fr);
+    gap: 0.75rem;
+  }
+
+  .cascade-browser-shot,
+  .cascade-phone-shot {
+    max-height: 44rem;
+  }
+
+  .cascade-browser-shot figcaption,
+  .cascade-phone-shot figcaption {
+    padding: 0.55rem;
+    font-size: 0.65rem;
+  }
+
+  .cascade-concept-images {
+    grid-template-columns: minmax(0, 1fr) minmax(6.5rem, 0.35fr);
+    gap: 0.65rem;
+  }
+
+  .cascade-cta {
+    width: min(100% - 2rem, 72rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cascade-lightbox::backdrop {
+    backdrop-filter: none;
+  }
+}

@@ -8,3 +8,6 @@
 
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
+
+/reviews/*
+  X-Robots-Tag: noindex, nofollow
