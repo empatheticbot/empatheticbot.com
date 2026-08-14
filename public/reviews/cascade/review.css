@@ -251,6 +251,42 @@
   border-radius: 20px;
 }
 
+/* These panels stay white in both themes, so the scrollbar uses the same warm
+   neutrals as the mock browser chrome rather than the theme-aware ink tokens.
+   A transparent track leaves nothing square to collide with the rounded corners. */
+.cascade-browser-shot,
+.cascade-phone-shot {
+  scrollbar-width: thin;
+  scrollbar-color: #b8afa4 transparent;
+}
+
+/* Safari: the standard properties above aren't honored, so build the same
+   thin pill by hand. The transparent border insets the thumb from the corner. */
+.cascade-browser-shot::-webkit-scrollbar,
+.cascade-phone-shot::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.cascade-browser-shot::-webkit-scrollbar-track,
+.cascade-phone-shot::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cascade-browser-shot::-webkit-scrollbar-thumb,
+.cascade-phone-shot::-webkit-scrollbar-thumb {
+  background: #b8afa4;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+.cascade-browser-shot::-webkit-scrollbar-thumb:hover,
+.cascade-phone-shot::-webkit-scrollbar-thumb:hover {
+  background: #8f857a;
+  background-clip: padding-box;
+}
+
 .cascade-browser-shot img,
 .cascade-phone-shot img {
   width: 100%;
