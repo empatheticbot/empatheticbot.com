@@ -12,6 +12,7 @@ function validForm(overrides = {}) {
     business: "Example Plumbing",
     website: "example.com",
     need: "A brand-new website",
+    size: "A small team — roughly 10 to 50 people",
     goals: "Bring in more calls from local customers.",
     timing: "Before our fall opening",
     "cf-turnstile-response": "valid-test-token",
@@ -202,6 +203,42 @@ describe("POST /api/contact", () => {
       {
         fetch: harness.fetch,
       },
+    );
+
+    assert.equal(response.status, 400);
+    assert.equal(harness.turnstileCalls(), 0);
+    assert.equal(harness.sent.length, 0);
+  });
+
+  test("passes the business size along so a quote can be sized", async () => {
+    const harness = createHarness();
+    const response = await handleRequest(contactRequest(), harness.env, {
+      fetch: harness.fetch,
+    });
+
+    assert.equal(response.status, 200);
+    assert.match(harness.sent[0].text, /Business size:\nA small team — roughly 10 to 50 people/);
+    assert.match(harness.sent[0].html, /A small team — roughly 10 to 50 people/);
+  });
+
+  test("still accepts a submission from a cached form without the size field", async () => {
+    const harness = createHarness();
+    const form = validForm();
+    form.delete("size");
+    const response = await handleRequest(contactRequest(form), harness.env, {
+      fetch: harness.fetch,
+    });
+
+    assert.equal(response.status, 200);
+    assert.match(harness.sent[0].text, /Business size:\nNot provided/);
+  });
+
+  test("rejects an unrecognized business size before calling Turnstile", async () => {
+    const harness = createHarness();
+    const response = await handleRequest(
+      contactRequest(validForm({ size: "Enormous" })),
+      harness.env,
+      { fetch: harness.fetch },
     );
 
     assert.equal(response.status, 400);

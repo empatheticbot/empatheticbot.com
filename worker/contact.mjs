@@ -9,6 +9,14 @@ const NEED_OPTIONS = new Set([
   "Not sure yet — let’s talk",
 ]);
 
+// Optional so a cached copy of the form still submits successfully.
+const SIZE_OPTIONS = new Set([
+  "Just me, or a handful of people",
+  "A small team — roughly 10 to 50 people",
+  "50+ people, or several locations",
+  "Not sure how to answer",
+]);
+
 function jsonResponse(status, body, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {
     status,
@@ -112,6 +120,7 @@ function validateForm(form) {
   const business = normalizeLine(textValue(form, "business"), 180);
   const website = normalizeWebsite(textValue(form, "website"));
   const need = normalizeLine(textValue(form, "need"), 100);
+  const size = normalizeLine(textValue(form, "size"), 100);
   const goals = normalizeParagraph(textValue(form, "goals"), 2_000);
   const timing = normalizeParagraph(textValue(form, "timing"), 300, false);
   const turnstileToken = normalizeLine(textValue(form, "cf-turnstile-response"), 2_048);
@@ -127,6 +136,7 @@ function validateForm(form) {
     website === null ||
     !need ||
     !NEED_OPTIONS.has(need) ||
+    (size && !SIZE_OPTIONS.has(size)) ||
     !goals ||
     goals.length < 10 ||
     timing === null ||
@@ -141,6 +151,7 @@ function validateForm(form) {
     business,
     website,
     need,
+    size,
     goals,
     timing,
     turnstileToken,
@@ -233,6 +244,7 @@ function buildEmail(lead, env) {
     ["Email", lead.email],
     ["Business", lead.business],
     ["Current website", lead.website || "Not provided"],
+    ["Business size", lead.size || "Not provided"],
     ["What they need", lead.need],
     ["Goals", lead.goals],
     ["Timing", lead.timing || "No date provided"],
@@ -261,6 +273,7 @@ function buildEmail(lead, env) {
     ),
     detailRow("Business", emailText(lead.business)),
     detailRow("Current website", websiteValue),
+    detailRow("Business size", emailText(lead.size || "Not provided")),
     detailRow("What they need", emailText(lead.need)),
     detailRow("Timing", emailText(lead.timing || "No date provided")),
   ].join("");

@@ -1,0 +1,10 @@
+/* Cascade Hemophilia Consortium. Overrides only the brand tokens in
+   /reviews/review.css; all structure and layout come from there. */
+
+.review-page {
+  --review-brand: #073f4a;
+  --review-brand-label: #a9d3d7;
+  --review-brand-soft: #cfe3e5;
+  --review-brand-note: #a9c9cd;
+  --review-score-dark: #9fd0d6;
+}

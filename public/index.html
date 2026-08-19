@@ -12,9 +12,9 @@
     <title>empatheticbot — your website, cared for by an actual human</title>
     <meta
       name="description"
-      content="A one-person web studio in Canton, Michigan. Small-business website design, hosting, and ongoing care for $200/month with no setup fee."
+      content="A one-person web studio in Canton, Michigan. Small-business website design, hosting, and ongoing care for $200/month with no setup fee. Bigger than that? Get in touch."
     />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://empatheticbot.com/" />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
@@ -30,7 +30,7 @@
     <meta property="og:site_name" content="empatheticbot" />
     <meta
       property="og:description"
-      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee."
+      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch."
     />
     <meta property="og:image" content="https://empatheticbot.com/assets/og-home.png" />
     <meta
@@ -51,7 +51,7 @@
     />
     <meta
       name="twitter:description"
-      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee."
+      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch."
     />
     <meta name="twitter:image" content="https://empatheticbot.com/assets/og-home.png" />
     <meta
@@ -61,20 +61,20 @@
 
     <link
       rel="preload"
-      href="assets/fonts/fraunces-latin.woff2"
+      href="/assets/fonts/fraunces-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-    <link href="style.css" rel="stylesheet" />
-    <script src="main.js" defer></script>
+    <link href="/style.css" rel="stylesheet" />
+    <script src="/main.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "empatheticbot",
         "url": "https://empatheticbot.com/",
-        "image": "https://empatheticbot.com/assets/og.png",
+        "image": "https://empatheticbot.com/assets/og-home.png",
         "description": "Small-business website design, managed hosting, and ongoing care.",
         "email": "hello@empatheticbot.com",
         "founder": {
@@ -327,13 +327,13 @@
       <!-- ========================== Founder & work ========================== -->
       <section class="section" id="work">
         <p class="kicker">Experience</p>
-        <h2>A web developer by trade. A tinkerer by nature.</h2>
+        <h2>A web developer by trade. Particular by nature.</h2>
 
         <div class="founder reveal">
           <div class="founder-portrait-frame">
             <img
               class="founder-portrait"
-              src="assets/steve-ledsworth.jpg"
+              src="/assets/steve-ledsworth.jpg"
               width="600"
               height="600"
               loading="lazy"
@@ -348,7 +348,7 @@
               making complicated interfaces clearer, faster, and easier to use.
             </p>
             <p>
-              empatheticbot is my new studio, built around a simple idea: small businesses
+              empatheticbot is my new studio, built around a simple idea: smaller businesses
               deserve that same level of care without hiring a department or managing a pile
               of vendors. When you work with me, you work directly with the person doing the
               work.
@@ -418,21 +418,41 @@
         <p class="kicker">Pricing</p>
         <h2>One plan. No surprise invoices.</h2>
 
-        <div class="price-card reveal">
-          <p class="price">
-            <span class="price-amount">$200</span>
-            <span class="price-period">per month</span>
-          </p>
-          <p class="price-terms">
-            $2,400 initial commitment, billed as twelve monthly payments of $200. Then
-            month-to-month with 30 days’ notice.
-          </p>
-          <ul class="price-list">
-            <li>Design, build, managed hosting, updates, and ongoing care</li>
-            <li>One active request at a time — most completed in a few business days</li>
-            <li>Your domain, accounts, content, and GitHub repository stay yours</li>
-          </ul>
-          <a class="button button-wide" href="#contact">Start the conversation</a>
+        <div class="plan-grid">
+          <div class="price-card reveal">
+            <p class="plan-label">Small business</p>
+            <p class="price">
+              <span class="price-amount">$200</span>
+              <span class="price-period">per month</span>
+            </p>
+            <p class="price-terms">
+              $2,400 initial commitment, billed as twelve monthly payments of $200. Then
+              month-to-month with 30 days’ notice.
+            </p>
+            <ul class="price-list">
+              <li>Design, build, managed hosting, updates, and ongoing care</li>
+              <li>One active request at a time — most completed in a few business days</li>
+              <li>Your domain, accounts, content, and GitHub repository stay yours</li>
+            </ul>
+            <a class="button button-wide" href="#contact">Start the conversation</a>
+          </div>
+
+          <div class="price-card price-card-secondary reveal">
+            <p class="plan-label">Bigger than that?</p>
+            <p class="price">
+              <span class="price-amount price-amount-quoted">Let’s talk</span>
+            </p>
+            <p class="price-terms">
+              Medium-sized businesses are welcome here. Past a certain size the work stops
+              fitting one published number — more pages, more people to coordinate with, & more
+              systems to connect.
+            </p>
+            <p class="price-terms">
+              So tell me what you’ve got and we’ll work out an arrangement that fits. No
+              obligation, and I’ll be straight with you about what it would take.
+            </p>
+            <a class="button button-wide button-ghost" href="#contact">Get in touch</a>
+          </div>
         </div>
 
         <p class="price-disclosure">
@@ -441,7 +461,7 @@
           add one without your approval.
         </p>
         <p class="price-summary-link">
-          <a href="/working-together">More words about working together for the astute&nbsp;→</a>
+          <a href="/working-together">See what to expect&nbsp;→</a>
         </p>
 
         <aside class="why-twelve reveal">
@@ -462,6 +482,17 @@
         <h2>Fair questions, honest answers.</h2>
 
         <div class="faq-list">
+          <details class="reveal">
+            <summary>We’re bigger than a small business. Do you work with us?</summary>
+            <p>
+              Get in touch and let’s find out. The $200 plan is built around small-business
+              marketing and service sites, and past a certain size the work genuinely
+              outgrows it — more pages, more people to coordinate with, & more systems to
+              connect. That isn’t a no. It means we work out an arrangement that fits the
+              scale instead of forcing you into a number that doesn’t. Tell me what you’re
+              working with and I’ll be straight with you about what it would take.
+            </p>
+          </details>
           <details class="reveal">
             <summary>Who owns the website?</summary>
             <p>
@@ -599,6 +630,20 @@
               maxlength="300"
               placeholder="example.com"
             />
+          </div>
+
+          <div class="field">
+            <label for="size">About how big is your business? (optional)</label>
+            <select id="size" name="size">
+              <option value="" selected>Rather not say</option>
+              <option>Just me, or a handful of people</option>
+              <option>A small team — roughly 10 to 50 people</option>
+              <option>50+ people, or several locations</option>
+              <option>Not sure how to answer</option>
+            </select>
+            <p class="field-help">
+              Helpful context if you’re bigger than the $200 plan is built for.
+            </p>
           </div>
 
           <div class="field">

@@ -48,7 +48,7 @@ describe("progressive enhancement", () => {
   });
 
   test("the portrait is served as a local asset", () => {
-    assert.match(index, /src="assets\/steve-ledsworth\.jpg"/);
+    assert.match(index, /src="\/?assets\/steve-ledsworth\.jpg"/);
     assert.doesNotMatch(index, /src="https:\/\/sledsworth\.com\/[^" ]+avatar/);
   });
 });
