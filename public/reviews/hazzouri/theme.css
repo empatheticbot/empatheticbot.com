@@ -1,0 +1,10 @@
+/* Hazzouri Accounting & Tax Service. Overrides only the brand tokens in
+   /reviews/review.css; all structure and layout come from there. */
+
+.review-page {
+  --review-brand: #0b2143;
+  --review-brand-label: #9fbbdd;
+  --review-brand-soft: #d3e0ef;
+  --review-brand-note: #9db6d3;
+  --review-score-dark: #a9c8ea;
+}

@@ -62,41 +62,42 @@
       crossorigin
     />
     <link href="/style.css" rel="stylesheet" />
-    <link href="/reviews/cascade/review.css" rel="stylesheet" />
+    <link href="/reviews/review.css" rel="stylesheet" />
+    <link href="/reviews/cascade/theme.css" rel="stylesheet" />
     <script src="/main.js" defer></script>
   </head>
 
-  <body class="cascade-page">
+  <body class="review-page">
     <a class="skip-link" href="#main">Skip to review</a>
 
-    <header class="site-header cascade-header">
+    <header class="site-header review-header">
       <a class="wordmark" href="/" aria-label="empatheticbot — home">
         <img class="wordmark-icon" src="/favicon.svg" width="28" height="28" alt="" />
         <span>empatheticbot</span>
       </a>
-      <p class="cascade-header-label">Prepared for Cascade Hemophilia Consortium</p>
+      <p class="review-header-label">Prepared for Cascade Hemophilia Consortium</p>
     </header>
 
     <main id="main">
-      <section class="cascade-hero">
-        <div class="cascade-hero-copy">
+      <section class="review-hero">
+        <div class="review-hero-copy">
           <p class="kicker">An independent website review · August 2026</p>
           <h1>A clearer digital front door for Cascade.</h1>
-          <p class="cascade-hero-lede">
+          <p class="review-hero-lede">
             Cascade already has the parts that are hardest to build: decades of focused
             experience, a real body of patient resources, and a phone number that reaches an
             actual person. What the current website asks is that visitors find all of that on
             their own. This review is about closing that gap—mostly on a phone, which is where
             most people arrive.
           </p>
-          <div class="cascade-hero-actions">
+          <div class="review-hero-actions">
             <a class="button" href="#findings">See the opportunities</a>
-            <a class="cascade-text-link" href="#concepts">View redesign concepts&nbsp;↓</a>
+            <a class="review-text-link" href="#concepts">View redesign concepts&nbsp;↓</a>
           </div>
         </div>
 
-        <aside class="cascade-summary" aria-label="Review summary">
-          <p class="cascade-summary-label">The short version</p>
+        <aside class="review-summary" aria-label="Review summary">
+          <p class="review-summary-label">The short version</p>
           <p>
             The site is fast and holds a strong body of patient information. Its largest
             constraint is not speed—it is the work a visitor has to do to understand what
@@ -120,19 +121,19 @@
               <dd>of those 43 pages have a search description</dd>
             </div>
           </dl>
-          <p class="cascade-summary-note">
+          <p class="review-summary-note">
             Automated scores are a useful signal, not a certification. Manual testing and
             content judgment still matter.
           </p>
         </aside>
       </section>
 
-      <section class="cascade-section cascade-framing">
+      <section class="review-section review-framing">
         <div>
           <p class="kicker">What is already working</p>
           <h2>A sound foundation—not a rescue project.</h2>
         </div>
-        <ul class="cascade-strengths">
+        <ul class="review-strengths">
           <li>Clear organizational identity and direct phone access</li>
           <li>Useful information for pharmacy, insurance, forms, and education</li>
           <li>One clear heading per audited page and canonical URLs in place</li>
@@ -142,8 +143,8 @@
         </ul>
       </section>
 
-      <section class="cascade-section" id="findings">
-        <div class="cascade-section-heading">
+      <section class="review-section" id="findings">
+        <div class="review-section-heading">
           <p class="kicker">Highest-value opportunities</p>
           <h2>Help people orient themselves before asking them to explore.</h2>
           <p>
@@ -153,11 +154,11 @@
           </p>
         </div>
 
-        <ol class="cascade-priorities">
+        <ol class="review-priorities">
           <li>
-            <span class="cascade-priority-number">01</span>
+            <span class="review-priority-number">01</span>
             <div>
-              <p class="cascade-impact">High impact · Information hierarchy</p>
+              <p class="review-impact">High impact · Information hierarchy</p>
               <h3>Lead with what Cascade helps people do.</h3>
               <p>
                 A parent whose child was diagnosed last week arrives and is offered three
@@ -166,7 +167,7 @@
                 caregiver, or referring professional actually has—what does Cascade do, and
                 what do I do next?
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> begin with one concise description and a small
                 set of task-based paths: pharmacy, insurance or costs, patient forms, and
                 bleeding-disorder information.
@@ -174,9 +175,9 @@
             </div>
           </li>
           <li>
-            <span class="cascade-priority-number">02</span>
+            <span class="review-priority-number">02</span>
             <div>
-              <p class="cascade-impact">High impact · Mobile experience</p>
+              <p class="review-impact">High impact · Mobile experience</p>
               <h3>Design the phone experience as a route, not a stack.</h3>
               <p>
                 At 390 pixels wide, the homepage becomes a very long sequence of full-width
@@ -185,7 +186,7 @@
                 actions require substantial scrolling. Someone standing at a pharmacy counter
                 scrolls past a holiday notice to reach the thing they came for.
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> compress the utility header, prioritize three or
                 four tap-friendly tasks, and move time-sensitive or institutional content to
                 clearly labeled secondary sections.
@@ -193,9 +194,9 @@
             </div>
           </li>
           <li>
-            <span class="cascade-priority-number">03</span>
+            <span class="review-priority-number">03</span>
             <div>
-              <p class="cascade-impact">High impact · Accessibility</p>
+              <p class="review-impact">High impact · Accessibility</p>
               <h3>Give every interactive image a meaningful name.</h3>
               <p>
                 Lighthouse found three large homepage image links with no discernible
@@ -203,23 +204,23 @@
                 reader can encounter these as unnamed links even though nearby headings make
                 the intent visually apparent.
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> make the heading and image one named link, preserve
                 visible focus treatment, and manually test keyboard and screen-reader flows.
               </p>
             </div>
           </li>
           <li>
-            <span class="cascade-priority-number">04</span>
+            <span class="review-priority-number">04</span>
             <div>
-              <p class="cascade-impact">High impact · Search visibility</p>
+              <p class="review-impact">High impact · Search visibility</p>
               <h3>Write a useful search summary for every important page.</h3>
               <p>
                 The homepage has no meta description. A review of all 43 sitemap pages found
                 that none supply one. The homepage also lacks Open Graph and social preview
                 metadata, and no structured data was detected there.
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> create unique titles and descriptions around real
                 patient questions, add organization and service-area schema, and provide useful
                 previews when pages are shared.
@@ -227,9 +228,9 @@
             </div>
           </li>
           <li>
-            <span class="cascade-priority-number">05</span>
+            <span class="review-priority-number">05</span>
             <div>
-              <p class="cascade-impact">Medium impact · Content design</p>
+              <p class="review-impact">Medium impact · Content design</p>
               <h3>Turn dense resource pages into guided choices.</h3>
               <p>
                 Patient Forms includes important enrollment, consent, privacy, and information
@@ -237,7 +238,7 @@
                 People must interpret similar document names without much guidance about which
                 form applies, what it contains, or what happens next.
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> group content by task, explain who each document is
                 for, identify file type and destination, and provide a clear help path when a
                 visitor is unsure.
@@ -245,9 +246,9 @@
             </div>
           </li>
           <li>
-            <span class="cascade-priority-number">06</span>
+            <span class="review-priority-number">06</span>
             <div>
-              <p class="cascade-impact">Medium impact · Technical quality</p>
+              <p class="review-impact">Medium impact · Technical quality</p>
               <h3>Simplify the front-end and resolve small quality leaks.</h3>
               <p>
                 The page loads 41 document, style, script, font, and image requests in the
@@ -255,7 +256,7 @@
                 assets add dependencies. The favicon request returned a server error, and the
                 LCP image is discovered through CSS rather than the initial HTML.
               </p>
-              <p class="cascade-recommendation">
+              <p class="review-recommendation">
                 <strong>Opportunity:</strong> reduce the dependency chain, use responsive modern
                 images, make the hero resource directly discoverable, fix favicon delivery, and
                 preserve the caching that already makes repeat visits fast.
@@ -265,8 +266,8 @@
         </ol>
       </section>
 
-      <section class="cascade-section cascade-evidence" id="evidence">
-        <div class="cascade-section-heading">
+      <section class="review-section review-evidence" id="evidence">
+        <div class="review-section-heading">
           <p class="kicker">Current experience</p>
           <h2>The issue is easier to see at a glance.</h2>
           <p>
@@ -275,9 +276,9 @@
           </p>
         </div>
 
-        <div class="cascade-current-grid">
-          <figure class="cascade-browser-shot">
-            <div class="cascade-browser-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="review-current-grid">
+          <figure class="review-browser-shot">
+            <div class="review-browser-bar" aria-hidden="true"><span></span><span></span><span></span></div>
             <img
               src="/reviews/cascade/assets/current-desktop.webp"
               width="2850"
@@ -287,7 +288,7 @@
             />
             <figcaption>Current desktop homepage</figcaption>
           </figure>
-          <figure class="cascade-phone-shot">
+          <figure class="review-phone-shot">
             <img
               src="/reviews/cascade/assets/current-mobile.webp"
               width="780"
@@ -300,8 +301,8 @@
         </div>
       </section>
 
-      <section class="cascade-section cascade-details">
-        <div class="cascade-section-heading">
+      <section class="review-section review-details">
+        <div class="review-section-heading">
           <p class="kicker">Audit details</p>
           <h2>What the measurements say.</h2>
           <p>
@@ -310,9 +311,9 @@
           </p>
         </div>
 
-        <div class="cascade-detail-grid">
+        <div class="review-detail-grid">
           <article>
-            <p class="cascade-detail-score">96<span>/100</span></p>
+            <p class="review-detail-score">96<span>/100</span></p>
             <h3>Accessibility</h3>
             <p>
               The automated score is encouraging. The named-link failure is concrete and
@@ -321,7 +322,7 @@
             </p>
           </article>
           <article>
-            <p class="cascade-detail-score">92<span>/100</span></p>
+            <p class="review-detail-score">92<span>/100</span></p>
             <h3>SEO</h3>
             <p>
               Canonicals, titles, headings, and a sitemap are present. The largest audited gap
@@ -330,7 +331,7 @@
             </p>
           </article>
           <article>
-            <p class="cascade-detail-score">213<span> ms</span></p>
+            <p class="review-detail-score">213<span> ms</span></p>
             <h3>Observed LCP</h3>
             <p>
               The measured cached run was fast and had no meaningful layout shift. Performance
@@ -339,7 +340,7 @@
             </p>
           </article>
           <article>
-            <p class="cascade-detail-score">88<span>/100</span></p>
+            <p class="review-detail-score">88<span>/100</span></p>
             <h3>Best practices</h3>
             <p>
               Browser console and cookie issues were reported, including a failed favicon
@@ -350,8 +351,8 @@
         </div>
       </section>
 
-      <section class="cascade-section" id="concepts">
-        <div class="cascade-section-heading">
+      <section class="review-section" id="concepts">
+        <div class="review-section-heading">
           <p class="kicker">Early design exploration</p>
           <h2>Three ways the same content could feel clearer.</h2>
           <p>
@@ -361,50 +362,50 @@
           </p>
         </div>
 
-        <div class="cascade-concepts">
-          <article class="cascade-concept">
+        <div class="review-concepts">
+          <article class="review-concept">
             <header>
               <span>Direction 01</span>
               <h3>Editorial and reassuring</h3>
               <p>A warm introduction followed by three simple service paths.</p>
             </header>
-            <div class="cascade-concept-images">
-              <button class="cascade-concept-button" type="button" aria-label="Open Direction 1 desktop concept">
+            <div class="review-concept-images">
+              <button class="review-concept-button" type="button" aria-label="Open Direction 1 desktop concept">
                 <img src="/reviews/cascade/assets/concept-1-desktop.webp" width="1486" height="1059" loading="lazy" alt="Desktop redesign concept with family photography and service pathways" />
               </button>
-              <button class="cascade-concept-button cascade-concept-mobile" type="button" aria-label="Open Direction 1 mobile concept">
+              <button class="review-concept-button review-concept-mobile" type="button" aria-label="Open Direction 1 mobile concept">
                 <img src="/reviews/cascade/assets/concept-1-mobile.webp" width="852" height="1846" loading="lazy" alt="Mobile version of the editorial Cascade redesign concept" />
               </button>
             </div>
           </article>
 
-          <article class="cascade-concept">
+          <article class="review-concept">
             <header>
               <span>Direction 02</span>
               <h3>Community-centered</h3>
               <p>A human, open composition with quieter resource navigation.</p>
             </header>
-            <div class="cascade-concept-images">
-              <button class="cascade-concept-button" type="button" aria-label="Open Direction 2 desktop concept">
+            <div class="review-concept-images">
+              <button class="review-concept-button" type="button" aria-label="Open Direction 2 desktop concept">
                 <img src="/reviews/cascade/assets/concept-2-desktop.webp" width="1487" height="1058" loading="lazy" alt="Desktop redesign concept with community photography and a curved visual motif" />
               </button>
-              <button class="cascade-concept-button cascade-concept-mobile" type="button" aria-label="Open Direction 2 mobile concept">
+              <button class="review-concept-button review-concept-mobile" type="button" aria-label="Open Direction 2 mobile concept">
                 <img src="/reviews/cascade/assets/concept-2-mobile.webp" width="853" height="1844" loading="lazy" alt="Mobile version of the community-centered Cascade redesign concept" />
               </button>
             </div>
           </article>
 
-          <article class="cascade-concept">
+          <article class="review-concept">
             <header>
               <span>Direction 03</span>
               <h3>Task-first and direct</h3>
               <p>A practical front door for visitors who already know what they need.</p>
             </header>
-            <div class="cascade-concept-images">
-              <button class="cascade-concept-button" type="button" aria-label="Open Direction 3 desktop concept">
+            <div class="review-concept-images">
+              <button class="review-concept-button" type="button" aria-label="Open Direction 3 desktop concept">
                 <img src="/reviews/cascade/assets/concept-3-desktop.webp" width="1486" height="1058" loading="lazy" alt="Desktop redesign concept with task-first navigation and supportive photography" />
               </button>
-              <button class="cascade-concept-button cascade-concept-mobile" type="button" aria-label="Open Direction 3 mobile concept">
+              <button class="review-concept-button review-concept-mobile" type="button" aria-label="Open Direction 3 mobile concept">
                 <img src="/reviews/cascade/assets/concept-3-mobile.webp" width="853" height="1844" loading="lazy" alt="Mobile version of the task-first Cascade redesign concept" />
               </button>
             </div>
@@ -412,11 +413,11 @@
         </div>
       </section>
 
-      <section class="cascade-section cascade-roadmap">
+      <section class="review-section review-roadmap">
         <div>
           <p class="kicker">A sensible path forward</p>
           <h2>Improve the system, not just the homepage.</h2>
-          <p class="cascade-roadmap-note">
+          <p class="review-roadmap-note">
             If Cascade ever takes this on—with anyone—this is roughly the order I’d suggest.
           </p>
         </div>
@@ -440,7 +441,7 @@
         </ol>
       </section>
 
-      <section class="cascade-section cascade-cta">
+      <section class="review-section review-cta">
         <p class="kicker">A note from Steve</p>
         <h2>I hope this is useful.</h2>
         <p>
@@ -452,7 +453,7 @@
           through them and learn more about Cascade’s needs. Whether or not we work together,
           you’re welcome to use the recommendations in this review.
         </p>
-        <div class="cascade-cta-actions">
+        <div class="review-cta-actions">
           <a
             class="button"
             href="mailto:hello@empatheticbot.com?subject=Cascade%20website%20review"
@@ -461,7 +462,7 @@
         </div>
       </section>
 
-      <section class="cascade-method" aria-label="About this review">
+      <section class="review-method" aria-label="About this review">
         <p>
           <strong>About this review:</strong> This is an independent review of Cascade’s public
           website, based on observations made August 13, 2026. It is not a complete accessibility,
@@ -470,23 +471,23 @@
       </section>
     </main>
 
-    <dialog class="cascade-lightbox" aria-labelledby="cascade-lightbox-title">
-      <div class="cascade-lightbox-bar">
-        <p id="cascade-lightbox-title">Redesign concept</p>
-        <button type="button" class="cascade-lightbox-close" aria-label="Close image">Close</button>
+    <dialog class="review-lightbox" aria-labelledby="review-lightbox-title">
+      <div class="review-lightbox-bar">
+        <p id="review-lightbox-title">Redesign concept</p>
+        <button type="button" class="review-lightbox-close" aria-label="Close image">Close</button>
       </div>
-      <div class="cascade-lightbox-body">
+      <div class="review-lightbox-body">
         <img alt="" />
       </div>
     </dialog>
 
-    <footer class="site-footer cascade-footer">
+    <footer class="site-footer review-footer">
       <img class="footer-bot" src="/favicon.svg" width="52" height="52" alt="" />
       <p class="footer-small">Prepared with care by <a href="/">empatheticbot</a> in Canton, Michigan.</p>
       <p class="footer-small"><a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a></p>
       <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>
     </footer>
 
-    <script src="/reviews/cascade/review.js" defer></script>
+    <script src="/reviews/review.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,10 @@
+/* Vintage Vibes Antiques. Overrides only the brand tokens in
+   /reviews/review.css; all structure and layout come from there.
+
+   A deep oxblood drawn from the red in the shop's logo. Every other tint
+   derives from it, and the shared accent is already in the same red family,
+   so it is left alone to keep its dark-mode value. */
+
+.review-page {
+  --review-brand: #5f1d13;
+}
