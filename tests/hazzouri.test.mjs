@@ -52,6 +52,19 @@ describe("Hazzouri outreach review", () => {
     assert.doesNotMatch(page, /limited time|act now|discount|follow up/i);
   });
 
+  test("names the price and its limits without displacing the review", () => {
+    assert.match(page, /<span>\$200<\/span> per month/);
+    assert.match(page, /\$2,400 commitment, billed as twelve monthly/);
+    assert.match(page, /No setup fee/);
+    // A practice that handles client documents will need a paid third-party
+    // service; the no-markup promise belongs beside the price, not after it.
+    assert.match(page, /I set it up, and I never\s+mark it up/);
+
+    // The pitch stays out of the hero: the page still opens as a review.
+    const hero = page.match(/<section class="review-hero">[\s\S]*?<\/section>/)[0];
+    assert.doesNotMatch(hero, /\$\d/);
+  });
+
   test("uses the cover card for complete social sharing previews", () => {
     const image = "https://empatheticbot.com/reviews/hazzouri/assets/og-hazzouri-redesign.png";
     assert.match(page, new RegExp(`<meta\\s+property="og:image"\\s+content="${image}"`));

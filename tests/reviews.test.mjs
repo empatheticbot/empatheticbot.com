@@ -137,6 +137,26 @@ describe("shared review layer", () => {
     assert.match(row, /grid-template-columns:\s*subgrid/);
   });
 
+  test("backs any price it names with terms and a no-obligation exit", () => {
+    // A number on the page turns a free review into an offer. Where that happens,
+    // the offer has to carry the same terms as the public site, it has to come
+    // after the work it prices, and the review has to keep its exit — the pitch
+    // is allowed to be on the page, not to become the point of it.
+    for (const { client, page } of pages) {
+      if (!/\$\d/.test(page)) continue;
+
+      assert.match(page, /href="\/working-together"/, client);
+      assert.match(page, /Whether or not we/, client);
+
+      const roadmap = page.indexOf('class="review-section review-roadmap"');
+      const offer = page.indexOf('class="review-section review-offer"');
+      const closing = page.indexOf('class="review-section review-cta"');
+
+      assert.ok(roadmap > -1 && offer > roadmap, `${client} prices the work before describing it`);
+      assert.ok(closing > offer, `${client} ends on the price instead of the offer to help`);
+    }
+  });
+
   test("states audit scope and measurement caveats on every page", () => {
     for (const { client, page } of pages) {
       assert.match(page, /Automated scores are a useful signal, not a certification/, client);

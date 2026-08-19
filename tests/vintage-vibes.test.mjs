@@ -85,6 +85,19 @@ describe("Vintage Vibes outreach review", () => {
     assert.doesNotMatch(page, /interested in building out a freelance business/);
   });
 
+  test("names the price and its limits without displacing the review", () => {
+    assert.match(page, /<span>\$200<\/span> per month/);
+    assert.match(page, /\$2,400 commitment, billed as twelve monthly/);
+    assert.match(page, /No setup fee/);
+    // The concept shows merchandise, so the one thing the subscription does not
+    // cover has to be named on the same page rather than discovered later.
+    assert.match(page, /a full online store is outside what the\s+subscription covers/);
+
+    // The pitch stays out of the hero: the page still opens as a review.
+    const hero = page.match(/<section class="review-hero">[\s\S]*?<\/section>/)[0];
+    assert.doesNotMatch(hero, /\$\d/);
+  });
+
   test("uses the concept for complete social sharing previews", () => {
     const image =
       "https://empatheticbot.com/reviews/vintage-vibes/assets/og-vintage-vibes-redesign.png";
