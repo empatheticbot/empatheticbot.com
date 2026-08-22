@@ -1,74 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!--
+
+<head>
+  <!--
       Hello, fellow view-sourcer. 👋
       No frameworks, no page builders, no build step.
       Just HTML, CSS, and a little JavaScript — written with care.
       That's kind of the whole pitch.
     -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>empatheticbot — your website, cared for by an actual human</title>
-    <meta
-      name="description"
-      content="A one-person web studio in Canton, Michigan. Small-business website design, hosting, and ongoing care for $200/month with no setup fee. Bigger than that? Get in touch."
-    />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://empatheticbot.com/" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#171412" media="(prefers-color-scheme: dark)" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>empatheticbot — your website, cared for by an actual human</title>
+  <meta name="description"
+    content="A one-person web studio in Canton, Michigan. Small-business website design, hosting, and ongoing care for $200/month with no setup fee. Bigger than that? Get in touch." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://empatheticbot.com/" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171412" media="(prefers-color-scheme: dark)" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="https://empatheticbot.com/" />
-    <meta
-      property="og:title"
-      content="Your website is never finished. Let’s treat it that way."
-    />
-    <meta property="og:site_name" content="empatheticbot" />
-    <meta
-      property="og:description"
-      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch."
-    />
-    <meta property="og:image" content="https://empatheticbot.com/assets/og-home.png" />
-    <meta
-      property="og:image:secure_url"
-      content="https://empatheticbot.com/assets/og-home.png"
-    />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Your website is never finished. Let’s treat it that way — design, build, hosting, and ongoing care from empatheticbot"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Your website is never finished. Let’s treat it that way."
-    />
-    <meta
-      name="twitter:description"
-      content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch."
-    />
-    <meta name="twitter:image" content="https://empatheticbot.com/assets/og-home.png" />
-    <meta
-      name="twitter:image:alt"
-      content="Your website is never finished. Let’s treat it that way — design, build, hosting, and ongoing care from empatheticbot"
-    />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://empatheticbot.com/" />
+  <meta property="og:title" content="Your website is never finished. Let’s treat it that way." />
+  <meta property="og:site_name" content="empatheticbot" />
+  <meta property="og:description"
+    content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch." />
+  <meta property="og:image" content="https://empatheticbot.com/assets/og-home.png" />
+  <meta property="og:image:secure_url" content="https://empatheticbot.com/assets/og-home.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"
+    content="Your website is never finished. Let’s treat it that way — design, build, hosting, and ongoing care from empatheticbot" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Your website is never finished. Let’s treat it that way." />
+  <meta name="twitter:description"
+    content="I design, build, host, and care for small-business websites for one flat monthly price — $200/month, with no setup fee. Bigger than that? Get in touch." />
+  <meta name="twitter:image" content="https://empatheticbot.com/assets/og-home.png" />
+  <meta name="twitter:image:alt"
+    content="Your website is never finished. Let’s treat it that way — design, build, hosting, and ongoing care from empatheticbot" />
 
-    <link
-      rel="preload"
-      href="/assets/fonts/fraunces-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link href="/style.css" rel="stylesheet" />
-    <script src="/main.js" defer></script>
-    <script type="application/ld+json">
+  <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link href="/style.css" rel="stylesheet" />
+  <script src="/main.js" defer></script>
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
@@ -99,648 +75,597 @@
         "priceRange": "$200/month"
       }
     </script>
-  </head>
+</head>
 
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <div class="progress" aria-hidden="true"></div>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
 
-    <!-- Shared paint definitions for every bot on the page.
+  <!-- Shared paint definitions for every bot on the page.
          (Deliberately not inside <defs>+<use> — WebKit doesn't restyle
          use-element shadow trees dynamically, so each bot is real markup.) -->
-    <svg class="svg-definitions" width="0" height="0" aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
-          <stop stop-color="#da1212" offset="0%"></stop>
-          <stop stop-color="#ff0000" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="antenna-gradient">
-          <stop stop-color="#7d0808" offset="0%"></stop>
-          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="77.6%" y1="20.4%" x2="1.2%" y2="76.7%" id="body-gradient">
-          <stop stop-color="#7d0808" offset="0%"></stop>
-          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
-        </linearGradient>
-      </defs>
-    </svg>
+  <svg class="svg-definitions" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
+        <stop stop-color="#da1212" offset="0%"></stop>
+        <stop stop-color="#ff0000" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="antenna-gradient">
+        <stop stop-color="#7d0808" offset="0%"></stop>
+        <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="77.6%" y1="20.4%" x2="1.2%" y2="76.7%" id="body-gradient">
+        <stop stop-color="#7d0808" offset="0%"></stop>
+        <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
 
-    <header class="site-header">
-      <a class="wordmark" href="#top" aria-label="empatheticbot — back to top">
-        <svg class="wordmark-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-          <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
-          <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
-          <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
-          <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
-          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
-          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
-          <g class="bot-eyes">
-            <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
-            <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
-          </g>
-        </svg>
-        <span>empatheticbot</span>
-      </a>
-      <nav class="desktop-navigation" aria-label="Sections">
-        <a href="#why">The&nbsp;model</a>
-        <a href="#human">The&nbsp;difference</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="empatheticbot — back to top">
+      <svg class="wordmark-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path class="bot-heart"
+          d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
+          stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        </path>
+        <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5"
+          rx="2.5"></rect>
+        <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3"
+          rx="1.5"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+        <path
+          d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+          fill="#000000"></path>
+        <path
+          d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+          fill="url(#body-gradient)"></path>
+        <g class="bot-eyes">
+          <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8"
+            stroke-linecap="round" fill="none"></path>
+          <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8"
+            stroke-linecap="round" fill="none"></path>
+        </g>
+      </svg>
+      <span>empatheticbot</span>
+    </a>
+    <nav class="desktop-navigation" aria-label="Sections">
+      <a href="#why">The&nbsp;model</a>
+      <a href="#human">The&nbsp;difference</a>
+      <a href="#work">Work</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <details class="mobile-navigation">
+      <summary>Menu</summary>
+      <nav class="mobile-navigation-panel" aria-label="Mobile sections">
+        <a href="#why">The model</a>
+        <a href="#human">The difference</a>
         <a href="#work">Work</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
+        <a class="mobile-navigation-cta" href="#contact">Start a project</a>
       </nav>
-      <details class="mobile-navigation">
-        <summary>Menu</summary>
-        <nav class="mobile-navigation-panel" aria-label="Mobile sections">
-          <a href="#why">The model</a>
-          <a href="#human">The difference</a>
-          <a href="#work">Work</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-          <a class="mobile-navigation-cta" href="#contact">Start a project</a>
-        </nav>
-      </details>
-      <a class="button button-small header-cta" href="#contact">Start a project</a>
-    </header>
+    </details>
+    <a class="button button-small header-cta" href="#contact">Start a project</a>
+  </header>
 
-    <main id="main">
-      <!-- ============================== Hero ============================== -->
-      <section class="hero" id="top">
-        <div class="hero-glow" aria-hidden="true"></div>
+  <main id="main">
+    <!-- ============================== Hero ============================== -->
+    <section class="hero" id="top">
+      <div class="hero-glow" aria-hidden="true"></div>
 
-        <svg
-          class="bot"
-          viewBox="0 0 32 32"
-          role="img"
-          aria-label="The empatheticbot mascot: a small round robot with a beating red heart"
-        >
-          <path
-            class="bot-heart"
-            d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
-            stroke="url(#heart-gradient)"
-            stroke-width="4.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            fill="none"
-          ></path>
-          <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
-          <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
-          <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
-          <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
-          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
-          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
-          <g class="bot-eyes">
-            <path
-              class="bot-eye bot-eye-left"
-              d="M11,17.999 Q11,18 11,18.001"
-              stroke="#ffffff"
-              stroke-width="8"
-              stroke-linecap="round"
-              fill="none"
-            ></path>
-            <path
-              class="bot-eye bot-eye-right"
-              d="M21,17.999 Q21,18 21,18.001"
-              stroke="#ffffff"
-              stroke-width="8"
-              stroke-linecap="round"
-              fill="none"
-            ></path>
-          </g>
-        </svg>
-
-        <p class="eyebrow">Small-business websites · Canton, Michigan &amp; beyond</p>
-        <h1 class="headline">Your website is never <em>finished</em>. Let’s treat it that way.</h1>
-        <p class="lede">
-          I design, build, host, and care for small-business websites for one flat monthly
-          price. No setup fee. No surprise invoices. No disappearing after launch. Just a
-          working relationship with the person who fretted over every line. Software built
-          with ❤️.
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="#contact">Start the conversation</a>
-          <a class="button button-ghost" href="#why">Why a subscription?</a>
-        </div>
-        <p class="hero-terms">
-          $2,400 initial commitment &middot; billed at $200/month for 12 months &middot; no setup fee
-        </p>
-      </section>
-
-      <!-- ======================= Why a subscription ======================= -->
-      <section class="section" id="why">
-        <p class="kicker">The model</p>
-        <h2>Websites are never finished. Your budget shouldn’t pretend they are.</h2>
-        <p class="section-lede">
-          The traditional way to buy a website is a big one-time project: a large invoice, a
-          launch day, a handshake — and then silence, right when the real work begins. A
-          subscription matches how websites actually live.
-        </p>
-
-        <ol class="reasons">
-          <li class="reason reveal">
-            <span class="reason-number" aria-hidden="true">01</span>
-            <h3>The web doesn’t stand still</h3>
-            <p>
-              Content goes stale, browsers change, software needs patching, your business
-              evolves. A site that isn’t cared for quietly rots. Ongoing care isn’t an
-              upsell — it’s the actual job, so it’s built into the price.
-            </p>
-          </li>
-          <li class="reason reveal">
-            <span class="reason-number" aria-hidden="true">02</span>
-            <h3>One number, every month</h3>
-            <p>
-              No estimates, no scope negotiations, no surprise line items. You can plan
-              around it and so can I. A five-figure redesign becomes a predictable monthly
-              cost that flexes with your business instead of ambushing it.
-            </p>
-          </li>
-          <li class="reason reveal">
-            <span class="reason-number" aria-hidden="true">03</span>
-            <h3>Trust is built over time</h3>
-            <p>
-              In month one I learn your business and we start building something together.
-              By month six I know your customers, your busy season, and which page actually
-              earns you business.
-              That context compounds — and it’s something no vendor-of-the-week can offer.
-            </p>
-          </li>
-          <li class="reason reveal">
-            <span class="reason-number" aria-hidden="true">04</span>
-            <h3>Aligned incentives</h3>
-            <p>
-              Project shops make their money on change orders and rebuilds. I do well only
-              if your site keeps working for you, month after month — so keeping it fast,
-              healthy, and useful is how I earn my keep.
-            </p>
-          </li>
-        </ol>
-      </section>
-
-      <!-- ====================== Why a person, not a tool ====================== -->
-      <section class="section" id="human">
-        <p class="kicker">The difference</p>
-        <h2>Anyone can get <em>a</em> website in an hour now. That’s exactly the problem.</h2>
-        <p class="section-lede">
-          Site builders and AI generators are genuinely impressive tools. But a tool only
-          gives you output. It can’t give you attention.
-        </p>
-
-        <div class="compare">
-          <article class="compare-card reveal">
-            <h3>DIY builders give you tools, not time</h3>
-            <p>
-              With Wix or Squarespace, the subscription buys you software — the work is
-              still yours. You’re the designer, the writer, the SEO person, and the one
-              debugging the layout at 11 p.m. That’s a second job, not a solution.
-            </p>
-          </article>
-          <article class="compare-card reveal">
-            <h3>AI can generate. It can’t care.</h3>
-            <p>
-              An AI will produce a plausible, averaged version of a website in seconds. It
-              won’t sit with you, ask the second question, notice your booking page is broken on mobile, or call you when something looks off. Judgment and follow-through
-              are the product here — not markup.
-            </p>
-          </article>
-          <article class="compare-card reveal">
-            <h3>You get me. Directly.</h3>
-            <p>
-              No ticket queues, no account managers, no support chatbot. When you email,
-              the person who answers is the person who built your site and will fix it. I
-              reply within two business days, often sooner.
-            </p>
-          </article>
-          <article class="compare-card reveal">
-            <h3>Crafted, not churned out</h3>
-            <p>
-              Every site is shaped, reviewed, and tested by me — no page-builder bloat, no
-              stack of 50 plugins. That keeps the result fast, portable, and easy to test
-              across modern devices and assistive technology. Search engines appreciate the
-              clean foundation too.
-              This page is one; view source and look around.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- ========================== Founder & work ========================== -->
-      <section class="section" id="work">
-        <p class="kicker">Experience</p>
-        <h2>A web developer by trade. Particular by nature.</h2>
-
-        <div class="founder reveal">
-          <div class="founder-portrait-frame">
-            <img
-              class="founder-portrait"
-              src="/assets/steve-ledsworth.jpg"
-              width="600"
-              height="600"
-              loading="lazy"
-              alt="Steve Ledsworth"
-            />
-          </div>
-          <div class="founder-copy">
-            <h3>Hi, I’m Steve.</h3>
-            <p>
-              I’m a front-end developer in Canton, Michigan, with more than a decade of
-              professional experience at a large insurance company. I’ve spent that time
-              making complicated interfaces clearer, faster, and easier to use.
-            </p>
-            <p>
-              empatheticbot is my new studio, built around a simple idea: smaller businesses
-              deserve that same level of care without hiring a department or managing a pile
-              of vendors. When you work with me, you work directly with the person doing the
-              work.
-            </p>
-            <p>
-              <a href="https://sledsworth.com/about/"
-                >More about me at sledsworth.com&nbsp;→</a
-              >
-            </p>
-          </div>
-        </div>
-
-        <div class="selected-work">
-          <h3>Selected work</h3>
-          <div class="work-grid">
-            <a class="work-card reveal" href="https://skyglow.tech/">
-              <span class="work-mark" aria-hidden="true">🎆</span>
-              <strong>skyglow.tech</strong>
-              <span>
-                A product launch site for a wireless, phone-controlled firework
-                system, built to explain the idea and grow an early audience.
-              </span>
-              <span class="work-link">Visit the site&nbsp;→</span>
-            </a>
-            <a class="work-card reveal" href="https://movie.surf/">
-              <span class="work-mark" aria-hidden="true">🍿</span>
-              <strong>movie.surf</strong>
-              <span>
-                An AI-assisted movie finder combining natural-language search with genre,
-                decade, and streaming-service filters.
-              </span>
-              <span class="work-link">Visit the site&nbsp;→</span>
-            </a>
-            <a class="work-card reveal" href="https://waffle.how/">
-              <span class="work-mark" aria-hidden="true">🧇</span>
-              <strong>waffle.how</strong>
-              <span>
-                A focused recipe experience with adjustable servings, weight and volume
-                views, recommendations, and AI-assisted recipe creation.
-              </span>
-              <span class="work-link">Visit the site&nbsp;→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========================== What's included ========================== -->
-      <section class="section" id="included">
-        <p class="kicker">What’s included</p>
-        <h2>One subscription. The whole job.</h2>
-        <ul class="included-list">
-          <li class="reveal">Design &amp; build of your website</li>
-          <li class="reveal">Managed hosting</li>
-          <li class="reveal">One standard domain, DNS, email &amp; account setup</li>
-          <li class="reveal">Unlimited small updates — new hours, photos, copy, menus</li>
-          <li class="reveal">Security patches &amp; software maintenance</li>
-          <li class="reveal">Speed &amp; accessibility, routinely tested and tuned</li>
-          <li class="reveal">Search-engine basics done right</li>
-          <li class="reveal">Analytics you can actually read</li>
-          <li class="reveal">New pages &amp; modest features, planned month by month</li>
-          <li class="reveal">A real human who answers</li>
-        </ul>
-      </section>
-
-      <!-- ============================== Pricing ============================== -->
-      <section class="section" id="pricing">
-        <p class="kicker">Pricing</p>
-        <h2>One plan. No surprise invoices.</h2>
-
-        <div class="plan-grid">
-          <div class="price-card reveal">
-            <p class="plan-label">Small business</p>
-            <p class="price">
-              <span class="price-amount">$200</span>
-              <span class="price-period">per month</span>
-            </p>
-            <p class="price-terms">
-              $2,400 initial commitment, billed as twelve monthly payments of $200. Then
-              month-to-month with 30 days’ notice.
-            </p>
-            <ul class="price-list">
-              <li>Design, build, managed hosting, updates, and ongoing care</li>
-              <li>One active request at a time — most completed in a few business days</li>
-              <li>Your domain, accounts, content, and GitHub repository stay yours</li>
-            </ul>
-            <a class="button button-wide" href="#contact">Start the conversation</a>
-          </div>
-
-          <div class="price-card price-card-secondary reveal">
-            <p class="plan-label">Bigger than that?</p>
-            <p class="price">
-              <span class="price-amount price-amount-quoted">Let’s talk</span>
-            </p>
-            <p class="price-terms">
-              Medium-sized businesses are welcome here. Past a certain size the work stops
-              fitting one published number — more pages, more people to coordinate with, & more
-              systems to connect.
-            </p>
-            <p class="price-terms">
-              So tell me what you’ve got and we’ll work out an arrangement that fits. No
-              obligation, and I’ll be straight with you about what it would take.
-            </p>
-            <a class="button button-wide button-ghost" href="#contact">Get in touch</a>
-          </div>
-        </div>
-
-        <p class="price-disclosure">
-          Basic hosting and one standard domain are included. If your site needs another paid
-          third-party service, you pay that provider directly. I never mark up those costs or
-          add one without your approval.
-        </p>
-        <p class="price-summary-link">
-          <a href="/working-together">See what to expect&nbsp;→</a>
-        </p>
-
-        <aside class="why-twelve reveal">
-          <h3>Why twelve months?</h3>
-          <p>
-            Because the first months are the heavy ones — I design and build your site up
-            front, at a fraction of what that work usually costs. The commitment is what
-            makes that math work, and it means we’re both invested in the relationship, not
-            the transaction. After the first year, you stay because it’s working — not
-            because a contract says so.
-          </p>
-        </aside>
-      </section>
-
-      <!-- ================================ FAQ ================================ -->
-      <section class="section" id="faq">
-        <p class="kicker">Questions</p>
-        <h2>Fair questions, honest answers.</h2>
-
-        <div class="faq-list">
-          <details class="reveal">
-            <summary>We’re bigger than a small business. Do you work with us?</summary>
-            <p>
-              Get in touch and let’s find out. The $200 plan is built around small-business
-              marketing and service sites, and past a certain size the work genuinely
-              outgrows it — more pages, more people to coordinate with, & more systems to
-              connect. That isn’t a no. It means we work out an arrangement that fits the
-              scale instead of forcing you into a number that doesn’t. Tell me what you’re
-              working with and I’ll be straight with you about what it would take.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>Who owns the website?</summary>
-            <p>
-              You do. Your custom website, content, domain, and third-party accounts are yours.
-              While you subscribe, I may manage the included domain, code repository, and hosting
-              on your behalf, but you’ll always have access to the repository. If we part ways,
-              I’ll transfer the repository and domain, provide the source, assets, and deployment
-              notes, and give reasonable help moving elsewhere. You arrange the replacement
-              hosting — I make sure you have what you need. No hostages.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>What does “unlimited small updates” actually mean?</summary>
-            <p>
-              Send as many requests as you like; I work through them one at a time, and most
-              are done within a few business days. “Small” means things like content
-              changes, new photos, a new section, a tweak to a form. Bigger ideas get
-              planned into upcoming months — that’s the fun part.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>What kinds of websites aren’t a fit?</summary>
-            <p>
-              I focus on small-business marketing and service websites. Simple booking embeds
-              or payment links may fit. Full online stores and complex web applications usually
-              require a larger budget than this subscription is designed for, but they aren’t
-              off the table. If you have a larger or unusual project in mind, reach out and we
-              can see whether a separate arrangement makes sense.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>Who handles domains, email, and paid services?</summary>
-            <p>
-              One standard domain and basic hosting are included. The domain is yours; I handle
-              its registration, DNS, and day-to-day administration during the subscription.
-              Other third-party services stay in your name and use your payment method while I
-              handle setup and integrations through secure access. Any additional provider fees
-              are shown to you first, paid directly, and never marked up.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>I already have a website. Does this still make sense?</summary>
-            <p>
-              Often, yes. We can start by taking over care of your current site —
-              maintenance, updates, improvements — and rebuild it properly once I understand
-              your business. You don’t have to start from zero to start being looked after.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>What happens after the first 12 months?</summary>
-            <p>
-              The plan continues month-to-month, and you can cancel with 30 days’ notice. Your
-              $200 rate is fixed for the initial year. If pricing changes later, existing
-              clients receive at least 90 days’ notice and new-client pricing will usually
-              change first.
-            </p>
-          </details>
-          <details class="reveal">
-            <summary>What if it isn’t working out mid-contract?</summary>
-            <p>
-              The first year is a real commitment, not month-to-month; the $2,400 minimum
-              applies. I also understand that businesses can face genuinely difficult
-              circumstances. If that happens, talk to me early. I’ll listen and work in good
-              faith toward a reasonable written solution where I can, but early cancellation
-              isn’t automatic. The agreement protects the up-front work; it isn’t an excuse to
-              treat people unfairly.
-            </p>
-          </details>
-        </div>
-      </section>
-
-      <!-- ============================== Contact ============================== -->
-      <section class="section section-contact" id="contact">
-        <p class="kicker">Say hello</p>
-        <h2>Tell me about your business.</h2>
-        <p class="section-lede">
-          A few questions so our first conversation counts. I read every submission
-          personally and reply within two business days.
-        </p>
-        <p class="contact-fallback">
-          Prefer email? Write to
-          <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a>.
-        </p>
-
-        <form class="contact-form" action="/api/contact" method="POST">
-          <div class="form-row">
-            <div class="field">
-              <label for="name">Your name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                autocomplete="name"
-                minlength="2"
-                maxlength="100"
-                required
-              />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                maxlength="254"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="business">Your business — what do you do?</label>
-            <input
-              id="business"
-              name="business"
-              type="text"
-              minlength="2"
-              maxlength="180"
-              placeholder="e.g. Ledsworth & Sons, a family-run plumbing company"
-              required
-            />
-          </div>
-
-          <div class="field">
-            <label for="website">Current website, if you have one</label>
-            <input
-              id="website"
-              name="website"
-              type="text"
-              inputmode="url"
-              autocomplete="url"
-              autocapitalize="none"
-              spellcheck="false"
-              maxlength="300"
-              placeholder="example.com"
-            />
-          </div>
-
-          <div class="field">
-            <label for="size">About how big is your business? (optional)</label>
-            <select id="size" name="size">
-              <option value="" selected>Rather not say</option>
-              <option>Just me, or a handful of people</option>
-              <option>A small team — roughly 10 to 50 people</option>
-              <option>50+ people, or several locations</option>
-              <option>Not sure how to answer</option>
-            </select>
-            <p class="field-help">
-              Helpful context if you’re bigger than the $200 plan is built for.
-            </p>
-          </div>
-
-          <div class="field">
-            <label for="need">What do you need most right now?</label>
-            <select id="need" name="need" required>
-              <option value="" selected disabled>Choose one…</option>
-              <option>A brand-new website</option>
-              <option>A redesign of my current site</option>
-              <option>Someone to care for &amp; improve my current site</option>
-              <option>Not sure yet — let’s talk</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="goals">What would a better web presence do for your business?</label>
-            <textarea
-              id="goals"
-              name="goals"
-              rows="4"
-              minlength="10"
-              maxlength="2000"
-              placeholder="More calls? Online bookings? Looking as good as you actually are?"
-              required
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label for="timing">Is there a date or deadline you’re working toward? (optional)</label>
-            <input
-              id="timing"
-              name="timing"
-              type="text"
-              maxlength="300"
-              placeholder="For example, opening a new location this fall"
-            />
-          </div>
-
-          <noscript>
-            <p class="form-no-script">
-              JavaScript is required for the security check. You can still email
-              <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a> directly.
-            </p>
-          </noscript>
-
-          <button class="button button-wide" type="submit">Send it over</button>
-
-          <div class="turnstile-wrap turnstile-pending" inert>
-            <div
-              id="contact-turnstile"
-              class="cf-turnstile"
-              data-action="contact"
-              data-appearance="interaction-only"
-              data-execution="execute"
-              data-theme="auto"
-              data-callback="handleTurnstileSuccess"
-              data-error-callback="handleTurnstileError"
-              data-expired-callback="handleTurnstileExpired"
-              data-timeout-callback="handleTurnstileTimeout"
-              data-before-interactive-callback="handleTurnstileInteractive"
-              data-after-interactive-callback="handleTurnstileInteractiveEnd"
-            ></div>
-          </div>
-
-          <p class="form-privacy">
-            I use this information only to reply to you. I don’t sell it or add you to a
-            marketing list. Read the
-            <a href="/privacy">privacy notice</a>.
-          </p>
-          <p class="form-note" role="status" aria-live="polite"></p>
-        </form>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <svg class="footer-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-        <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-        <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
-        <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+      <svg class="bot" viewBox="0 0 32 32" role="img"
+        aria-label="The empatheticbot mascot: a small round robot with a beating red heart">
+        <path class="bot-heart"
+          d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
+          stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        </path>
+        <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5"
+          rx="2.5"></rect>
+        <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3"
+          rx="1.5"></rect>
         <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
         <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
-        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
-        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+        <path
+          d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+          fill="#000000"></path>
+        <path
+          d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+          fill="url(#body-gradient)"></path>
         <g class="bot-eyes">
-          <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
-          <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
+          <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8"
+            stroke-linecap="round" fill="none"></path>
+          <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8"
+            stroke-linecap="round" fill="none"></path>
         </g>
       </svg>
-      <p class="footer-small">
-        Crafted with care in HTML, CSS, and just a bit of JavaScript. No templates, no page builders —
-        <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
+
+      <p class="eyebrow">Small-business websites · Canton, Michigan &amp; beyond</p>
+      <h1 class="headline">Your website is never <em>finished</em>. Let’s treat it that way.</h1>
+      <p class="lede">
+        I design, build, host, and care for small-business websites for one flat monthly
+        price. No setup fee. No surprise invoices. No disappearing after launch. Just a
+        working relationship with the person who fretted over every line. Software built
+        with ❤️.
       </p>
-      <p class="footer-small">
-        <a href="/working-together">Working together</a>
-        <span aria-hidden="true">·</span>
-        <a href="/privacy">Privacy</a>
+      <div class="hero-actions">
+        <a class="button" href="#contact">Start the conversation</a>
+        <a class="button button-ghost" href="#why">Why a subscription?</a>
+      </div>
+      <p class="hero-terms">
+        $2,400 initial commitment &middot; billed at $200/month for 12 months &middot; no setup fee
       </p>
-      <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>
-    </footer>
-  </body>
+    </section>
+
+    <!-- ======================= Why a subscription ======================= -->
+    <section class="section" id="why">
+      <p class="kicker">The model</p>
+      <h2>Websites are never finished. Your budget shouldn’t pretend they are.</h2>
+      <p class="section-lede">
+        The traditional way to buy a website is a big one-time project: a large invoice, a
+        launch day, a handshake — and then silence, right when the real work begins. A
+        subscription matches how websites actually live.
+      </p>
+
+      <ol class="reasons">
+        <li class="reason reveal">
+          <span class="reason-number" aria-hidden="true">01</span>
+          <h3>The web doesn’t stand still</h3>
+          <p>
+            Content goes stale, browsers change, software needs patching, your business
+            evolves. A site that isn’t cared for quietly rots. Ongoing care isn’t an
+            upsell — it’s the actual job, so it’s built into the price.
+          </p>
+        </li>
+        <li class="reason reveal">
+          <span class="reason-number" aria-hidden="true">02</span>
+          <h3>One number, every month</h3>
+          <p>
+            No estimates, no scope negotiations, no surprise line items. You can plan
+            around it and so can I. A five-figure redesign becomes a predictable monthly
+            cost that flexes with your business instead of ambushing it.
+          </p>
+        </li>
+        <li class="reason reveal">
+          <span class="reason-number" aria-hidden="true">03</span>
+          <h3>Trust is built over time</h3>
+          <p>
+            In month one I learn your business and we start building something together.
+            By month six I know your customers, your busy season, and which page actually
+            earns you business.
+            That context compounds — and it’s something no vendor-of-the-week can offer.
+          </p>
+        </li>
+        <li class="reason reveal">
+          <span class="reason-number" aria-hidden="true">04</span>
+          <h3>Aligned incentives</h3>
+          <p>
+            Project shops make their money on change orders and rebuilds. I do well only
+            if your site keeps working for you, month after month — so keeping it fast,
+            healthy, and useful is how I earn my keep.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ====================== Why a person, not a tool ====================== -->
+    <section class="section" id="human">
+      <p class="kicker">The difference</p>
+      <h2>Anyone can get <em>a</em> website in an hour now. That’s exactly the problem.</h2>
+      <p class="section-lede">
+        Site builders and AI generators are genuinely impressive tools. But a tool only
+        gives you output. It can’t give you attention.
+      </p>
+
+      <div class="compare">
+        <article class="compare-card reveal">
+          <h3>DIY builders give you tools, not time</h3>
+          <p>
+            With Wix or Squarespace, the subscription buys you software — the work is
+            still yours. You’re the designer, the writer, the SEO person, and the one
+            debugging the layout at 11 p.m. That’s a second job, not a solution.
+          </p>
+        </article>
+        <article class="compare-card reveal">
+          <h3>AI can generate. It can’t care.</h3>
+          <p>
+            An AI will produce a plausible, averaged version of a website in seconds. It
+            won’t sit with you, ask the second question, notice your booking page is broken on mobile, or call you when
+            something looks off. Judgment and follow-through
+            are the product here — not markup.
+          </p>
+        </article>
+        <article class="compare-card reveal">
+          <h3>You get me. Directly.</h3>
+          <p>
+            No ticket queues, no account managers, no support chatbot. When you email,
+            the person who answers is the person who built your site and will fix it. I
+            reply within two business days, often sooner.
+          </p>
+        </article>
+        <article class="compare-card reveal">
+          <h3>Crafted, not churned out</h3>
+          <p>
+            Every site is shaped, reviewed, and tested by me — no page-builder bloat, no
+            stack of 50 plugins. That keeps the result fast, portable, and easy to test
+            across modern devices and assistive technology. Search engines appreciate the
+            clean foundation too.
+            This page is one; view source and look around.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================== Founder & work ========================== -->
+    <section class="section" id="work">
+      <p class="kicker">Experience</p>
+      <h2>A web developer by trade. Particular by nature.</h2>
+
+      <div class="founder reveal">
+        <div class="founder-portrait-frame">
+          <img class="founder-portrait" src="/assets/steve-ledsworth.jpg" width="600" height="600" loading="lazy"
+            alt="Steve Ledsworth" />
+        </div>
+        <div class="founder-copy">
+          <h3>Hi, I’m Steve.</h3>
+          <p>
+            I’m a front-end developer in Canton, Michigan, with more than a decade of
+            professional experience at a large insurance company. I’ve spent that time
+            making complicated interfaces clearer, faster, and easier to use.
+          </p>
+          <p>
+            empatheticbot is my new studio, built around a simple idea: smaller businesses
+            deserve that same level of care without hiring a department or managing a pile
+            of vendors. When you work with me, you work directly with the person doing the
+            work.
+          </p>
+          <p>
+            <a href="https://sledsworth.com/about/">More about me at sledsworth.com&nbsp;→</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="selected-work">
+        <h3>Selected work</h3>
+        <div class="work-grid">
+          <a class="work-card reveal" href="https://skyglow.tech/">
+            <span class="work-mark" aria-hidden="true">🎆</span>
+            <strong>skyglow.tech</strong>
+            <span>
+              A product launch site for a wireless, phone-controlled firework
+              system, built to explain the idea and grow an early audience.
+            </span>
+            <span class="work-link">Visit the site&nbsp;→</span>
+          </a>
+          <a class="work-card reveal" href="https://movie.surf/">
+            <span class="work-mark" aria-hidden="true">🍿</span>
+            <strong>movie.surf</strong>
+            <span>
+              An AI-assisted movie finder combining natural-language search with genre,
+              decade, and streaming-service filters.
+            </span>
+            <span class="work-link">Visit the site&nbsp;→</span>
+          </a>
+          <a class="work-card reveal" href="https://waffle.how/">
+            <span class="work-mark" aria-hidden="true">🧇</span>
+            <strong>waffle.how</strong>
+            <span>
+              A focused recipe experience with adjustable servings, weight and volume
+              views, recommendations, and AI-assisted recipe creation.
+            </span>
+            <span class="work-link">Visit the site&nbsp;→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== What's included ========================== -->
+    <section class="section" id="included">
+      <p class="kicker">What’s included</p>
+      <h2>One subscription. The whole job.</h2>
+      <ul class="included-list">
+        <li class="reveal">Design &amp; build of your website</li>
+        <li class="reveal">Managed hosting</li>
+        <li class="reveal">One standard domain, DNS, email &amp; account setup</li>
+        <li class="reveal">Unlimited small updates — new hours, photos, copy, menus</li>
+        <li class="reveal">Security patches &amp; software maintenance</li>
+        <li class="reveal">Speed &amp; accessibility, routinely tested and tuned</li>
+        <li class="reveal">Search-engine basics done right</li>
+        <li class="reveal">Analytics you can actually read</li>
+        <li class="reveal">New pages &amp; modest features, planned month by month</li>
+        <li class="reveal">A real human who answers</li>
+      </ul>
+    </section>
+
+    <!-- ============================== Pricing ============================== -->
+    <section class="section" id="pricing">
+      <p class="kicker">Pricing</p>
+      <h2>One plan for most. No surprise invoices.</h2>
+
+      <div class="plan-grid">
+        <div class="price-card reveal">
+          <p class="plan-label">Small business</p>
+          <p class="price">
+            <span class="price-amount">$200</span>
+            <span class="price-period">per month</span>
+          </p>
+          <p class="price-terms">
+            $2,400 initial commitment, billed as twelve monthly payments of $200. Then
+            month-to-month with 30 days’ notice.
+          </p>
+          <ul class="price-list">
+            <li>Design, build, managed hosting, updates, and ongoing care</li>
+            <li>One active request at a time — most completed in a few business days</li>
+            <li>Your domain, accounts, content, and GitHub repository stay yours</li>
+          </ul>
+          <a class="button button-wide" href="#contact">Start the conversation</a>
+        </div>
+
+        <div class="price-card price-card-secondary reveal">
+          <p class="plan-label">Bigger than that?</p>
+          <p class="price">
+            <span class="price-amount price-amount-quoted">Let’s talk</span>
+          </p>
+          <p class="price-terms">
+            Medium-sized businesses are welcome here. Past a certain size the work stops
+            fitting one published number — more pages, more people to coordinate with, & more
+            systems to connect.
+          </p>
+          <p class="price-terms">
+            So tell me what you’ve got and we’ll work out an arrangement that fits. No
+            obligation, and I’ll be straight with you about what it would take.
+          </p>
+          <a class="button button-wide button-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <p class="price-disclosure">
+        Basic hosting and one standard domain are included. If your site needs another paid
+        third-party service, you pay that provider directly. I never mark up those costs or
+        add one without your approval.
+      </p>
+      <p class="price-summary-link">
+        <a href="/working-together">See what to expect&nbsp;→</a>
+      </p>
+
+      <aside class="why-twelve reveal">
+        <h3>Why twelve months?</h3>
+        <p>
+          Because the first months are the heavy ones — I design and build your site up
+          front, at a fraction of what that work usually costs. The commitment is what
+          makes that math work, and it means we’re both invested in the relationship, not
+          the transaction. After the first year, you stay because it’s working — not
+          because a contract says so.
+        </p>
+      </aside>
+    </section>
+
+    <!-- ================================ FAQ ================================ -->
+    <section class="section" id="faq">
+      <p class="kicker">Questions</p>
+      <h2>Fair questions, honest answers.</h2>
+
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>We’re bigger than a small business. Do you work with us?</summary>
+          <p>
+            Get in touch and let’s find out. The $200 plan is built around small-business
+            marketing and service sites, and past a certain size the work genuinely
+            outgrows it — more pages, more people to coordinate with, & more systems to
+            connect. That isn’t a no. It means we work out an arrangement that fits the
+            scale instead of forcing you into a number that doesn’t. Tell me what you’re
+            working with and I’ll be straight with you about what it would take.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>Who owns the website?</summary>
+          <p>
+            You do. Your custom website, content, domain, and third-party accounts are yours.
+            While you subscribe, I may manage the included domain, code repository, and hosting
+            on your behalf, but you’ll always have access to the repository. If we part ways,
+            I’ll transfer the repository and domain, provide the source, assets, and deployment
+            notes, and give reasonable help moving elsewhere. You arrange the replacement
+            hosting — I make sure you have what you need. No hostages.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>What does “unlimited small updates” actually mean?</summary>
+          <p>
+            Send as many requests as you like; I work through them one at a time, and most
+            are done within a few business days. “Small” means things like content
+            changes, new photos, a new section, a tweak to a form. Bigger ideas get
+            planned into upcoming months — that’s the fun part.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>What kinds of websites aren’t a fit?</summary>
+          <p>
+            I focus on small-business marketing and service websites. Simple booking embeds
+            or payment links may fit. Full online stores and complex web applications usually
+            require a larger budget than this subscription is designed for, but they aren’t
+            off the table. If you have a larger or unusual project in mind, reach out and we
+            can see whether a separate arrangement makes sense.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>Who handles domains, email, and paid services?</summary>
+          <p>
+            One standard domain and basic hosting are included. The domain is yours; I handle
+            its registration, DNS, and day-to-day administration during the subscription.
+            Other third-party services stay in your name and use your payment method while I
+            handle setup and integrations through secure access. Any additional provider fees
+            are shown to you first, paid directly, and never marked up.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>I already have a website. Does this still make sense?</summary>
+          <p>
+            Often, yes. We can start by taking over care of your current site —
+            maintenance, updates, improvements — and rebuild it properly once I understand
+            your business. You don’t have to start from zero to start being looked after.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>What happens after the first 12 months?</summary>
+          <p>
+            The plan continues month-to-month, and you can cancel with 30 days’ notice. Your
+            $200 rate is fixed for the initial year. If pricing changes later, existing
+            clients receive at least 90 days’ notice and new-client pricing will usually
+            change first.
+          </p>
+        </details>
+        <details class="reveal">
+          <summary>What if it isn’t working out mid-contract?</summary>
+          <p>
+            The first year is a real commitment, not month-to-month; the $2,400 minimum
+            applies. I also understand that businesses can face genuinely difficult
+            circumstances. If that happens, talk to me early. I’ll listen and work in good
+            faith toward a reasonable written solution where I can, but early cancellation
+            isn’t automatic. The agreement protects the up-front work; it isn’t an excuse to
+            treat people unfairly.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================== Contact ============================== -->
+    <section class="section section-contact" id="contact">
+      <p class="kicker">Say hello</p>
+      <h2>Tell me about your business.</h2>
+      <p class="section-lede">
+        A few questions so our first conversation counts. I read every submission
+        personally and reply within two business days.
+      </p>
+      <p class="contact-fallback">
+        Prefer email? Write to
+        <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a>.
+      </p>
+
+      <form class="contact-form" action="/api/contact" method="POST">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="business">Your business — what do you do?</label>
+          <input id="business" name="business" type="text" minlength="2" maxlength="180"
+            placeholder="e.g. Ledsworth & Sons, a family-run plumbing company" required />
+        </div>
+
+        <div class="field">
+          <label for="website">Current website, if you have one</label>
+          <input id="website" name="website" type="text" inputmode="url" autocomplete="url" autocapitalize="none"
+            spellcheck="false" maxlength="300" placeholder="example.com" />
+        </div>
+
+        <div class="field">
+          <label for="size">About how big is your business? (optional)</label>
+          <select id="size" name="size">
+            <option value="" selected>Rather not say</option>
+            <option>Just me, or a handful of people</option>
+            <option>A small team — roughly 10 to 50 people</option>
+            <option>50+ people, or several locations</option>
+            <option>Not sure how to answer</option>
+          </select>
+          <p class="field-help">
+            Helpful context if you’re bigger than the $200 plan is built for.
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="need">What do you need most right now?</label>
+          <select id="need" name="need" required>
+            <option value="" selected disabled>Choose one…</option>
+            <option>A brand-new website</option>
+            <option>A redesign of my current site</option>
+            <option>Someone to care for &amp; improve my current site</option>
+            <option>Not sure yet — let’s talk</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="goals">What would a better web presence do for your business?</label>
+          <textarea id="goals" name="goals" rows="4" minlength="10" maxlength="2000"
+            placeholder="More calls? Online bookings? Looking as good as you actually are?" required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="timing">Is there a date or deadline you’re working toward? (optional)</label>
+          <input id="timing" name="timing" type="text" maxlength="300"
+            placeholder="For example, opening a new location this fall" />
+        </div>
+
+        <noscript>
+          <p class="form-no-script">
+            JavaScript is required for the security check. You can still email
+            <a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a> directly.
+          </p>
+        </noscript>
+
+        <button class="button button-wide" type="submit">Send it over</button>
+
+        <div class="turnstile-wrap turnstile-pending" inert>
+          <div id="contact-turnstile" class="cf-turnstile" data-action="contact" data-appearance="interaction-only"
+            data-execution="execute" data-theme="auto" data-callback="handleTurnstileSuccess"
+            data-error-callback="handleTurnstileError" data-expired-callback="handleTurnstileExpired"
+            data-timeout-callback="handleTurnstileTimeout" data-before-interactive-callback="handleTurnstileInteractive"
+            data-after-interactive-callback="handleTurnstileInteractiveEnd"></div>
+        </div>
+
+        <p class="form-privacy">
+          I use this information only to reply to you. I don’t sell it or add you to a
+          marketing list. Read the
+          <a href="/privacy">privacy notice</a>.
+        </p>
+        <p class="form-note" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path class="bot-heart"
+        d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5"
+        stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      </path>
+      <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5"
+        rx="2.5"></rect>
+      <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3"
+        rx="1.5"></rect>
+      <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+      <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+      <path
+        d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+        fill="#000000"></path>
+      <path
+        d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z"
+        fill="url(#body-gradient)"></path>
+      <g class="bot-eyes">
+        <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8"
+          stroke-linecap="round" fill="none"></path>
+        <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8"
+          stroke-linecap="round" fill="none"></path>
+      </g>
+    </svg>
+    <p class="footer-small">
+      Crafted with care in HTML, CSS, and just a bit of JavaScript. No templates, no page builders —
+      <a href="https://github.com/empatheticbot/empatheticbot.com">view the source</a>, it’s tidy in there.
+    </p>
+    <p class="footer-small">
+      <a href="/working-together">Working together</a>
+      <span aria-hidden="true">·</span>
+      <a href="/privacy">Privacy</a>
+    </p>
+    <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>
+  </footer>
+</body>
+
 </html>
