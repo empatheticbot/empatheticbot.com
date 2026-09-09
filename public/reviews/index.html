@@ -38,9 +38,39 @@
   <body class="review-index">
     <a class="skip-link" href="#main">Skip to the reviews</a>
 
+    <!-- Shared paint definitions keep the inline bots in the page's color-scheme context. -->
+    <svg class="svg-definitions" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient x1="50%" y1="-106.5%" x2="50%" y2="214.5%" id="heart-gradient">
+          <stop stop-color="#da1212" offset="0%"></stop>
+          <stop stop-color="#ff0000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="antenna-gradient">
+          <stop stop-color="#7d0808" offset="0%"></stop>
+          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="77.6%" y1="20.4%" x2="1.2%" y2="76.7%" id="body-gradient">
+          <stop stop-color="#7d0808" offset="0%"></stop>
+          <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
     <header class="site-header review-header">
       <a class="wordmark" href="/" aria-label="empatheticbot — home">
-        <img class="wordmark-icon" src="/favicon.svg" width="28" height="28" alt="" />
+        <svg class="wordmark-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
+          <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+          <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
+          <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+          <g class="bot-eyes">
+            <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
+            <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
+          </g>
+        </svg>
         <span>empatheticbot</span>
       </a>
       <p class="review-header-label">Review index</p>
@@ -59,6 +89,96 @@
       </section>
 
       <ul class="review-index-list">
+        <li>
+          <a class="review-index-card" href="/reviews/faerber-construction/">
+            <p class="review-index-meta">
+              <span class="review-index-client">Faerber Construction</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Bring the next project forward.</h2>
+            <p class="review-index-blurb">
+              The local story, interior and exterior services, real project photographs, phone
+              number, and testimonials are already present. The largest constraint is that the
+              first homepage promise does not begin until pixel 635 of the 390-pixel phone visit.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
+        <li>
+          <a class="review-index-card" href="/reviews/db-greener/">
+            <p class="review-index-meta">
+              <span class="review-index-client">D&amp;B Greener</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Give the free quote one clear path.</h2>
+            <p class="review-index-blurb">
+              The 1972 history, Livonia address, direct phone, service range, plans, offers, and
+              quote form are substantial. The largest constraint is thirteen homepage quote links
+              across three destinations while rating and chat prompts overlap the phone copy.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
+        <li>
+          <a class="review-index-card" href="/reviews/certified-home-improvement/">
+            <p class="review-index-meta">
+              <span class="review-index-client">Certified Home Improvement, LLC</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Give the free estimate room to work.</h2>
+            <p class="review-index-blurb">
+              The license, history, services, project photography, phone number, and estimate form
+              are already present. The largest constraint is that the 390-pixel phone visit renders
+              a 768-pixel page while a separate contact panel covers the action it is meant to help.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
+        <li>
+          <a class="review-index-card" href="/reviews/livonia-automatic/">
+            <p class="review-index-meta">
+              <span class="review-index-client">Livonia Automatic, Inc.</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Let the print lead the quote.</h2>
+            <p class="review-index-blurb">
+              The shop, capabilities, industry experience, and quote questions are visible. The
+              largest opportunity is to turn a general brochure with shopping remnants into one
+              technical RFQ path that can securely accept the drawing a useful quote depends on.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
+        <li>
+          <a class="review-index-card" href="/reviews/jump-party/">
+            <p class="review-index-meta">
+              <span class="review-index-client">Jump Party! LLC</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Let the homepage start at the top.</h2>
+            <p class="review-index-blurb">
+              The site has online inventory, date selection, a large public review history, and a
+              memorable identity. Its largest constraint is that fresh homepage visits can land
+              beside the service-area map instead of where a customer can choose a rental or date.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
+        <li>
+          <a class="review-index-card" href="/reviews/wayne-lawn/">
+            <p class="review-index-meta">
+              <span class="review-index-client">Wayne Lawn</span>
+              <time datetime="2026-09-01">September 1, 2026</time>
+            </p>
+            <h2>Start with the job, not the manufacturer.</h2>
+            <p class="review-index-blurb">
+              The catalog is deep, the service story is real, and the phone layout responds. Its
+              largest constraint is that campaign artwork and hundreds of product choices arrive
+              before the site helps a buyer describe what they need the equipment to do.
+            </p>
+            <span class="review-index-more">Read the review&nbsp;→</span>
+          </a>
+        </li>
         <li>
           <a class="review-index-card" href="/reviews/canton-center/">
             <p class="review-index-meta">
@@ -165,7 +285,19 @@
     </main>
 
     <footer class="site-footer review-footer">
-      <img class="footer-bot" src="/favicon.svg" width="52" height="52" alt="" />
+      <svg class="footer-bot" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path class="bot-heart" d="M21.1698666,5 C20.5594443,5.66666667 21.6927264,6.33333333 23.0011335,7 C24.2837755,6.3464613 25.4428227,5.66666667 24.8324004,5" stroke="url(#heart-gradient)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <rect class="bot-light bot-light-1" fill-opacity="0.5" fill="#ffffff" x="20.5" y="6.5" width="5" height="5" rx="2.5"></rect>
+        <rect class="bot-light bot-light-2" fill-opacity="0.5" fill="#ffffff" x="21.5" y="7.5" width="3" height="3" rx="1.5"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="#000000"></rect>
+        <rect x="22" y="8" width="2" height="6" rx="1" fill="url(#antenna-gradient)"></rect>
+        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="#000000"></path>
+        <path d="M16,9 C13.5852123,9 10.0770748,10.0933499 5.47558729,12.2800497 L5.475591,12.2800575 C4.55543607,12.7173297 3.92007738,13.5916944 3.78840571,14.6019194 C3.2628019,18.6345117 3,21.1005385 3,22 C3,22.617506 3.12386417,23.2301828 3.3715925,23.8380304 L3.37159141,23.8380308 C3.6581053,24.541046 4.20049215,25.1092963 4.88940841,25.4282241 C8.59293894,27.1427414 12.2964695,28 16,28 C19.7428222,28 23.4856445,27.1244551 27.2284667,25.3733653 L27.2284694,25.3733712 C28.1333845,24.9500042 28.7681702,24.1039457 28.9215875,23.1167405 C28.9738625,22.7803627 29,22.4081159 29,22 C29,20.7189482 28.7424684,18.2461229 28.2274052,14.581524 L28.2273923,14.5815258 C28.0871273,13.5835615 27.4551623,12.7226998 26.5450711,12.2898707 C21.9334238,10.0966236 18.4184001,9 16,9 Z" fill="url(#body-gradient)"></path>
+        <g class="bot-eyes">
+          <path class="bot-eye bot-eye-left" d="M11,17.999 Q11,18 11,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
+          <path class="bot-eye bot-eye-right" d="M21,17.999 Q21,18 21,18.001" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none"></path>
+        </g>
+      </svg>
       <p class="footer-small">Prepared with care by <a href="/">empatheticbot</a> in Canton, Michigan.</p>
       <p class="footer-small"><a href="mailto:hello@empatheticbot.com">hello@empatheticbot.com</a></p>
       <p class="footer-small">&copy; <span id="year">2026</span> Empatheticbot LLC</p>

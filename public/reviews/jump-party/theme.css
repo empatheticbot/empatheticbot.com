@@ -1,0 +1,11 @@
+.review-page {
+  --review-brand: #6120a5;
+  --review-brand-ink: #fff;
+  --review-brand-label: #ead1ff;
+  --review-brand-soft: #f4e8ff;
+  --review-brand-note: #d8bce8;
+  --review-score: #7a2ec2;
+  --review-score-dark: #d8aaff;
+  --review-panel: #f4e9fb;
+  --review-panel-dark: #2a2030;
+}

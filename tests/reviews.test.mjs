@@ -70,6 +70,13 @@ describe("shared review layer", () => {
     }
   });
 
+  test("keeps the review index bots in the page theme context", () => {
+    assert.match(indexPage, /<svg class="wordmark-bot"/);
+    assert.match(indexPage, /<svg class="footer-bot"/);
+    assert.match(indexPage, /id="body-gradient"/);
+    assert.doesNotMatch(indexPage, /<img class="(?:wordmark-icon|footer-bot)"[^>]*favicon\.svg/);
+  });
+
   test("keeps client themes to brand tokens only", () => {
     for (const { client, theme } of pages) {
       const rules = theme.replace(/\/\*[\s\S]*?\*\//g, "");
