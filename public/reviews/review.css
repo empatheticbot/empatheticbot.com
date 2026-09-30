@@ -729,7 +729,8 @@ html:has(.review-lightbox[open]) {
   }
 
   .review-header-label {
-    margin-left: 0;
+    /* Match the wordmark icon width plus its gap. */
+    margin-left: calc(1.75rem + 0.5rem);
     text-align: left;
   }
 
