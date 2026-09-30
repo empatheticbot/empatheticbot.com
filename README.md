@@ -19,9 +19,16 @@ use the real widget key and the deployed `TURNSTILE_SECRET_KEY` secret.
 
 ## Test environment
 
-The named `test` environment deploys to
-`https://empatheticbot-com-test.empatheticbot.workers.dev` with Cloudflare's public Turnstile test
-keys. Set its public test secret once, then deploy it independently of production:
+The named `test` environment deploys to `https://test.empatheticbot.com` with Cloudflare's public
+Turnstile test keys. Wrangler provisions the custom domain and its HTTPS certificate. The existing
+`https://empatheticbot-com-test.empatheticbot.workers.dev` address also remains available.
+
+Both test addresses send an `X-Robots-Tag: noindex` header on all static pages and assets; the
+custom domain also sends `nofollow`. The hostname-specific rules in `public/_headers` leave the
+production domain indexable. Crawling remains allowed in `robots.txt` so search engines can read
+the `noindex` directive.
+
+Set its public test secret once, then deploy it independently of production:
 
 ```sh
 npx wrangler secret put TURNSTILE_SECRET_KEY --env test

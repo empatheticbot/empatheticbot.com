@@ -32,14 +32,15 @@
     "test": {
       "name": "empatheticbot-com-test",
       "workers_dev": true,
+      "routes": [{ "pattern": "test.empatheticbot.com", "custom_domain": true }],
       "secrets": {
         "required": ["TURNSTILE_SECRET_KEY"]
       },
       "vars": {
-        "ALLOWED_ORIGINS": "https://empatheticbot-com-test.empatheticbot.workers.dev,https://www.empatheticbot-com-test.empatheticbot.workers.dev",
+        "ALLOWED_ORIGINS": "https://test.empatheticbot.com,https://empatheticbot-com-test.empatheticbot.workers.dev,https://www.empatheticbot-com-test.empatheticbot.workers.dev",
         "CONTACT_FROM": "inquiry@forms.empatheticbot.com",
         "CONTACT_RECIPIENT": "inquiry@empatheticbot.com",
-        "EMAIL_ASSET_ORIGIN": "https://empatheticbot-com-test.empatheticbot.workers.dev",
+        "EMAIL_ASSET_ORIGIN": "https://test.empatheticbot.com",
         "TURNSTILE_TEST_MODE": "true"
       },
       "send_email": [

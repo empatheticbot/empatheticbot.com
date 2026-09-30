@@ -372,6 +372,7 @@ if (form) {
     "127.0.0.1",
     "[::1]",
     "empatheticbot-com-test.empatheticbot.workers.dev",
+    "test.empatheticbot.com",
   ]);
   turnstileWidget.dataset.sitekey = turnstileTestHostnames.has(window.location.hostname)
     ? "1x00000000000000000000AA"
