@@ -109,6 +109,44 @@ Label them exploratory in the section intro, and say that final copy, imagery, a
 regulated language would be reviewed with the client. Pick the strongest direction's desktop
 concept as the Open Graph image.
 
+### Building the concept
+
+A concept is a throwaway HTML page rendered at 1440 and 390 and exported as `.webp`. Because
+it is throwaway, it gets built with a single container class — `.wrap` or similar — that sets
+`max-width`, `margin-inline: auto`, and the horizontal gutter in one rule:
+
+```css
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+```
+
+**Never set the `padding` shorthand on an element that also carries that class.** This is the
+mistake to watch for, because it is invisible in the only view you tend to check:
+
+```css
+.hero-in { position: relative; padding: 62px 0 66px; }   /* wrong — kills the gutter */
+.hero-in { position: relative; padding-block: 62px 66px; } /* right */
+```
+
+The shorthand resets `padding-inline` to `0`. At 1440 the container is still centred inside a
+wider viewport, so there is incidental margin either side and the page looks correct. At 390
+there is no margin left to borrow, and the headline — the first block, the one that carries the
+whole concept — runs into the bezel. Every hero, sticky bar, top strip, and trust row is a
+candidate, because those are exactly the rows that want vertical padding.
+
+Rule of thumb: gutter elements take `padding-block`. Only elements *inside* the container take
+the `padding` shorthand.
+
+Before exporting, measure it rather than eyeballing it — at 390 the difference between a 20px
+gutter and none is a few pixels in a thumbnail. In the browser console on the concept page:
+
+```js
+[...document.querySelectorAll(".wrap")].map((el) => [el.className, getComputedStyle(el).paddingLeft])
+```
+
+Every row must report the gutter, not `0px`. Do the same at 1440, where the bug hides. Then
+check the exported mobile `.webp` itself: crop the top 1,500 pixels and look at where the
+headline starts. If it starts at the edge, the export is wrong, not the crop.
+
 ---
 
 ## 5. Document structure
@@ -205,7 +243,12 @@ Checklist:
 - [ ] Stylesheets load in order: `/style.css`, `/reviews/review.css`, then the
       client's `theme.css`. The theme has to come last to win on equal specificity.
 - [ ] Every image has explicit `width`/`height`, `loading="lazy"` below the fold, and real
-      alt text.
+      alt text. The per-client test reads the real dimensions out of the file, so re-exporting
+      a concept means updating the declared height in the same commit.
+- [ ] Concept mockups keep their gutter at 390 as well as 1440 — see
+      [Building the concept](#building-the-concept). Run the `.wrap` padding check at both
+      widths before exporting; a hero whose text touches the bezel is the failure mode this
+      catches.
 - [ ] Concept images open in the native `<dialog>` lightbox with labeled buttons.
       Opening it with `showModal()` is what makes Escape, focus trapping, and focus
       restoration work — don't hand-roll any of it.

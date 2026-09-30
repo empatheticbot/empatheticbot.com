@@ -1,0 +1,9 @@
+/* Canton Center Animal Hospital. Overrides only the brand tokens in
+   /reviews/review.css; all structure and layout come from there.
+
+   A deep forest green — the site's own lime, taken somewhere it can hold white
+   text. Every tint derives from it with color-mix, so only the base is set. */
+
+.review-page {
+  --review-brand: #17493c;
+}
