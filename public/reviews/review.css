@@ -594,6 +594,13 @@
   margin-top: 3rem;
 }
 
+.review-contact-email {
+  margin-top: 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
 @media (prefers-color-scheme: dark) {
   .review-cta,
   .review-offer-card {
