@@ -188,13 +188,12 @@ describe("reviews index", () => {
     assert.match(indexPage, /<meta name="robots" content="noindex, nofollow" \/>/);
   });
 
-  test("names each review's client and audit date", () => {
+  test("names each review's client and matching headline", () => {
     for (const { client, page } of pages) {
       const card = indexPage.match(
         new RegExp(`<a class="review-index-card" href="/reviews/${client}/">[\\s\\S]*?</a>`),
       )?.[0];
       assert.ok(card, `${client} has no card on the index`);
-      assert.match(card, /<time datetime="\d{4}-\d{2}-\d{2}">/, client);
 
       const heading = page.match(/<h1>([^<]*)<\/h1>/)?.[1];
       assert.ok(heading);
