@@ -203,6 +203,7 @@ describe("Turnstile accessibility and privacy", () => {
 
   test("uses Turnstile test keys only on local and isolated test hosts", () => {
     assert.match(mainScript, /empatheticbot-com-test\.empatheticbot\.workers\.dev/);
+    assert.match(mainScript, /"test\.empatheticbot\.com"/);
     assert.match(mainScript, /turnstileTestHostnames\.has\(window\.location\.hostname\)/);
   });
 

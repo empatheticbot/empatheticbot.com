@@ -27,8 +27,12 @@ not a complete accessibility audit, not security, not legal, not clinical or reg
 not anything behind a login. That sentence goes in the document verbatim at the end, and it
 governs what you're allowed to claim throughout.
 
-**Set the audit date.** One date, used everywhere in the document. Every measurement in the
-review must come from that day's pass.
+**Record the audit date.** Keep the actual measurement date in the audit details and scope
+notes so readers know when the evidence was collected.
+
+**Displayed review dates are optional.** Leave the hero and index card undated while outreach is
+pending. Add a matching review date when preparing to send the review; keep existing dates
+for reviews already sent. A displayed review date does not change when the measurements were made.
 
 ---
 
@@ -254,7 +258,7 @@ Checklist:
       restoration work — don't hand-roll any of it.
 - [ ] Skip link, one `<h1>`, correct heading order — the review has to pass its own audit.
 - [ ] A card on [the index](../public/reviews/index.html), newest first, carrying the client's
-      name, the audit date, the review's own headline, and the "short version" paragraph. The
+      name, an optional review date, the review's own headline, and the "short version" paragraph. The
       shared test fails until every client directory is listed there and every card points at a
       directory that exists.
 - [ ] `npm test` and `npm run check` clean.

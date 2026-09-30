@@ -9,5 +9,8 @@
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
 
+https://test.empatheticbot.com/*
+  X-Robots-Tag: noindex, nofollow
+
 /reviews/*
   X-Robots-Tag: noindex, nofollow
